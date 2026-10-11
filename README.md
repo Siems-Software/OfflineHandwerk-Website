@@ -2,6 +2,21 @@
 
 Static DE/EN product website with separate app privacy, website privacy and imprint pages. Node.js generates plain HTML and CSS: no runtime JavaScript, cookies, browser storage, analytics, external fonts or CDN assets.
 
+## Website / target URLs
+
+**GitHub Pages:** [https://siems-software.github.io/OfflineHandwerk-Website/](https://siems-software.github.io/OfflineHandwerk-Website/)
+
+- [Deutsch](https://siems-software.github.io/OfflineHandwerk-Website/de/) (default)
+- [English](https://siems-software.github.io/OfflineHandwerk-Website/en/)
+
+### Repository name
+
+No rename is required: this is a **project site**, whose default URL contains the repository name. `OfflineHandwerk-Website` is therefore valid.
+
+An organization-wide site at `https://siems-software.github.io/` instead requires a repository named `Siems-Software.github.io`. That is a different site scope, not a prerequisite for this product website. See [GitHub's site types](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages).
+
+Renaming this project would change its Pages path. Update `site.base` in `src/config.mjs`, documented URLs and route expectations, then rebuild and verify deployment. A custom domain is also possible, but requires a separate domain/Pages configuration and consistent `site.origin`/`site.base`; renaming alone does not configure it.
+
 ## Run locally
 
 Requires Node.js 24 or newer.
@@ -26,11 +41,9 @@ Open `http://127.0.0.1:4311/OfflineHandwerk-Website/de/`. `PORT` changes the pre
 
 ## Deployment and approval
 
-Settings → Pages must use **GitHub Actions**. The workflow builds/tests PRs and deploys **only main**. After owner review and merge, verify the published routes at:
+Settings → Pages should select **GitHub Actions** for this generated-site workflow. The workflow builds/tests PRs and deploys **only main**; the website links are listed above.
 
-`https://siems-software.github.io/OfflineHandwerk-Website/`
-
-The previously empty repository needed a README-only main initialization to permit a PR. The implementation remains on its feature branch; no automatic merge. Configure github-pages environment approval if legal signoff must gate deployment after merge.
+Changes are delivered through pull requests for owner review and merge; no automatic merge is enabled. Configure github-pages environment approval if legal signoff must gate deployment after merge.
 
 These are **draft notices, not legally approved policies**. See [legal review](docs/legal-review.md). Monthly/yearly prices and store destinations are unavailable placeholders: no invented prices, savings or QR destinations. Do not use draft policy URLs in store listings without legal approval.
 
