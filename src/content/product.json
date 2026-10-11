@@ -1,0 +1,98 @@
+{
+  "source": {
+    "repository": "Siems-Software/OfflineHandwerk",
+    "commit": "ed9ef522e2701b2b38dad901e962a5064e26fb7b",
+    "plansFile": "packages/handwerkoffline/src/access/plans.ts",
+    "themeFile": "packages/ui-core/src/themes.ts"
+  },
+  "entitlements": {
+    "free": {
+      "canCreateQuotes": true,
+      "canPreviewPdf": true,
+      "canSaveQuotes": true,
+      "canExportWithoutWatermark": false,
+      "canUseLogo": false,
+      "canUseTemplates": false,
+      "canCreateInternalPdf": false,
+      "canSendOfficeEmail": false,
+      "canBackupRestore": false
+    },
+    "solo": {
+      "canCreateQuotes": true,
+      "canPreviewPdf": true,
+      "canSaveQuotes": true,
+      "canExportWithoutWatermark": true,
+      "canUseLogo": true,
+      "canUseTemplates": true,
+      "canCreateInternalPdf": true,
+      "canSendOfficeEmail": true,
+      "canBackupRestore": false
+    },
+    "business": {
+      "canCreateQuotes": true,
+      "canPreviewPdf": true,
+      "canSaveQuotes": true,
+      "canExportWithoutWatermark": true,
+      "canUseLogo": true,
+      "canUseTemplates": true,
+      "canCreateInternalPdf": true,
+      "canSendOfficeEmail": true,
+      "canBackupRestore": true
+    }
+  },
+  "limits": {
+    "calculations": 5,
+    "customers": 5,
+    "employees": 5,
+    "materials": 25,
+    "services": 25,
+    "taxes": 3,
+    "surcharges": 3
+  },
+  "themes": {
+    "light": {
+      "background": "#F6F3ED",
+      "surface": "#FFFFFF",
+      "surfaceSubtle": "#EEE8DF",
+      "textPrimary": "#242A30",
+      "textSecondary": "#4F5962",
+      "textMuted": "#59636C",
+      "border": "#858078",
+      "actionPrimary": "#B84712",
+      "onActionPrimary": "#FFFFFF",
+      "accent": "#F5B544",
+      "onAccent": "#242A30",
+      "success": "#216B47",
+      "successContainer": "#E8F2E9",
+      "onSuccessContainer": "#216B47",
+      "warning": "#795300",
+      "warningContainer": "#FFF1CC",
+      "onWarningContainer": "#795300",
+      "danger": "#A64637",
+      "dangerContainer": "#FBEFEC",
+      "onDangerContainer": "#A64637"
+    },
+    "dark": {
+      "background": "#171B20",
+      "surface": "#22282F",
+      "surfaceSubtle": "#303841",
+      "textPrimary": "#F7F3EB",
+      "textSecondary": "#D1D6DB",
+      "textMuted": "#AFBAC4",
+      "border": "#7F8B97",
+      "actionPrimary": "#FFAA76",
+      "onActionPrimary": "#272019",
+      "accent": "#FFAA76",
+      "onAccent": "#272019",
+      "success": "#9BDBAF",
+      "successContainer": "#183126",
+      "onSuccessContainer": "#9BDBAF",
+      "warning": "#F5D37F",
+      "warningContainer": "#382B11",
+      "onWarningContainer": "#F5D37F",
+      "danger": "#FFAAA0",
+      "dangerContainer": "#3A1F1B",
+      "onDangerContainer": "#FFAAA0"
+    }
+  }
+}
