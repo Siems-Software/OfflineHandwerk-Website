@@ -119,7 +119,6 @@ export const en = {
   imprint: 'Imprint',
   contact: 'Contact',
   footerResources: 'No cookies. No external fonts. No analytics services.',
-  backHome: 'Back to the product page',
   notFoundTitle: 'This page does not exist.',
   notFoundBody: 'Choose the German or English product page.',
 } satisfies Dictionary;

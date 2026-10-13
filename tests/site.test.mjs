@@ -219,7 +219,9 @@ test('privacy page states shared duties once and keeps website and app sections 
     assert.equal($('main').text().includes('The German version is authoritative'), false);
     assert.equal($('main').text().includes('Diese Erklärung gilt für diese Website'), false);
     assert.equal($('main').text().includes('This notice covers this website'), false);
-    assert.equal($('nav.legal-toc, main nav').length, 0);
+    assert.equal($('nav.legal-toc, main nav, a.back-link').length, 0);
+    assert.equal($('body').text().includes('Zur Produktseite'), false);
+    assert.equal($('body').text().includes('Back to the product page'), false);
     assert.ok($('main').text().includes(site.email));
     assert.ok($('main').text().includes('Jan Siems'));
   }
