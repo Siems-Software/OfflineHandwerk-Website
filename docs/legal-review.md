@@ -1,6 +1,6 @@
 # Legal publication review
 
-Status: **draft, not legally approved**. Content date: **11 October 2026**. German is the authoritative version; the English text is a full translation of this draft. This document is a release checklist, not a legal opinion or certification of compliance.
+Status: **release checklist, not a legal opinion**. The public imprint and privacy pages were revised in October 2026 and no longer show a draft banner. German remains authoritative. Unchecked items below are still open.
 
 ## Scope and evidence
 
@@ -69,7 +69,7 @@ The operational/provider and legal gates below remain unresolved unless explicit
 
 ### 6. Rendering, deployment and public disclosures
 
-- [x] Render `notice` and `updated` prominently on **each** German and English legal page, before substantive content, never solely in an accordion, modal, tooltip or hidden footer. Retain the draft notice in app copies as well until all relevant gates are closed. Visibility was verified on the production export in an isolated Mullvad Browser, not only by the content module.
+- [x] Render the German-authoritative note and the October 2026 date on each German and English legal page. The former draft banner is no longer rendered. Visibility of the earlier banner was checked on the production export in an isolated Mullvad Browser.
 - [x] Verify complete German and English rendering, headings and paragraphs, correct language attributes, readable mobile layout, navigation links and the distinction between mobile app and website privacy. There must be no German-only body text in the English legal pages.
 - [ ] Inspect the final GitHub Pages build and real production requests in the required Mullvad Browser: no cookies/localStorage/app database, tracking/analytics/crash services, externally embedded fonts/CDNs/media, contact form/newsletter, RevenueCat, prefetch or unsolicited requests to linked store sites. Verify hosting responses and any third-party redirect/domain configuration too. Amend the content and legal assessment if reality differs from the intended static design.
 - [ ] Verify the actual public HTTPS app privacy, website privacy, imprint and contact links in both languages after an explicitly authorized deployment. No public URL is established by creating these files.

@@ -72,7 +72,7 @@ test('all internal links and fragments resolve below the GitHub project base', a
   for (const { $ } of pages) {
     for (const element of $('a[href],img[src],link[rel="stylesheet"],link[rel="icon"]').toArray()) {
       const ref = $(element).attr('href') || $(element).attr('src');
-      if (/^(mailto:|https:)/.test(ref)) continue;
+      if (/^(mailto:|https:|tel:\+)/.test(ref)) continue;
       const [pathname, hash] = ref.split('#');
       if (pathname) {
         assert.ok(pathname.startsWith(site.base), `Incorrect project base: ${ref}`);
@@ -194,9 +194,15 @@ test('both billing periods are explicit, with no invented paid prices or checkou
     assert.equal($('.store-placeholder a').length, 0);
   }
 });
-test('legal notices stay visible and the correct app/website scopes remain separate', () => {
+test('legal pages keep the authority note and separate app and website scopes', () => {
   for (const { lang, route, $ } of pages.filter((page) => page.route !== '')) {
-    assert.equal($('.legal-notice strong').text(), legal[lang].notice);
+    assert.equal($('.legal-notice').length, 0);
+    assert.equal(
+      $('main .small').text(),
+      legal[lang][
+        route === 'privacy-app/' ? 'app' : route === 'privacy-website/' ? 'website' : 'imprint'
+      ].updated,
+    );
     assert.ok($('main').text().includes(locales[lang].legalAuthority));
     assert.ok($('main').text().includes(site.email));
     assert.ok($('main').text().includes('Jan Siems'));
@@ -206,13 +212,105 @@ test('legal notices stay visible and the correct app/website scopes remain separ
       .find((page) => page.lang === lang && page.route === 'privacy-website/')
       .$('main')
       .text();
-    assert.ok(website.includes('GitHub'));
+    assert.ok(website.includes('GitHub, Inc.'));
+    assert.ok(website.includes('Data Privacy Framework'));
+    assert.ok(website.includes(lang === 'de' ? 'IP-Adresse' : 'IP address'));
     assert.ok(!website.includes('OPFS'));
-    const app = pages
-      .find((page) => page.lang === lang && page.route === 'privacy-app/')
-      .$('main')
-      .text();
+    const appPage = pages.find((page) => page.lang === lang && page.route === 'privacy-app/');
+    const websitePage = pages.find(
+      (page) => page.lang === lang && page.route === 'privacy-website/',
+    );
+    const app = appPage.$('main').text();
+    const authority =
+      'Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz';
+    const officer =
+      lang === 'de'
+        ? 'Ein Datenschutzbeauftragter ist nicht erforderlich.'
+        : 'A data protection officer is not required.';
+    for (const page of [appPage, websitePage]) {
+      assert.equal(page.$('a[href="tel:+4917684328001"]').length, 1);
+      assert.ok(page.$('main').text().includes(officer));
+      assert.ok(page.$('main').text().includes(authority));
+      assert.ok(page.$('main').text().includes('Art. 6'));
+      assert.ok(page.$('main').text().includes('Art. 15'));
+      assert.ok(page.$('main').text().includes('Art. 21'));
+      assert.doesNotMatch(
+        page.$('main').text(),
+        /Entwurf|rechtliche Freigabe|noch nicht bestätigt|vor Veröffentlichung|Draft|pending legal|not legally approved/,
+      );
+    }
+    assert.ok(app.includes('SQLite'));
     assert.ok(app.includes('RevenueCat'));
+    assert.ok(!app.includes('Data Privacy Framework'));
+  }
+});
+test('imprint pages show the final provider notice in both languages', () => {
+  const copy = {
+    de: {
+      title: 'Impressum',
+      intro: 'Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)',
+      headings: [
+        'Anbieter',
+        'Kontakt',
+        'Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV',
+        'Verbraucherstreitbeilegung',
+      ],
+      paragraphs: [
+        'Jan Siems, Hintergasse 28, 67308 Bubenheim, Deutschland',
+        'Telefon: +49 176 84328001',
+        'E-Mail: info@offlinehandwerk.de',
+        'Jan Siems, Anschrift wie oben',
+        'Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.',
+      ],
+      updated: 'Stand: Oktober 2026',
+    },
+    en: {
+      title: 'Legal notice',
+      intro:
+        'Information pursuant to section 5 of the German Digital Services Act (Digitale-Dienste-Gesetz, DDG)',
+      headings: [
+        'Provider',
+        'Contact',
+        'Responsible for content under section 18 (2) MStV',
+        'Consumer dispute resolution',
+      ],
+      paragraphs: [
+        'Jan Siems, Hintergasse 28, 67308 Bubenheim, Germany',
+        'Phone: +49 176 84328001',
+        'Email: info@offlinehandwerk.de',
+        'Jan Siems, address as above',
+        'I am not willing and not obliged to participate in dispute resolution proceedings before a consumer conciliation body.',
+      ],
+      updated: 'As of: October 2026',
+    },
+  };
+  for (const lang of languages) {
+    const $ = pages.find((page) => page.lang === lang && page.route === 'imprint/').$;
+    const expected = copy[lang];
+    assert.equal($('h1').text(), expected.title);
+    assert.equal($('p.lead').text(), expected.intro);
+    assert.equal($('main .small').text(), expected.updated);
+    assert.ok($('main').text().includes(locales[lang].legalAuthority));
+    assert.deepEqual(
+      $('main section h2')
+        .map((_, element) => $(element).text())
+        .get(),
+      expected.headings,
+    );
+    assert.deepEqual(
+      $('main section p')
+        .map((_, element) => $(element).text())
+        .get(),
+      expected.paragraphs,
+    );
+    const phone = $('main a[href="tel:+4917684328001"]');
+    assert.equal(phone.length, 1);
+    assert.equal(phone.text(), '+49 176 84328001');
+    assert.equal($('main a[href*="ec.europa.eu"], main a[href*="odr"]').length, 0);
+    assert.doesNotMatch(
+      $('main').text(),
+      /Entwurf|rechtliche Freigabe|Anbieterangaben stammen|Stand der Anbieterangaben|Registereintrag|Umsatzsteuer|Wirtschafts-Identifikationsnummer|Draft, pending legal approval|ec\.europa\.eu|OS-Plattform|Online-Streitbeilegung/,
+    );
   }
 });
 test('every page links all legal routes and accessible main content', () => {

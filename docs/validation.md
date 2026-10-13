@@ -11,7 +11,7 @@ New static product website; there was no prior website UI to capture. The origin
 - App-derived dark theme, system font, real product captures with web-preview/sample-data captions and full-size image links. No native-device/store-purchase verification is implied.
 - Free domain limits and Solo/Business entitlements derived from app commit `ed9ef522e2701b2b38dad901e962a5064e26fb7b`; no unlimited Free catalog claim. Positionsvorlagen are reusable line-item templates, not PDF layouts.
 - Monthly/yearly paid price placeholders appear together; store placeholders cannot trigger a fake download or purchase.
-- Prominent legal draft notices in both languages. App and GitHub Pages marketing-website processing remain separate. Final policy/contract/provider facts are not invented.
+- German and English imprint and privacy pages render the October 2026 notices without a draft banner. App and GitHub Pages marketing-website processing remain separate.
 - Escaped untrusted content, restrictive meta CSP, no runtime script, cookies, preference storage, external fonts/CDNs, analytics or tracking services in the generated site.
 - GitHub Pages configured with `build_type=workflow`, HTTPS enforced, and a workflow that tests PRs but deploys only `main`.
 
