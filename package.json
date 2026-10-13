@@ -7,16 +7,21 @@
     "node": ">=24"
   },
   "scripts": {
-    "build": "node scripts/build.mjs",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "test": "node --test tests/*.test.mjs",
     "lint": "prettier --check .",
     "format": "prettier --write .",
-    "check": "npm run lint && npm run build && npm test",
+    "typecheck": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "check": "npm run lint && npm run typecheck && npm run build && npm test",
     "preview": "node scripts/serve.mjs"
   },
   "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "astro": "7.3.8",
     "axe-core": "4.14.0",
     "cheerio": "1.2.0",
-    "prettier": "3.9.10"
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.1",
+    "typescript": "5.9.3"
   }
 }

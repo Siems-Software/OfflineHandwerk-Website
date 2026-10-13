@@ -51,7 +51,7 @@ report = {
     "checks": [],
     "captures": [],
 }
-routes = ["", "privacy-app/", "privacy-website/", "imprint/"]
+routes = ["", "privacy/", "imprint/"]
 
 
 def open_page(lang, route, width):
@@ -144,7 +144,7 @@ try:
                         )
                     )
                     capture("de-mobile-comparison.png")
-                if lang == "de" and route == "privacy-website/" and width == 360:
+                if lang == "de" and route == "privacy/" and width == 360:
                     capture("de-mobile-website-privacy.png")
                     d.find_element("css selector", "a.language").click()
                     w.until(
@@ -154,7 +154,7 @@ try:
                         )
                     )
                     assert d.execute_script("return location.href").endswith(
-                        "/en/privacy-website/"
+                        "/en/privacy/"
                     )
                     capture("en-mobile-website-privacy-after-switch.png")
     # Direct desktop page: full-page capture without the mobile fixture.

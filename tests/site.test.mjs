@@ -4,13 +4,14 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { load } from 'cheerio';
 import { site, languages, routes, privacyRedirects, pathFor, urlFor } from '../src/config.mjs';
-import { legal } from '../src/content/legal.mjs';
+import { de } from '../src/i18n/de.ts';
+import { en } from '../src/i18n/en.ts';
+import { loadLegal } from '../src/lib/legal.mjs';
 const root = process.cwd();
 const out = resolve(root, 'dist');
 const json = async (name) => JSON.parse(await readFile(resolve(root, name), 'utf8'));
-const locales = Object.fromEntries(
-  await Promise.all(languages.map(async (lang) => [lang, await json(`src/locales/${lang}.json`)])),
-);
+const locales = { de, en };
+const legal = await loadLegal();
 const product = await json('src/content/product.json');
 const pages = await Promise.all(
   languages.flatMap((lang) =>
@@ -143,7 +144,7 @@ test('comparison renders real Free limits, not unlimited catalog claims', () => 
     taxes: 3,
     surcharges: 3,
   });
-  for (const { lang, route, $ } of pages.filter((page) => page.route === '')) {
+  for (const { lang, $ } of pages.filter((page) => page.route === '')) {
     for (const [key, count] of Object.entries(product.limits)) {
       const row = $(`tr[data-feature="${key}"]`);
       assert.equal(row.find('td').eq(0).text(), locales[lang].limited.replace('{count}', count));

@@ -1,4 +1,4 @@
-/* Colors are emitted from the pinned ui-core theme snapshot by build.mjs.
+/* Colors are prepended from the pinned ui-core theme snapshot during the Astro build.
    App system fonts, 14/16/18/24/28/32px text, 12/16px radii and 16/24/32/48/64px spacing.
    Display-only headline scale extends the app scale for a marketing page. */
 * {

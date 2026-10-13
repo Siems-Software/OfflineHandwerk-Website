@@ -1,0 +1,29 @@
+---
+import LegalPage from '../../components/LegalPage.astro';
+import PrivacyRedirect from '../../components/PrivacyRedirect.astro';
+import { isLocale } from '../../i18n';
+import { subpagePaths } from '../../lib/pages.mjs';
+
+export const getStaticPaths = () => subpagePaths();
+
+const locale = Astro.currentLocale;
+if (!isLocale(locale) || locale !== 'de') throw new Error(`Expected de, got ${locale}`);
+const page = Astro.params.page;
+if (
+  page !== 'privacy' &&
+  page !== 'imprint' &&
+  page !== 'privacy-app' &&
+  page !== 'privacy-website'
+)
+  throw new Error(`Unexpected page ${page}`);
+---
+
+{page === 'privacy' ? (
+  <LegalPage locale={locale} kind="privacy" />
+) : page === 'imprint' ? (
+  <LegalPage locale={locale} kind="imprint" />
+) : page === 'privacy-app' ? (
+  <PrivacyRedirect locale={locale} hash="app" />
+) : (
+  <PrivacyRedirect locale={locale} hash="website" />
+)}
