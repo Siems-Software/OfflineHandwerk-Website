@@ -18,8 +18,6 @@ export const en = {
   heroEnd: 'Your data.',
   heroBody:
     'Calculate labour and materials. Create a PDF for your customers. And keep your business data where it belongs: with you.',
-  heroPrimary: 'Explore the features',
-  heroSecondary: 'Our concept',
   heroNote: 'Local First · No ads · No tracking of your work',
   screenshotAlt:
     'OfflineHandwerk: home screen with master data, calculations and settings in the dark theme',
@@ -118,7 +116,8 @@ export const en = {
   privacy: 'Privacy',
   imprint: 'Imprint',
   contact: 'Contact',
-  footerMade: 'Made with ❤️ in 🇩🇪',
+  footerMade: 'Made with ❤️ in',
+  footerFlag: 'Germany',
   notFoundTitle: 'This page does not exist.',
   notFoundBody: 'Choose the German or English product page.',
 } satisfies Dictionary;

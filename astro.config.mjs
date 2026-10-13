@@ -1,3 +1,4 @@
+import icon from 'astro-icon';
 import { defineConfig } from 'astro/config';
 import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -47,6 +48,7 @@ export default defineConfig({
     ],
   },
   integrations: [
+    icon(),
     {
       name: 'offlinehandwerk-sitemap',
       hooks: {
