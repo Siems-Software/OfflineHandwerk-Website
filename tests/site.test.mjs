@@ -219,7 +219,7 @@ test('privacy page states shared duties once and keeps website and app sections 
     assert.equal($('main').text().includes('The German version is authoritative'), false);
     assert.equal($('main').text().includes('Diese Erklärung gilt für diese Website'), false);
     assert.equal($('main').text().includes('This notice covers this website'), false);
-    assert.equal($('nav.legal-toc a[href^="#"]').length, 0);
+    assert.equal($('nav.legal-toc, main nav').length, 0);
     assert.ok($('main').text().includes(site.email));
     assert.ok($('main').text().includes('Jan Siems'));
   }
@@ -347,6 +347,11 @@ test('footer shows only privacy and imprint, outside the main navigation', () =>
         .get(),
       [locales[lang].privacy, locales[lang].imprint],
     );
+    for (const label of [locales[lang].privacy, locales[lang].imprint]) {
+      const matches = $('a').filter((_, element) => $(element).text().trim() === label);
+      assert.equal(matches.length, 1, label);
+      assert.equal(matches.parents('footer').length, 1, label);
+    }
     assert.equal(
       $(
         'nav.main-nav a[href*="privacy"], nav.main-nav a[href*="imprint"], nav.main-nav a[href*="datenschutz"], nav.main-nav a[href*="impressum"]',

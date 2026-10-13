@@ -462,14 +462,6 @@ tbody th {
   margin: 24px 0;
   font-size: 14px;
 }
-.legal-toc {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px 24px;
-  padding-block: 24px;
-  border-block: 1px solid var(--border);
-  margin-block: 32px;
-}
 .legal-page section {
   padding-block: 16px;
 }
