@@ -28,14 +28,10 @@ export const de = {
   heroEnd: 'Deine Daten.',
   heroBody:
     'Kalkuliere Arbeit und Material. Erstelle ein PDF für deine Kunden. Und behalte deine Betriebsdaten dort, wo sie hingehören: bei dir.',
-  heroNote: 'Local First · Keine Werbung · Kein Tracking deiner Arbeit',
   screenshotAlt:
     'OfflineHandwerk: Startansicht mit Stammdaten, Kalkulationen und Einstellungen in der dunklen Ansicht',
-  screenshotCaption: 'Echte App-Oberfläche · Web-Vorschau in deutscher Sprache',
-  screenshotOpen: 'Bild in voller Größe öffnen',
   screenshotSecondAlt:
     'Kalkulationsübersicht in OfflineHandwerk mit dem integrierten Beispiel Bad modernisieren für Musterkunde',
-  screenshotSecondCaption: 'Web-Vorschau · Integrierte Beispieldaten, kein echter Kundenauftrag',
   conceptEyebrow: 'Local First',
   conceptTitle: 'Dein Betrieb. Nicht unsere Datenbank.',
   conceptBody:
@@ -54,9 +50,6 @@ export const de = {
       body: 'Geht das Gerät verloren oder werden die lokalen App-Daten gelöscht, können wir sie nicht wiederherstellen. Sichere deine Daten und verwahre Exporte selbst.',
     },
   ],
-  conceptCaveat:
-    'Local First bedeutet nicht, dass jede Verbindung entfällt: Käufe und Berechtigungen in der mobilen App werden über Apple bzw. Google und RevenueCat geprüft. Website-Aufrufe erzeugen Verbindungsdaten beim Hoster. Geteilte Dateien und Gerätesicherungen folgen deinen Einstellungen.',
-  conceptPrivacy: 'Mehr zum Datenschutz',
   featuresEyebrow: 'Vom Auftrag zum PDF',
   featuresTitle: 'Weniger Umwege. Mehr Überblick.',
   featureSteps: [
