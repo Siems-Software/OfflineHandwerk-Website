@@ -129,7 +129,6 @@ export const de = {
   imprint: 'Impressum',
   contact: 'Kontakt',
   footerResources: 'Keine Cookies. Keine externen Fonts. Keine Analyse-Dienste.',
-  backHome: 'Zur Produktseite',
   notFoundTitle: 'Diese Seite gibt es nicht.',
   notFoundBody: 'Wähle die deutsche oder englische Produktseite.',
 } as const;

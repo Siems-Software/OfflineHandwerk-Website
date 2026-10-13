@@ -432,10 +432,6 @@ tbody th {
   max-width: 850px;
   padding-block: 48px 64px;
 }
-.back-link {
-  display: inline-block;
-  margin-bottom: 32px;
-}
 .legal-page h1 {
   font-size: clamp(32px, 5vw, 48px);
   margin-bottom: 24px;
