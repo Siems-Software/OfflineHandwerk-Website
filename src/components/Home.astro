@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { slugFor } from '../config.mjs';
 import product from '../content/product.json';
@@ -34,14 +35,6 @@ const privacyHref = getRelativeLocaleUrl(locale, slugFor(locale, 'privacy'));
           set:html={`${escapeHtml(t.heroTitle)}<br /><span>${escapeHtml(t.heroAccent)}</span><br />${escapeHtml(t.heroEnd)}`}
         />
         <p class="lead">{t.heroBody}</p>
-        <div class="actions">
-          <a class="button" href="#features">
-            {t.heroPrimary} <span aria-hidden="true">↗</span>
-          </a>
-          <a class="text-link" href="#concept">
-            {t.heroSecondary} <span aria-hidden="true">↓</span>
-          </a>
-        </div>
         <p class="hero-note small">{t.heroNote}</p>
       </div>
       <figure class="product-shot">
@@ -82,7 +75,8 @@ const privacyHref = getRelativeLocaleUrl(locale, slugFor(locale, 'privacy'));
         <aside class="privacy-note">
           <p>{t.conceptCaveat}</p>
           <a href={privacyHref}>
-            {t.conceptPrivacy} <span aria-hidden="true">↗</span>
+            {t.conceptPrivacy}
+            <Icon name="lucide:arrow-up-right" class="icon" aria-hidden="true" />
           </a>
         </aside>
       </div>
@@ -216,7 +210,7 @@ const privacyHref = getRelativeLocaleUrl(locale, slugFor(locale, 'privacy'));
       <div class="store-grid">
         <div class="store-placeholder" aria-disabled="true">
           <span class="store-icon" aria-hidden="true">
-            ▶
+            <Icon name="lucide:play" class="icon" aria-hidden="true" />
           </span>
           <div>
             <strong>{t.googlePlay}</strong>
@@ -225,7 +219,7 @@ const privacyHref = getRelativeLocaleUrl(locale, slugFor(locale, 'privacy'));
         </div>
         <div class="store-placeholder" aria-disabled="true">
           <span class="store-icon" aria-hidden="true">
-            ↗
+            <Icon name="lucide:arrow-up-right" class="icon" aria-hidden="true" />
           </span>
           <div>
             <strong>{t.appStore}</strong>

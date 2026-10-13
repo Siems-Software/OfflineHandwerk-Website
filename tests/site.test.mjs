@@ -374,7 +374,22 @@ test('footer shows only privacy and imprint, outside the main navigation', () =>
       0,
     );
     assert.equal($('footer a[href^="mailto:"]').length, 0);
-    assert.equal($('footer p.small').text(), locales[lang].footerMade);
+    const other = languages.find((code) => code !== lang);
+    assert.equal($('a.language').text().replace(/\s+/g, ' ').trim(), other.toUpperCase());
+    assert.equal($('a.language').attr('aria-label'), locales[lang].switchLabel);
+    assert.equal($('a.language svg').attr('aria-hidden'), 'true');
+    assert.equal(
+      $('a.language svg').attr('data-icon'),
+      other === 'en' ? 'circle-flags:gb' : 'circle-flags:de',
+    );
+    assert.equal($('footer p.small').text().replace(/\s+/g, ' ').trim(), locales[lang].footerMade);
+    assert.equal($('footer svg.footer-flag').attr('data-icon'), 'circle-flags:de');
+    assert.equal($('footer svg.footer-flag').attr('role'), 'img');
+    assert.equal($('footer svg.footer-flag').attr('aria-label'), locales[lang].footerFlag);
+    assert.equal($('a[href="#features"], a[href="#concept"]').length, 0);
+    assert.equal(/[↗↓←→▶]/.test($.html()), false);
+    assert.equal($.html().includes('🇩🇪'), false);
+    assert.equal($('footer').text().includes('❤️'), true);
     assert.equal($('footer').text().includes('Keine Cookies'), false);
     assert.equal($('footer').text().includes('No cookies'), false);
   }

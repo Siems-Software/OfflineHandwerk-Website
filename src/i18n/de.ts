@@ -28,8 +28,6 @@ export const de = {
   heroEnd: 'Deine Daten.',
   heroBody:
     'Kalkuliere Arbeit und Material. Erstelle ein PDF für deine Kunden. Und behalte deine Betriebsdaten dort, wo sie hingehören: bei dir.',
-  heroPrimary: 'Funktionen entdecken',
-  heroSecondary: 'Unser Konzept',
   heroNote: 'Local First · Keine Werbung · Kein Tracking deiner Arbeit',
   screenshotAlt:
     'OfflineHandwerk: Startansicht mit Stammdaten, Kalkulationen und Einstellungen in der dunklen Ansicht',
@@ -128,7 +126,8 @@ export const de = {
   privacy: 'Datenschutz',
   imprint: 'Impressum',
   contact: 'Kontakt',
-  footerMade: 'Gemacht mit ❤️ in 🇩🇪',
+  footerMade: 'Gemacht mit ❤️ in',
+  footerFlag: 'Deutschland',
   notFoundTitle: 'Diese Seite gibt es nicht.',
   notFoundBody: 'Wähle die deutsche oder englische Produktseite.',
 } as const;
