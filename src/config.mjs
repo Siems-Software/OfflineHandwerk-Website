@@ -4,6 +4,8 @@ export const site = {
   base: '/offlinehandwerk.github.io/',
   email: 'info@offlinehandwerk.de',
 };
+// Store buttons stay in the page source. Flip this when the listings are live.
+export const storesEnabled = false;
 export const languages = ['de', 'en'];
 // Both locales stay prefixed: /de/ and /en/. Slugs differ by language.
 export const prefixDefaultLocale = true;

@@ -95,6 +95,7 @@ export const en = {
     '*2 Without the backup feature you cannot create a full local database backup in the app. A PDF export does not replace a backup of your database.',
   downloadEyebrow: 'Android & iOS',
   downloadTitle: 'Your next job is waiting.',
+  downloadComingSoon: 'Coming soon to your app store',
   downloadBody:
     'The store release is being prepared. Direct download links will appear here once the app is available.',
   googlePlay: 'Google Play',
