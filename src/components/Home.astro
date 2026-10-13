@@ -12,15 +12,17 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
-const plans = ['free', 'solo', 'business'] as const;
+const plans = ['free', 'premium'] as const;
 const planCopy = {
   free: { name: t.freeName, description: t.freeDescription },
-  solo: { name: t.soloName, description: t.soloDescription },
-  business: { name: t.businessName, description: t.businessDescription },
+  premium: { name: t.premiumName, description: t.premiumDescription },
 };
+const sourcePlan = { free: 'free', premium: 'business' } as const;
 const permissionKeys = Object.keys(t.features).filter((key) => key.startsWith('can'));
-const entitlement = (plan: (typeof plans)[number], key: string) =>
-  product.entitlements[plan][key as keyof (typeof product.entitlements)[typeof plan]];
+const entitlement = (plan: (typeof plans)[number], key: string) => {
+  const source = sourcePlan[plan];
+  return product.entitlements[source][key as keyof (typeof product.entitlements)[typeof source]];
+};
 ---
 
 <Base locale={locale} title={t.metaTitle} description={t.metaDescription}>
@@ -104,21 +106,14 @@ const entitlement = (plan: (typeof plans)[number], key: string) =>
               {plan === 'free' ? (
                 <p class="price-free">{t.freePrice}</p>
               ) : (
-                <dl class="prices">
-                  <div>
-                    <dt>{t.monthly}</dt>
-                    <dd>{t.pricePending}</dd>
-                  </div>
-                  <div>
-                    <dt>{t.yearly}</dt>
-                    <dd>{t.pricePending}</dd>
-                  </div>
-                </dl>
+                <div class="prices">
+                  <p>{t.premiumMonthly}</p>
+                  <p>{t.premiumYearly}</p>
+                </div>
               )}
             </article>
           ))}
         </div>
-        <p class="small pricing-note">{t.pricingNote}</p>
         <div class="table-wrap">
           <table>
             <caption>{t.tableCaption}</caption>
@@ -139,19 +134,17 @@ const entitlement = (plan: (typeof plans)[number], key: string) =>
                     <span class="limit-icon" aria-hidden="true">
                       ∞
                     </span>
-                    <span class="sr-only">{t.unlimited}</span>
-                  </td>
-                  <td>
-                    <span class="limit-icon" aria-hidden="true">
-                      ∞
-                    </span>
+                    <sup>*1</sup>
                     <span class="sr-only">{t.unlimited}</span>
                   </td>
                 </tr>
               ))}
               {permissionKeys.map((key) => (
                 <tr data-feature={key}>
-                  <th scope="row">{t.features[key as keyof typeof t.features]}</th>
+                  <th scope="row">
+                    {t.features[key as keyof typeof t.features]}
+                    {key === 'canBackupRestore' ? <sup>*2</sup> : null}
+                  </th>
                   {plans.map((plan) => {
                     const included = entitlement(plan, key);
                     return (
@@ -168,11 +161,8 @@ const entitlement = (plan: (typeof plans)[number], key: string) =>
             </tbody>
           </table>
         </div>
-        <p class="small table-legend">
-          <span aria-hidden="true">∞ = </span>
-          {t.unlimited}
-        </p>
-        <p class="small">{t.backupNote}</p>
+        <p class="small table-legend">{t.footnoteUnlimited}</p>
+        <p class="small table-footnote">{t.footnoteBackup}</p>
       </div>
     </section>
     <section id="download" class="section container download">

@@ -69,19 +69,15 @@ export const de = {
   plansEyebrow: 'Free & Premium',
   plansTitle: 'Starte klein. Erweitere, wenn es passt.',
   plansBody:
-    'Free zum Einstieg. Solo für den täglichen Einsatz. Business zusätzlich mit Backup und Wiederherstellung. Deine Inhalte bleiben bei jedem Paket lokal.',
+    'Free zum Einstieg. Premium für den täglichen Einsatz. Deine Inhalte bleiben bei jedem Paket lokal.',
   freeName: 'Free',
-  soloName: 'Solo',
-  businessName: 'Business',
+  premiumName: 'Premium',
   freePrice: 'Kostenlos',
   freeDescription: 'Die Grundlagen zum Kennenlernen.',
-  soloDescription: 'Premium für deine Kalkulationen und PDFs.',
-  businessDescription: 'Alle Solo-Funktionen, plus Backup und Wiederherstellung.',
-  monthly: 'Monatlich',
-  yearly: 'Jährlich',
-  pricePending: 'Preis folgt im Store',
-  pricingNote:
-    'Die Website verkauft keine Abos. Verfügbarkeit, tatsächliche Monats- und Jahrespreise sowie Bedingungen werden vor dem Kauf im jeweiligen App Store angezeigt. Wir zeigen keine erfundenen Preise oder Ersparnisse.',
+  premiumDescription:
+    'Premium für deine Kalkulationen und PDFs, plus Backup und Wiederherstellung.',
+  premiumMonthly: '9,99 € / Monat',
+  premiumYearly: '109,99 € / Jahr (1 Monat gratis)',
   tableCaption: 'Funktionen und Grenzen der mobilen App im Vergleich',
   tableFeature: 'Funktion',
   included: 'Enthalten',
@@ -104,8 +100,9 @@ export const de = {
     canSendOfficeEmail: 'PDF ans Büro senden',
     canBackupRestore: 'Backup & Wiederherstellung',
   },
-  backupNote:
-    'Ohne die Backup-Funktion kannst du keine vollständige lokale Datenbanksicherung in der App erstellen. Ein PDF-Export ersetzt kein Backup deiner Datenbank.',
+  footnoteUnlimited: '*1 ∞ = Unbegrenzt',
+  footnoteBackup:
+    '*2 Ohne die Backup-Funktion kannst du keine vollständige lokale Datenbanksicherung in der App erstellen. Ein PDF-Export ersetzt kein Backup deiner Datenbank.',
   downloadEyebrow: 'Android & iOS',
   downloadTitle: 'Dein nächster Auftrag wartet.',
   downloadBody:
