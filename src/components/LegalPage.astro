@@ -1,7 +1,7 @@
 ---
 import { getEntry } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { site } from '../config.mjs';
+import { site, slugFor } from '../config.mjs';
 import { parseLegalBody } from '../lib/legal.mjs';
 import { renderLegalText } from '../lib/html.mjs';
 import { useTranslations, type Locale } from '../i18n';
@@ -24,26 +24,17 @@ const t = useTranslations(locale);
   locale={locale}
   route={kind}
   title={`${entry.data.title} | ${site.name}`}
-  description={entry.data.intro}
+  description={kind === 'imprint' ? entry.data.intro : `${entry.data.title} | ${site.name}`}
 >
   <main id="main" class="container legal-page">
     <a class="back-link" href={getRelativeLocaleUrl(locale)}>
       ← {t.backHome}
     </a>
     <h1>{entry.data.title}</h1>
-    {kind === 'imprint' ? (
-      <h2 class="legal-statute">{entry.data.intro}</h2>
-    ) : (
-      <p class="lead">{entry.data.intro}</p>
-    )}
-    <p>{t.legalAuthority}</p>
+    {kind === 'imprint' && <h2 class="legal-statute">{entry.data.intro}</h2>}
     <nav class="legal-toc" aria-label={t.legalNavigation}>
-      <a href={getRelativeLocaleUrl(locale, 'privacy')}>{t.privacy}</a>
-      {kind === 'privacy' &&
-        sections
-          .filter((section) => section.id)
-          .map((section) => <a href={`#${section.id}`}>{section.title}</a>)}
-      <a href={getRelativeLocaleUrl(locale, 'imprint')}>{t.imprint}</a>
+      <a href={getRelativeLocaleUrl(locale, slugFor(locale, 'privacy'))}>{t.privacy}</a>
+      <a href={getRelativeLocaleUrl(locale, slugFor(locale, 'imprint'))}>{t.imprint}</a>
     </nav>
     {sections.map((section, index) => {
       const id = section.id ?? `legal-${index}`;

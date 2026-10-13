@@ -3,7 +3,17 @@ import assert from 'node:assert/strict';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { load } from 'cheerio';
-import { site, languages, routes, privacyRedirects, pathFor, urlFor } from '../src/config.mjs';
+import {
+  site,
+  languages,
+  legalPages,
+  slugFor,
+  legacyRedirects,
+  redirectsFor,
+  redirectTo,
+  pathFor,
+  urlFor,
+} from '../src/config.mjs';
 import { de } from '../src/i18n/de.ts';
 import { en } from '../src/i18n/en.ts';
 import { loadLegal } from '../src/lib/legal.mjs';
@@ -15,10 +25,16 @@ const legal = await loadLegal();
 const product = await json('src/content/product.json');
 const pages = await Promise.all(
   languages.flatMap((lang) =>
-    routes.map(async (route) => ({
+    ['', ...legalPages].map(async (page) => ({
       lang,
-      route,
-      $: load(await readFile(resolve(out, lang, route, 'index.html'), 'utf8')),
+      page,
+      route: page ? `${slugFor(lang, page)}/` : '',
+      $: load(
+        await readFile(
+          resolve(out, lang, page ? `${slugFor(lang, page)}/` : '', 'index.html'),
+          'utf8',
+        ),
+      ),
     })),
   ),
 );
@@ -45,15 +61,15 @@ test('DE and EN have matching, non-empty translation and legal schemas', () => {
   }
 });
 test('localized pages have correct language, canonical and reciprocal hreflang', () => {
-  assert.equal(pages.length, languages.length * routes.length);
-  for (const { lang, route, $ } of pages) {
+  assert.equal(pages.length, languages.length * (legalPages.length + 1));
+  for (const { lang, page, $ } of pages) {
     assert.equal($('html').attr('lang'), lang);
-    assert.equal($('link[rel="canonical"]').attr('href'), urlFor(lang, route));
+    assert.equal($('link[rel="canonical"]').attr('href'), urlFor(lang, page));
     for (const code of languages)
-      assert.equal($(`link[hreflang="${code}"]`).attr('href'), urlFor(code, route));
-    assert.equal($('link[hreflang="x-default"]').attr('href'), urlFor('de', route));
+      assert.equal($(`link[hreflang="${code}"]`).attr('href'), urlFor(code, page));
+    assert.equal($('link[hreflang="x-default"]').attr('href'), urlFor('de', page));
     const other = languages.find((code) => code !== lang);
-    assert.equal($('a.language').attr('href'), pathFor(other, route));
+    assert.equal($('a.language').attr('href'), pathFor(other, page));
     assert.equal($('h1').length, 1);
     assert.equal($('main#main').length, 1);
     assert.ok($('title').text().length > 10);
@@ -196,21 +212,23 @@ test('both billing periods are explicit, with no invented paid prices or checkou
   }
 });
 test('privacy page states shared duties once and keeps website and app sections separate', () => {
-  for (const { lang, route, $ } of pages.filter((page) => page.route !== '')) {
+  for (const { lang, page, $ } of pages.filter((item) => item.page !== '')) {
     assert.equal($('.legal-notice').length, 0);
-    assert.equal(
-      $('main .small').text(),
-      legal[lang][route === 'privacy/' ? 'privacy' : 'imprint'].updated,
-    );
-    assert.ok($('main').text().includes(locales[lang].legalAuthority));
+    assert.equal($('main .small').text(), legal[lang][page].updated);
+    assert.equal($('main').text().includes('Die deutsche Fassung ist maßgeblich'), false);
+    assert.equal($('main').text().includes('The German version is authoritative'), false);
+    assert.equal($('main').text().includes('Diese Erklärung gilt für diese Website'), false);
+    assert.equal($('main').text().includes('This notice covers this website'), false);
+    assert.equal($('nav.legal-toc a[href^="#"]').length, 0);
     assert.ok($('main').text().includes(site.email));
     assert.ok($('main').text().includes('Jan Siems'));
   }
   for (const lang of languages) {
-    const page = pages.find((item) => item.lang === lang && item.route === 'privacy/');
+    const page = pages.find((item) => item.lang === lang && item.page === 'privacy');
     const website = page.$('#website').parent().text();
     const app = page.$('#app').parent().text();
     assert.equal(page.$('h1').text(), locales[lang].privacy);
+    assert.equal(page.$('p.lead').length, 0);
     assert.equal(page.$('#website').text(), lang === 'de' ? 'Diese Website' : 'This website');
     assert.equal(
       page.$('#app').text(),
@@ -287,13 +305,12 @@ test('imprint pages show the final provider notice in both languages', () => {
     },
   };
   for (const lang of languages) {
-    const $ = pages.find((page) => page.lang === lang && page.route === 'imprint/').$;
+    const $ = pages.find((page) => page.lang === lang && page.page === 'imprint').$;
     const expected = copy[lang];
     assert.equal($('h1').text(), expected.title);
     assert.equal($('h1 + h2.legal-statute').text(), expected.intro);
     assert.equal($('p.lead').length, 0);
     assert.equal($('main .small').text(), expected.updated);
-    assert.ok($('main').text().includes(locales[lang].legalAuthority));
     assert.deepEqual(
       $('main section h2')
         .map((_, element) => $(element).text())
@@ -322,7 +339,7 @@ test('footer shows only privacy and imprint, outside the main navigation', () =>
       $('footer nav a')
         .map((_, element) => $(element).attr('href'))
         .get(),
-      [pathFor(lang, 'privacy/'), pathFor(lang, 'imprint/')],
+      [pathFor(lang, 'privacy'), pathFor(lang, 'imprint')],
     );
     assert.deepEqual(
       $('footer nav a')
@@ -330,32 +347,51 @@ test('footer shows only privacy and imprint, outside the main navigation', () =>
         .get(),
       [locales[lang].privacy, locales[lang].imprint],
     );
-    assert.equal($('nav.main-nav a[href*="privacy"], nav.main-nav a[href*="imprint"]').length, 0);
+    assert.equal(
+      $(
+        'nav.main-nav a[href*="privacy"], nav.main-nav a[href*="imprint"], nav.main-nav a[href*="datenschutz"], nav.main-nav a[href*="impressum"]',
+      ).length,
+      0,
+    );
     assert.equal($('footer a[href^="mailto:"]').length, 0);
   }
 });
-test('old privacy URLs redirect to the website and app anchors', async () => {
+test('old privacy and imprint URLs redirect to the localized pages', async () => {
   for (const lang of languages) {
-    for (const redirect of privacyRedirects) {
-      const target = `${pathFor(lang, 'privacy/')}#${redirect.hash}`;
-      const $ = load(await readFile(resolve(out, lang, redirect.from, 'index.html'), 'utf8'));
-      assert.equal($('meta[http-equiv="refresh"]').attr('content'), `0; url=${target}`);
-      assert.equal($('link[rel="canonical"]').attr('href'), urlFor(lang, 'privacy/'));
+    for (const redirect of redirectsFor(lang)) {
+      const target = redirectTo(lang, redirect);
+      const html = await readFile(resolve(out, lang, redirect.from, 'index.html'), 'utf8');
+      const $ = load(html);
+      const refresh = html.match(/content="(0; url=[^"]+)"/)?.[1];
+      assert.equal(refresh, `0; url=${target}`);
+      assert.equal($('link[rel="canonical"]').attr('href'), urlFor(lang, redirect.page));
       assert.equal($('meta[name="robots"]').attr('content'), 'noindex');
       assert.equal($(`a[href="${target}"]`).length > 0, true);
-      assert.equal($('script').length, 0);
-      assert.equal($(`link[hreflang]`).length, 0);
+      assert.equal($('script').length, redirect.hash ? 0 : 1);
+      if (!redirect.hash)
+        assert.match(
+          $('script').text(),
+          new RegExp(`location.replace\\(${JSON.stringify(target)}`),
+        );
+      assert.equal($('link[hreflang]').length, 0);
       const other = languages.find((code) => code !== lang);
-      assert.equal($('a.language').attr('href'), `${pathFor(other, 'privacy/')}#${redirect.hash}`);
-      const destination = load(await readFile(resolve(out, lang, 'privacy/index.html'), 'utf8'));
-      assert.equal(destination(`[id="${redirect.hash}"]`).length, 1);
+      assert.equal($('a.language').attr('href'), redirectTo(other, redirect));
+      if (redirect.hash) {
+        const destination = load(
+          await readFile(resolve(out, lang, slugFor(lang, redirect.page), 'index.html'), 'utf8'),
+        );
+        assert.equal(destination(`[id="${redirect.hash}"]`).length, 1);
+      }
     }
   }
+  assert.equal(
+    legacyRedirects.some((item) => item.from === 'privacy' && item.langs.includes('de')),
+    true,
+  );
 });
 test('every page links all legal routes and accessible main content', () => {
   for (const { lang, $ } of pages) {
-    for (const route of routes.filter(Boolean))
-      assert.ok($(`footer a[href="${pathFor(lang, route)}"]`).length);
+    for (const page of legalPages) assert.ok($(`footer a[href="${pathFor(lang, page)}"]`).length);
     assert.equal($('a.skip-link').attr('href'), '#main');
     assert.equal($('img:not([alt])').length, 0);
     assert.equal($('table th:not([scope])').length, 0);
@@ -366,8 +402,14 @@ test('sitemap has every localized canonical URL and not duplicate root/404 URLs'
   const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
   assert.deepEqual(
     urls.sort(),
-    languages.flatMap((lang) => routes.map((route) => urlFor(lang, route))).sort(),
+    languages.flatMap((lang) => ['', ...legalPages].map((page) => urlFor(lang, page))).sort(),
   );
+  assert.equal(xml.includes('/de/privacy/'), false);
+  assert.equal(xml.includes('/de/imprint/'), false);
+  assert.equal(xml.includes('/de/datenschutz/'), true);
+  assert.equal(xml.includes('/de/impressum/'), true);
+  assert.equal(xml.includes('/en/privacy/'), true);
+  assert.equal(xml.includes('/en/imprint/'), true);
   assert.equal(xml.includes('privacy-app'), false);
   assert.equal(xml.includes('privacy-website'), false);
   await stat(resolve(out, '404.html'));

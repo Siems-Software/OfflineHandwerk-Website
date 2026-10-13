@@ -1,0 +1,32 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { site, slugFor } from '../config.mjs';
+import { useTranslations, type Locale } from '../i18n';
+import Base from './Base.astro';
+
+interface Props {
+  locale: Locale;
+  page: 'privacy' | 'imprint';
+  hash?: string;
+}
+
+const { locale, page, hash } = Astro.props;
+const t = useTranslations(locale);
+const label = page === 'privacy' ? t.privacy : t.imprint;
+const target = `${getRelativeLocaleUrl(locale, slugFor(locale, page))}${hash ? `#${hash}` : ''}`;
+---
+
+<Base
+  locale={locale}
+  variant="redirect"
+  redirectPage={page}
+  redirectHash={hash}
+  preserveIncomingHash={!hash}
+  title={`${label} | ${site.name}`}
+>
+  <main id="main" class="container legal-page">
+    <p>
+      <a href={target}>{label}</a>
+    </p>
+  </main>
+</Base>

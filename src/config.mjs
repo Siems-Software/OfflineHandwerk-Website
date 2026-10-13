@@ -5,10 +5,27 @@ export const site = {
   email: 'info@offlinehandwerk.de',
 };
 export const languages = ['de', 'en'];
-export const routes = ['', 'privacy/', 'imprint/'];
-export const privacyRedirects = [
-  { from: 'privacy-app/', hash: 'app' },
-  { from: 'privacy-website/', hash: 'website' },
+// Both locales stay prefixed: /de/ and /en/. Slugs differ by language.
+export const prefixDefaultLocale = true;
+export const legalPages = ['privacy', 'imprint'];
+export const slugs = {
+  de: { privacy: 'datenschutz', imprint: 'impressum' },
+  en: { privacy: 'privacy', imprint: 'imprint' },
+};
+export const slugFor = (lang, page) => slugs[lang][page];
+export const pathFor = (lang, page = '') =>
+  `${site.base}${lang}/${page ? `${slugFor(lang, page)}/` : ''}`;
+export const urlFor = (lang, page = '') => `${site.origin}${pathFor(lang, page)}`;
+// Old paths that must keep working. `langs` limits a rename to one locale.
+export const legacyRedirects = [
+  { from: 'privacy', page: 'privacy', langs: ['de'] },
+  { from: 'imprint', page: 'imprint', langs: ['de'] },
+  { from: 'privacy-app', page: 'privacy', hash: 'app' },
+  { from: 'privacy-website', page: 'privacy', hash: 'website' },
 ];
-export const pathFor = (lang, route = '') => `${site.base}${lang}/${route}`;
-export const urlFor = (lang, route = '') => `${site.origin}${pathFor(lang, route)}`;
+export const redirectsFor = (lang) =>
+  legacyRedirects.filter((item) => !item.langs || item.langs.includes(lang));
+export const redirectTo = (lang, redirect) => {
+  const path = pathFor(lang, redirect.page);
+  return redirect.hash ? `${path}#${redirect.hash}` : path;
+};

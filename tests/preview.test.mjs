@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
-import { site, privacyRedirects } from '../src/config.mjs';
+import { site, languages, legalPages, slugFor, redirectsFor, redirectTo } from '../src/config.mjs';
 
 const child = spawn(process.execPath, ['scripts/serve.mjs'], {
   env: { ...process.env, PORT: '0' },
@@ -37,8 +37,9 @@ test.after(async () => {
 });
 
 test('real preview serves all localized pages with 200, not Windows path-prefix 403', async () => {
-  for (const lang of ['de', 'en']) {
-    for (const route of ['', 'privacy/', 'imprint/']) {
+  for (const lang of languages) {
+    for (const page of ['', ...legalPages]) {
+      const route = page ? `${slugFor(lang, page)}/` : '';
       const response = await fetch(`${base}${lang}/${route}`);
       assert.equal(response.status, 200);
       assert.match(response.headers.get('content-type'), /text\/html/);
@@ -48,12 +49,13 @@ test('real preview serves all localized pages with 200, not Windows path-prefix 
   }
 });
 test('old privacy URLs are served for store-listing redirects', async () => {
-  for (const lang of ['de', 'en']) {
-    for (const redirect of privacyRedirects) {
-      const response = await fetch(`${base}${lang}/${redirect.from}`);
+  for (const lang of languages) {
+    for (const redirect of redirectsFor(lang)) {
+      const response = await fetch(`${base}${lang}/${redirect.from}/`);
       assert.equal(response.status, 200);
       const html = await response.text();
-      assert.match(html, new RegExp(`url=${site.base}${lang}/privacy/#${redirect.hash}`));
+      const target = redirectTo(lang, redirect).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      assert.match(html, new RegExp(`url=${target}`));
     }
   }
 });

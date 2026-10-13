@@ -121,8 +121,6 @@ export const en = {
   footerResources: 'No cookies. No external fonts. No analytics services.',
   backHome: 'Back to the product page',
   legalNavigation: 'Legal pages',
-  legalAuthority:
-    'The German version is authoritative. The English version is provided for information.',
   notFoundTitle: 'This page does not exist.',
   notFoundBody: 'Choose the German or English product page.',
 } satisfies Dictionary;

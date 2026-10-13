@@ -51,7 +51,10 @@ report = {
     "checks": [],
     "captures": [],
 }
-routes = ["", "privacy/", "imprint/"]
+routes = {
+    "de": ["", "datenschutz/", "impressum/"],
+    "en": ["", "privacy/", "imprint/"],
+}
 
 
 def open_page(lang, route, width):
@@ -103,7 +106,7 @@ def glyph_contrast(results):
 
 try:
     for lang in ["de", "en"]:
-        for route in routes:
+        for route in routes[lang]:
             for width in [320, 360, 430, 768, 1280] if not route else [360, 1280]:
                 url = open_page(lang, route, width)
                 metrics = d.execute_script(
@@ -144,7 +147,7 @@ try:
                         )
                     )
                     capture("de-mobile-comparison.png")
-                if lang == "de" and route == "privacy/" and width == 360:
+                if lang == "de" and route == "datenschutz/" and width == 360:
                     capture("de-mobile-website-privacy.png")
                     d.find_element("css selector", "a.language").click()
                     w.until(

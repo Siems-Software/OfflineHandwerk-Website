@@ -1,6 +1,5 @@
 ---
 title: "Datenschutz"
-intro: "Diese Erklärung gilt für diese Website und für die App OfflineHandwerk."
 updated: "Stand: Oktober 2026"
 ---
 
