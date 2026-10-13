@@ -3,44 +3,62 @@ title: "Datenschutz"
 updated: "Stand: Oktober 2026"
 ---
 
-## Verantwortlicher und Kontakt
+## 1. Verantwortlicher
 
-Jan Siems, Hintergasse 28, 67308 Bubenheim, Deutschland. Telefon: [+49 176 84328001](tel:+4917684328001). E-Mail: info@offlinehandwerk.de.
+Jan Siems
+Hintergasse 28
+67308 Bubenheim
+Deutschland
 
-Ein Datenschutzbeauftragter ist nicht erforderlich, weil weniger als 20 Personen regelmäßig mit der Verarbeitung personenbezogener Daten betraut sind (§ 38 BDSG).
+Telefon: [+49 176 84328001](tel:+4917684328001)
+E-Mail: info@offlinehandwerk.de
 
-## Deine Rechte
+Ein Datenschutzbeauftragter ist nicht benannt, da keine gesetzliche Pflicht dazu besteht (§ 38 BDSG).
 
-Soweit wir personenbezogene Daten verarbeiten, hast du unter den gesetzlichen Voraussetzungen das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung (Art. 18) und Datenübertragbarkeit (Art. 20). Einer Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO kannst du unter den Voraussetzungen von Art. 21 DSGVO widersprechen. Eine Einwilligung kannst du nach Art. 7 Abs. 3 DSGVO mit Wirkung für die Zukunft widerrufen.
+## 2. Diese Website {#website}
 
-Du kannst dich nach Art. 77 DSGVO beschweren. Zuständig ist: Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz. Anfragen an uns richtest du an info@offlinehandwerk.de oder an die oben genannte Telefonnummer.
+### Hosting und Server-Logs
 
-## Diese Website {#website}
+Die Website wird über GitHub Pages der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA, bereitgestellt. Beim Aufruf verarbeitet GitHub technisch notwendige Verbindungsdaten, insbesondere deine IP-Adresse, die aufgerufene Seite und den Zeitpunkt des Abrufs. Diese Daten werden benötigt, um die Website auszuliefern und ihre Sicherheit zu gewährleisten.
 
-Diese Website ist eine statische Informationsseite ohne Anmeldung, Kontaktformular und Newsletter. Sie setzt keine Cookies, speichert nichts in localStorage und enthält keine Analyse- oder Tracking-Dienste, keine externen Schriftarten, keine CDNs und keine eingebetteten Medien. Es werden keine Kalkulations-, Kunden- oder Betriebsdaten erfasst. Die Website erstellt keine Nutzungs- oder Werbeprofile und trifft keine automatisierte Entscheidung einschließlich Profiling im Sinne von Art. 22 DSGVO.
+Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt im sicheren und zuverlässigen Betrieb der Website. Die Daten können in die USA übermittelt werden. GitHub ist unter dem EU-US Data Privacy Framework zertifiziert, sodass die Übermittlung auf den Angemessenheitsbeschluss der EU-Kommission nach Art. 45 DSGVO gestützt wird. Die Speicherdauer der Server-Logs bestimmt GitHub.
 
-Beim Abruf erhält das Hosting die technisch erforderlichen Verbindungsdaten, insbesondere deine IP-Adresse und die angeforderte Seite, um die Dateien auszuliefern. GitHub Pages speichert Server-Logs einschließlich der IP-Adresse für die Sicherheit der Website. Die Bereitstellung stützt sich auf Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse ist der sichere und zuverlässige Betrieb dieser Informationsseite. Die Verbindungsdaten sind erforderlich, damit die Dateien ausgeliefert werden können. Eine Registrierung ist nicht erforderlich.
+### Cookies und Tracking
 
-Wenn du uns an info@offlinehandwerk.de schreibst, öffnet der E-Mail-Link nur dein E-Mail-Programm und sendet nichts von selbst. Die Website hängt keine App-, Geräte-, Kunden- oder Kalkulationsdaten an. Schickst du die Nachricht, erhalten wir deine Absenderadresse, den Inhalt und Dateien, die du anhängst, um die Anfrage zu beantworten. Für erforderliche vertragsbezogene Anfragen gilt Art. 6 Abs. 1 lit. b DSGVO, sonst Art. 6 Abs. 1 lit. f DSGVO mit dem berechtigten Interesse an der Antwort. Das Senden ist keine Einwilligung. Ohne erreichbare Absenderadresse können wir nicht antworten.
+Diese Website setzt keine Cookies, nutzt keine Analyse- oder Tracking-Dienste und bindet keine Inhalte externer Anbieter ein.
 
-Die Website wird über GitHub Pages von GitHub, Inc. bereitgestellt. GitHub, Inc. ist Empfänger der Server-Logs, einschließlich der IP-Adressen, und verarbeitet sie für Auslieferung und Sicherheit. Dabei kann eine Übermittlung in die USA stattfinden. Diese Übermittlung stützt sich auf das EU-US Data Privacy Framework. Auf dieser Website ist RevenueCat nicht eingebunden. Inhalte anderer Anbieter werden hier nicht geladen. Wenn du einen externen Link öffnest, gelten die Regeln der Zielseite.
+## 3. Kontakt per E-Mail oder Telefon
 
-Wir betreiben auf dieser Website keine Besucherdatenbank. Die Server-Logs, einschließlich der IP-Adressen, speichert GitHub, Inc. für Betrieb und Sicherheit von GitHub Pages. Support-Nachrichten speichern wir, solange wir sie zur Bearbeitung der Anfrage brauchen, und darüber hinaus nur, wenn eine gesetzliche Aufbewahrungspflicht das verlangt.
+Wenn du uns kontaktierst, verarbeiten wir deine Angaben, also Name, Kontaktdaten und den Inhalt deiner Nachricht, um deine Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit die Anfrage einen Vertrag betrifft, und im Übrigen Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der Beantwortung deiner Anfrage. Wir löschen die Daten, sobald sie nicht mehr benötigt werden, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
 
-## Die App OfflineHandwerk {#app}
+## 4. Die App OfflineHandwerk {#app}
 
-Die App läuft auf Android und iOS. Angaben zu Käufen gelten nur, wenn die mobile Store-Anbindung aktiv ist. Kalkulationen, Kunden- und Betriebsdaten, Kontaktdaten, Positionen, interne Notizen, Mitarbeiter- und Katalogeinträge, Firmenprofil, Logo und Einstellungen liegen in der lokalen SQLite-Datenbank auf deinem Gerät. Wir erheben diese Inhalte nicht, übertragen sie nicht an unsere Server und speichern sie dort nicht. Es gibt keine Anmeldung bei uns und keine Synchronisierung dieser Inhalte über unsere Server.
+### Lokale Datenspeicherung
 
-Dein Betrieb verantwortet die rechtmäßige Verarbeitung der eingegebenen Kunden- und Mitarbeiterdaten, einschließlich Rechtsgrundlage, Informationspflichten, Zugriffsrechten und Aufbewahrung. Auf diese lokalen Datensätze haben wir keinen Zugriff. Für sie sind wir weder Verantwortlicher noch Auftragsverarbeiter. Das gilt nicht für Nachrichten, die du uns sendest, und nicht für Kauf- und Lizenzdaten.
+Alle Inhalte, die du in der App erfasst, zum Beispiel Kalkulationen, Kunden-, Mitarbeiter- und Betriebsdaten sowie dein Firmenlogo, werden ausschließlich lokal auf deinem Gerät gespeichert. Wir haben darauf keinen Zugriff und übertragen sie nicht an eigene Server. Für die Rechtmäßigkeit der Verarbeitung dieser Daten bist du selbst verantwortlich.
 
-Wenn du ein Bild als Betriebslogo auswählst, verwendet die App nur das Foto, das du in der Mediathek auswählst, und speichert es lokal für deine PDFs. Kamera und Mikrofon sind in der App-Konfiguration nicht freigegeben. Eine Sicherung importierst du nur, indem du selbst eine Datei auswählst. Die App enthält kein Analyse- und kein Crash-Reporting-SDK. Wir verfolgen deine Kalkulationen und Arbeitsschritte nicht und erstellen keine Nutzungs- oder Werbeprofile. Es gibt keine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO.
+Die App enthält keine Analyse- oder Crash-Reporting-Dienste und erstellt keine Nutzungsprofile.
 
-Die mobile Store-Anbindung initialisiert RevenueCat nur mit einem API-Schlüssel, ohne eigene App-Nutzerkennung und ohne E-Mail-Attribut. RevenueCat erzeugt eine App User ID. Diese Kennung ist pseudonym, nicht garantiert anonym. RevenueCat erhält Kauf-, Transaktions- und Berechtigungsdaten sowie die technischen Daten, die das SDK für Freischaltung und Wiederherstellung benötigt. Die App übermittelt weder eine E-Mail-Adresse noch Kalkulations-, Kunden- oder Betriebsinhalte an RevenueCat. Den zuletzt bekannten Tarif speichert die Store-Anbindung lokal auf dem Gerät. Käufe laufen über den Apple App Store oder Google Play. Apple oder Google verarbeiten die Kauf- und Transaktionsdaten nach ihren eigenen Datenschutzhinweisen. Die Prüfung kann auch bei Free-Nutzern und ohne aktives Abonnement stattfinden. Sie ist keine Anmeldung. Es gibt keinen E-Mail-Login, keinen Login-Zähler und keine E-Mail-zu-Lizenz-Zuordnung auf einem Server von OfflineHandwerk.
+### Berechtigungen
 
-Zweck der Lizenzprüfung ist die Bereitstellung gekaufter Funktionen. Soweit diese Verarbeitung dafür erforderlich ist, ist Rechtsgrundlage Art. 6 Abs. 1 lit. b DSGVO. Ohne diese Prüfung können gekaufte Funktionen nicht freigeschaltet werden. Eine App ohne Store-Anbindung nutzt diese Verarbeitung nicht. Art. 6 Abs. 1 lit. b DSGVO deckt keine Werbeprofile ab; solche Profile erstellen wir nicht. Bei aktiver Store-Anbindung sind Empfänger der Kaufdaten Apple oder Google und Empfänger der Lizenzdaten RevenueCat, Inc. in den USA. Lizenzdaten können in den USA verarbeitet werden. Für diese Übermittlung sehen die veröffentlichten Vertragsbedingungen von RevenueCat EU-Standardvertragsklauseln vor.
+Die App greift nur dann auf deine Fotomediathek zu, wenn du ein Firmenlogo auswählst. Auf Kamera und Mikrofon greift die App nicht zu.
 
-Wenn du Teilen, Drucken oder E-Mail wählst, erhält die von dir ausgewählte App, der Mail-Anbieter oder Drucker die lokal erzeugte PDF. Wir leiten diese Datei nicht über unsere Server. Eine E-Mail an dein Büro oder an eine Kundenadresse hängt die PDF in der von dir gestarteten Mail an diese Adresse. Die Funktion zum Melden eines Problems öffnet dein E-Mail-Programm mit einer Nachricht an info@offlinehandwerk.de. Die Nachricht enthält App-Version, Build, Betriebssystem, Gerätemodell, Tarif und deine Beschreibung. Die App sendet sie nicht selbst und hängt keine Kalkulations- oder Kundendaten und keine Store-Kennungen an. Du prüfst und sendest die Nachricht selbst. Wenn du die E-Mail sendest, erhalten wir deine Absenderadresse, den Inhalt und Dateien, die du selbst anhängst, um dein Anliegen zu bearbeiten. Für erforderliche vertragsbezogene Anfragen ist Rechtsgrundlage Art. 6 Abs. 1 lit. b DSGVO, sonst Art. 6 Abs. 1 lit. f DSGVO mit dem berechtigten Interesse, Anfragen zu beantworten und Fehler zu beheben. Das Senden einer E-Mail ist keine Einwilligung. Support ist freiwillig. Ohne erreichbare Kontaktadresse können wir nicht antworten.
+### In-App-Käufe
 
-Lokale Datensätze bleiben, bis du sie löschst oder die App zurücksetzt. Das Zurücksetzen löscht die lokale Datenbank. Archivieren ist kein Löschen. Bei einer normalen Deinstallation wird die lokale Datenbank entfernt. Betriebssystem-Sicherungen können Kopien behalten. Wir können die lokale Datenbank weder aus der Ferne abrufen oder löschen noch verlorene lokale Inhalte wiederherstellen. PDFs und JSON-Sicherungen entstehen lokal. Die JSON-Sicherung ist unverschlüsselt und bleibt auf dem Gerät, bis du im Teilen-Dialog ein Ziel wählst. Die App lädt Sicherungen nicht hoch. Exportierte Dateien bleiben am gewählten Ziel, bis du sie dort löschst. Das Zurücksetzen der App löscht diese Kopien nicht und löscht auch keine Support-Mails und keine Kaufdaten bei Apple, Google oder RevenueCat. Kauf- und Berechtigungsdaten werden benötigt, solange gekaufte Funktionen bereitgestellt und Käufe wiederhergestellt werden. Apple, Google und RevenueCat bestimmen die Aufbewahrung der Transaktionsdaten, die sie selbst speichern. Support-Nachrichten speichern wir, solange wir sie zur Bearbeitung der Anfrage brauchen, und darüber hinaus nur, wenn eine gesetzliche Aufbewahrungspflicht das verlangt.
+Käufe werden über den Apple App Store oder Google Play abgewickelt. Für die Verarbeitung der Zahlungsdaten sind Apple und Google eigenständig verantwortlich.
 
-Die lokale Nutzung verlangt keine Registrierung und keine Übermittlung deiner Arbeitsdaten an uns. Für eine Antwort im Support brauchen wir eine erreichbare Absenderadresse. Gekaufte Funktionen lassen sich ohne die Lizenzprüfung nicht freischalten.
+Zur Verwaltung und Freischaltung gekaufter Funktionen nutzen wir RevenueCat, Inc. (USA). RevenueCat verarbeitet dazu eine pseudonyme Nutzerkennung sowie Kauf- und Transaktionsdaten. Inhalte aus der App, etwa Kalkulationen oder Kundendaten, werden nicht übermittelt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, denn die Verarbeitung ist erforderlich, um dir die gekauften Funktionen bereitzustellen. Für die Übermittlung in die USA sehen die Vertragsbedingungen von RevenueCat EU-Standardvertragsklauseln vor (Art. 46 Abs. 2 lit. c DSGVO).
+
+### Teilen und Export
+
+Wenn du PDFs oder Sicherungen teilst, druckst oder per E-Mail versendest, übergibt die App die Datei an die App oder den Dienst, den du auswählst. Wir erhalten diese Daten nicht.
+
+### Speicherdauer
+
+Lokale Daten bleiben auf deinem Gerät, bis du sie löschst, die App zurücksetzt oder deinstallierst.
+
+## 5. Deine Rechte
+
+Du hast das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO), Einschränkung der Verarbeitung (Art. 18 DSGVO) und Datenübertragbarkeit (Art. 20 DSGVO). Gegen eine Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO kannst du Widerspruch einlegen (Art. 21 DSGVO).
+
+Du hast außerdem das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Für uns ist zuständig: Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz, Hintere Bleiche 34, 55116 Mainz.
