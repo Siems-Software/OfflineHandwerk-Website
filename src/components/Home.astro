@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import product from '../content/product.json';
+import { storesEnabled } from '../config.mjs';
 import { escapeHtml } from '../lib/html.mjs';
 import Base from './Base.astro';
 import { useTranslations, type Locale } from '../i18n';
@@ -168,28 +169,34 @@ const entitlement = (plan: (typeof plans)[number], key: string) => {
     <section id="download" class="section container download">
       <p class="eyebrow">{t.downloadEyebrow}</p>
       <h2>{t.downloadTitle}</h2>
-      <p class="lead">{t.downloadBody}</p>
-      <div class="store-grid">
-        <div class="store-placeholder" aria-disabled="true">
-          <span class="store-icon" aria-hidden="true">
-            <Icon name="lucide:play" class="icon" aria-hidden="true" />
-          </span>
-          <div>
-            <strong>{t.googlePlay}</strong>
-            <span>{t.storePending}</span>
+      {storesEnabled ? (
+        <>
+          <p class="lead">{t.downloadBody}</p>
+          <div class="store-grid">
+            <div class="store-placeholder" aria-disabled="true">
+              <span class="store-icon" aria-hidden="true">
+                <Icon name="lucide:play" class="icon" aria-hidden="true" />
+              </span>
+              <div>
+                <strong>{t.googlePlay}</strong>
+                <span>{t.storePending}</span>
+              </div>
+            </div>
+            <div class="store-placeholder" aria-disabled="true">
+              <span class="store-icon" aria-hidden="true">
+                <Icon name="lucide:arrow-up-right" class="icon" aria-hidden="true" />
+              </span>
+              <div>
+                <strong>{t.appStore}</strong>
+                <span>{t.storePending}</span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="store-placeholder" aria-disabled="true">
-          <span class="store-icon" aria-hidden="true">
-            <Icon name="lucide:arrow-up-right" class="icon" aria-hidden="true" />
-          </span>
-          <div>
-            <strong>{t.appStore}</strong>
-            <span>{t.storePending}</span>
-          </div>
-        </div>
-      </div>
-      <p class="small">{t.downloadNote}</p>
+          <p class="small">{t.downloadNote}</p>
+        </>
+      ) : (
+        <p class="lead">{t.downloadComingSoon}</p>
+      )}
     </section>
   </main>
 </Base>

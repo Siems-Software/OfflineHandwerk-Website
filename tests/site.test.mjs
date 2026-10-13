@@ -13,6 +13,7 @@ import {
   redirectTo,
   pathFor,
   urlFor,
+  storesEnabled,
 } from '../src/config.mjs';
 import { de } from '../src/i18n/de.ts';
 import { en } from '../src/i18n/en.ts';
@@ -319,9 +320,25 @@ test('Premium shows the published monthly and yearly prices', () => {
     assert.equal($('body').text().includes('This website does not sell subscriptions'), false);
     assert.equal($('a[href*="play.google"],a[href*="apps.apple"]').length, 0);
     assert.equal($('button:not(.theme-toggle)').length, 0);
-    assert.equal($('.store-placeholder[aria-disabled="true"]').length, 2);
+    assert.equal($('.store-placeholder[aria-disabled="true"]').length, storesEnabled ? 2 : 0);
     assert.equal($('.store-placeholder a').length, 0);
+    const download = $('#download').text();
+    assert.equal(download.includes(locales[lang].downloadComingSoon), !storesEnabled);
+    assert.equal(download.includes(locales[lang].downloadBody), storesEnabled);
+    assert.equal(download.includes(locales[lang].storePending), storesEnabled);
+    assert.equal(download.includes(locales[lang].downloadNote), storesEnabled);
+    assert.equal(download.includes(locales[lang].downloadTitle), true);
   }
+});
+test('store listings stay in the source and stay hidden until enabled', async () => {
+  assert.equal(storesEnabled, false);
+  const source = await readFile(resolve(root, 'src/components/Home.astro'), 'utf8');
+  assert.match(source, /storesEnabled \?/);
+  assert.match(source, /class="store-placeholder"/);
+  assert.match(source, /t\.googlePlay/);
+  assert.match(source, /t\.appStore/);
+  assert.match(source, /t\.downloadBody/);
+  assert.match(source, /t\.downloadNote/);
 });
 test('privacy page states shared duties once and keeps website and app sections separate', () => {
   for (const { lang, page, $ } of pages.filter((item) => item.page !== '')) {
