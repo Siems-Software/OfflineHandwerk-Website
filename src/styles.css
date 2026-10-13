@@ -125,6 +125,9 @@ h3 {
   vertical-align: -0.15em;
   flex: none;
 }
+.footer-flag {
+  margin-inline: 0.35em;
+}
 .hero {
   display: grid;
   grid-template-columns: 1.3fr 0.8fr;
