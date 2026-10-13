@@ -27,6 +27,8 @@ The legal basis is Art. 6(1)(f) GDPR. Our legitimate interest is the secure and 
 
 This website sets no cookies, uses no analytics or tracking services and does not embed content from external providers.
 
+The chosen appearance (light or dark) is stored locally in the browser and is not transmitted.
+
 ## 3. Contact by email or phone
 
 If you contact us, we process the details you give us, that is your name, contact details and the content of your message, in order to answer your request. The legal basis is Art. 6(1)(b) GDPR where the request relates to a contract, and otherwise Art. 6(1)(f) GDPR. Our legitimate interest is answering your request. We delete the data as soon as it is no longer needed, unless a statutory retention duty applies.

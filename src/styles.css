@@ -1,4 +1,4 @@
-/* Colors are prepended from the pinned ui-core theme snapshot during the Astro build.
+/* Light and dark colors are prepended from the pinned ui-core theme snapshot during the Astro build.
    App system fonts, 14/16/18/24/28/32px text, 12/16px radii and 16/24/32/48/64px spacing.
    Display-only headline scale extends the app scale for a marketing page. */
 * {
@@ -26,7 +26,8 @@ a {
 a:hover {
   color: var(--actionPrimary);
 }
-a:focus-visible {
+a:focus-visible,
+button:focus-visible {
   outline: 3px solid var(--actionPrimary);
   outline-offset: 5px;
   border-radius: 4px;
@@ -104,17 +105,60 @@ h3 {
 .main-nav a {
   text-decoration: none;
 }
-.language {
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.language,
+.theme-toggle {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 10px 14px;
+  background: transparent;
+  color: var(--textPrimary);
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
   min-height: 44px;
+}
+.language {
+  padding: 10px 14px;
+}
+.theme-toggle {
+  width: 44px;
+  padding: 0;
+  font-size: 18px;
+  cursor: pointer;
+}
+.theme-toggle:hover {
+  color: var(--actionPrimary);
+}
+.theme-toggle .theme-icon-dark {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .theme-toggle .theme-icon-light {
+    display: none;
+  }
+  :root:not([data-theme='light']) .theme-toggle .theme-icon-dark {
+    display: inline-block;
+  }
+}
+:root[data-theme='dark'] .theme-toggle .theme-icon-light {
+  display: none;
+}
+:root[data-theme='dark'] .theme-toggle .theme-icon-dark {
+  display: inline-block;
+}
+:root[data-theme='light'] .theme-toggle .theme-icon-light {
+  display: inline-block;
+}
+:root[data-theme='light'] .theme-toggle .theme-icon-dark {
+  display: none;
 }
 .footer-flag,
 .language-flag,
@@ -178,6 +222,15 @@ h3 {
   height: auto;
   border: 1px solid var(--border);
   border-radius: 20px;
+  box-shadow: 0 16px 40px rgb(36 42 48 / 12%);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .product-shot img {
+    box-shadow: none;
+  }
+}
+:root[data-theme='dark'] .product-shot img {
+  box-shadow: none;
 }
 .section {
   padding-block: 64px;
@@ -323,6 +376,7 @@ th:first-child {
 thead th {
   color: var(--textPrimary);
   font-size: 16px;
+  background: var(--surfaceSubtle);
 }
 tbody th {
   color: var(--textSecondary);
@@ -517,7 +571,7 @@ tbody th {
     width: 32px;
     height: 32px;
   }
-  .language {
+  .header-actions {
     margin-left: auto;
   }
   .main-nav {

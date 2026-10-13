@@ -22,6 +22,7 @@ export const de = {
   navPlans: 'Pakete',
   navDownload: 'Zur App',
   switchLabel: 'Sprache: Deutsch – zu Englisch wechseln',
+  themeToggle: 'Hell/Dunkel umschalten',
   heroEyebrow: 'Für deinen nächsten Auftrag',
   heroTitle: 'Dein Handwerk.',
   heroAccent: 'Deine Preise.',

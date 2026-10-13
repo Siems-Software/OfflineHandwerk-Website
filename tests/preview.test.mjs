@@ -61,14 +61,17 @@ test('old privacy URLs are served for store-listing redirects', async () => {
 });
 test('preview assets resolve at the real GitHub project path', async () => {
   const html = await (await fetch(`${base}de/`)).text();
-  const paths = [...html.matchAll(/(?:src|href)="([^"#]+\.(?:css|webp|png))"/g)].map(
+  const paths = [...html.matchAll(/(?:src|href)="([^"#]+\.(?:css|js|webp|png))"/g)].map(
     (match) => match[1],
   );
-  assert.ok(paths.length >= 4);
+  assert.ok(paths.some((path) => path.endsWith('theme.js')));
+  assert.ok(paths.length >= 5);
   for (const path of new Set(paths)) {
     const response = await fetch(new URL(path, base));
     assert.equal(response.status, 200, path);
     assert.equal(response.headers.get('set-cookie'), null);
+    if (path.endsWith('.js'))
+      assert.match(response.headers.get('content-type'), /javascript/, path);
     assert.ok((await response.arrayBuffer()).byteLength > 0);
   }
 });
