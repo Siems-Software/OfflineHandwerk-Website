@@ -100,16 +100,17 @@ const csp = `default-src 'none';${preserved ? ` ${preserved.csp}` : ''} style-sr
         <a
           class="language"
           href={languageHref}
-          lang={other}
+          lang={locale}
           hreflang={other}
-          aria-label={variant === 'page' ? t.switchLabel : undefined}
+          aria-label={t.switchLabel}
+          title={t.switchLabel}
         >
           <Icon
-            name={other === 'en' ? 'circle-flags:gb' : 'circle-flags:de'}
+            name={locale === 'de' ? 'circle-flags:de' : 'circle-flags:gb'}
             class="language-flag"
             aria-hidden="true"
           />
-          {other.toUpperCase()}
+          {locale.toUpperCase()}
         </a>
       </div>
     </header>

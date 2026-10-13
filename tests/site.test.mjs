@@ -352,7 +352,7 @@ test('imprint pages show the final provider notice in both languages', () => {
   }
 });
 test('footer shows only privacy and imprint, outside the main navigation', () => {
-  for (const { lang, $ } of pages) {
+  for (const { lang, page, $ } of pages) {
     assert.deepEqual(
       $('footer nav a')
         .map((_, element) => $(element).attr('href'))
@@ -378,12 +378,14 @@ test('footer shows only privacy and imprint, outside the main navigation', () =>
     );
     assert.equal($('footer a[href^="mailto:"]').length, 0);
     const other = languages.find((code) => code !== lang);
-    assert.equal($('a.language').text().replace(/\s+/g, ' ').trim(), other.toUpperCase());
+    assert.equal($('a.language').text().replace(/\s+/g, ' ').trim(), lang.toUpperCase());
+    assert.equal($('a.language').attr('href'), pathFor(other, page));
     assert.equal($('a.language').attr('aria-label'), locales[lang].switchLabel);
+    assert.equal($('a.language').attr('title'), locales[lang].switchLabel);
     assert.equal($('a.language svg').attr('aria-hidden'), 'true');
     assert.equal(
       $('a.language svg').attr('data-icon'),
-      other === 'en' ? 'circle-flags:gb' : 'circle-flags:de',
+      lang === 'de' ? 'circle-flags:de' : 'circle-flags:gb',
     );
     const footerHtml = $('footer p.small').html();
     assert.ok(footerHtml.includes(locales[lang].footerBefore));
