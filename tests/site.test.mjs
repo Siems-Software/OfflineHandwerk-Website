@@ -250,7 +250,7 @@ test('imprint pages show the final provider notice in both languages', () => {
   const copy = {
     de: {
       title: 'Impressum',
-      intro: 'Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)',
+      intro: 'Angaben gemäß § 5 DDG',
       headings: [
         'Anbieter',
         'Kontakt',
@@ -268,8 +268,7 @@ test('imprint pages show the final provider notice in both languages', () => {
     },
     en: {
       title: 'Legal notice',
-      intro:
-        'Information pursuant to section 5 of the German Digital Services Act (Digitale-Dienste-Gesetz, DDG)',
+      intro: 'Information pursuant to § 5 DDG',
       headings: [
         'Provider',
         'Contact',
@@ -290,7 +289,8 @@ test('imprint pages show the final provider notice in both languages', () => {
     const $ = pages.find((page) => page.lang === lang && page.route === 'imprint/').$;
     const expected = copy[lang];
     assert.equal($('h1').text(), expected.title);
-    assert.equal($('p.lead').text(), expected.intro);
+    assert.equal($('h1 + h2.legal-statute').text(), expected.intro);
+    assert.equal($('p.lead').length, 0);
     assert.equal($('main .small').text(), expected.updated);
     assert.ok($('main').text().includes(locales[lang].legalAuthority));
     assert.deepEqual(

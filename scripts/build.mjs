@@ -262,7 +262,11 @@ const legalPage = (lang, route) => {
     html`<main id="main" class="container legal-page">
       <a class="back-link" href="${pathFor(lang)}">← ${e(t.backHome)}</a>
       <h1>${e(page.title)}</h1>
-      <p class="lead">${e(page.intro)}</p>
+      ${
+        route === 'imprint/'
+          ? `<h2 class="legal-statute">${e(page.intro)}</h2>`
+          : `<p class="lead">${e(page.intro)}</p>`
+      }
       <p>${e(t.legalAuthority)}</p>
       <nav class="legal-toc" aria-label="${e(t.legalNavigation)}">
         <a href="${pathFor(lang, 'privacy/')}">${e(t.privacy)}</a>

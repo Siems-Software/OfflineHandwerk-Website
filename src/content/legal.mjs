@@ -51,7 +51,7 @@ export const legal = {
     },
     imprint: {
       title: 'Impressum',
-      intro: 'Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)',
+      intro: 'Angaben gemäß § 5 DDG',
       updated: 'Stand: Oktober 2026',
       sections: [
         {
@@ -127,8 +127,7 @@ export const legal = {
     },
     imprint: {
       title: 'Legal notice',
-      intro:
-        'Information pursuant to section 5 of the German Digital Services Act (Digitale-Dienste-Gesetz, DDG)',
+      intro: 'Information pursuant to § 5 DDG',
       updated: 'As of: October 2026',
       sections: [
         {

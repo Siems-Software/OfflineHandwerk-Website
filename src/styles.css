@@ -441,6 +441,18 @@ tbody th {
   margin-bottom: 24px;
   overflow-wrap: anywhere;
 }
+.legal-page h1:has(+ .legal-statute) {
+  margin-bottom: 8px;
+}
+.legal-page h2.legal-statute {
+  max-width: none;
+  margin: 0 0 24px;
+  color: var(--textSecondary);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
 .legal-notice {
   color: var(--warning);
   border: 1px solid var(--warning);
