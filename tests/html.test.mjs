@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { load } from 'cheerio';
-import { escapeHtml } from '../src/html.mjs';
+import { escapeHtml } from '../src/lib/html.mjs';
 
 test('untrusted strings cannot inject HTML, attributes or executable handlers', () => {
   const input = '<script>alert("secret")</script>&\' onerror="alert(1)"';

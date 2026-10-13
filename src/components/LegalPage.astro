@@ -1,0 +1,61 @@
+---
+import { getEntry } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { site } from '../config.mjs';
+import { parseLegalBody } from '../lib/legal.mjs';
+import { renderLegalText } from '../lib/html.mjs';
+import { useTranslations, type Locale } from '../i18n';
+import Base from './Base.astro';
+
+interface Props {
+  locale: Locale;
+  kind: 'privacy' | 'imprint';
+}
+
+const { locale, kind } = Astro.props;
+type LegalSection = { id?: string; title: string; paragraphs: string[] };
+const entry = await getEntry('legal', `${locale}/${kind}`);
+if (!entry?.body) throw new Error(`Missing legal markdown ${locale}/${kind}`);
+const sections = parseLegalBody(entry.body) as LegalSection[];
+const t = useTranslations(locale);
+---
+
+<Base
+  locale={locale}
+  route={kind}
+  title={`${entry.data.title} | ${site.name}`}
+  description={entry.data.intro}
+>
+  <main id="main" class="container legal-page">
+    <a class="back-link" href={getRelativeLocaleUrl(locale)}>
+      ← {t.backHome}
+    </a>
+    <h1>{entry.data.title}</h1>
+    {kind === 'imprint' ? (
+      <h2 class="legal-statute">{entry.data.intro}</h2>
+    ) : (
+      <p class="lead">{entry.data.intro}</p>
+    )}
+    <p>{t.legalAuthority}</p>
+    <nav class="legal-toc" aria-label={t.legalNavigation}>
+      <a href={getRelativeLocaleUrl(locale, 'privacy')}>{t.privacy}</a>
+      {kind === 'privacy' &&
+        sections
+          .filter((section) => section.id)
+          .map((section) => <a href={`#${section.id}`}>{section.title}</a>)}
+      <a href={getRelativeLocaleUrl(locale, 'imprint')}>{t.imprint}</a>
+    </nav>
+    {sections.map((section, index) => {
+      const id = section.id ?? `legal-${index}`;
+      return (
+        <section aria-labelledby={id}>
+          <h2 id={id}>{section.title}</h2>
+          {section.paragraphs.map((paragraph) => (
+            <p set:html={renderLegalText(paragraph)} />
+          ))}
+        </section>
+      );
+    })}
+    <p class="small">{entry.data.updated}</p>
+  </main>
+</Base>

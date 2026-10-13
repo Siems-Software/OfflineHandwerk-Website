@@ -1,0 +1,21 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations } from '../i18n';
+import Base from './Base.astro';
+
+const de = useTranslations('de');
+const en = useTranslations('en');
+---
+
+<Base locale="de" title={de.notFoundTitle} description={de.notFoundBody}>
+  <main id="main" class="container legal-page">
+    <h1>{de.notFoundTitle}</h1>
+    <p>{de.notFoundBody}</p>
+    <a class="button" href={getRelativeLocaleUrl('de')}>
+      {de.language}
+    </a>
+    <a class="text-link" lang="en" href={getRelativeLocaleUrl('en')}>
+      {en.language}
+    </a>
+  </main>
+</Base>

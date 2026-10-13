@@ -1,6 +1,6 @@
 # OfflineHandwerk Website (`offlinehandwerk.github.io`)
 
-Static DE/EN product website with one privacy page and an imprint page. Older app and website privacy URLs redirect to the matching section. Node.js generates plain HTML and CSS: no runtime JavaScript, cookies, browser storage, analytics, external fonts or CDN assets.
+Static DE/EN product website with one privacy page and an imprint page. Older app and website privacy URLs redirect to the matching section. Astro builds plain HTML and CSS with its built-in i18n routing: no runtime JavaScript, cookies, browser storage, analytics, external fonts or CDN assets.
 
 ## Website / target URLs
 
@@ -11,7 +11,7 @@ Static DE/EN product website with one privacy page and an imprint page. Older ap
 
 ### Repository name
 
-This repository is named `offlinehandwerk.github.io`. Because it belongs to the `Siems-Software` organization, GitHub serves it as a **project site** below the repository name, so `site.base` in `src/config.mjs` is `/offlinehandwerk.github.io/`. The former URL `https://siems-software.github.io/OfflineHandwerk-Website/` is not redirected.
+This repository is named `offlinehandwerk.github.io`. Because it belongs to the `Siems-Software` organization, GitHub serves it as a **project site** below the repository name, so `site.base` in `src/config.mjs` is `/offlinehandwerk.github.io/`. Astro's `base` is that path without a trailing slash. The former URL `https://siems-software.github.io/OfflineHandwerk-Website/` is not redirected.
 
 The root domain `https://offlinehandwerk.github.io/` would require a GitHub organization named `offlinehandwerk`. A custom domain (e.g. `offlinehandwerk.de`) is also possible; both require `site.base` to become `/` and a matching `site.origin`. See [GitHub's site types](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages).
 
@@ -29,11 +29,11 @@ Open `http://127.0.0.1:4311/offlinehandwerk.github.io/de/`. `PORT` changes the p
 
 ## Structure
 
-- `src/locales/`: complete marketing/UI copy in German and English.
-- `src/content/legal.mjs`: published imprint and privacy notices. German is authoritative.
+- `src/i18n/`: typed UI dictionaries, one file per language.
+- `src/content/legal/`: Impressum and Datenschutz as Markdown content collections. German is authoritative.
 - `src/content/product.json`: pinned app tokens, entitlements and Free limits.
-- `src/styles.css`: token-based responsive styles.
-- `scripts/build.mjs`: escaped HTML, reciprocal hreflang, sitemap and local assets.
+- `src/pages/`: Astro routes. `de/` and `en/` are the built-in locale prefixes. `index.astro` repeats the German home page at the project root. Old `privacy-app` and `privacy-website` routes redirect to the privacy anchors.
+- `src/styles.css`: token-based responsive styles. The build prepends the pinned dark-theme variables.
 - `scripts/serve.mjs`: loopback-only production preview.
 - `tests/site.test.mjs`: localization, route, legal scope, resource and feature checks.
 
@@ -59,7 +59,7 @@ Review copy, limits and test expectations with every update. The sync reads decl
 
 ## Languages and evidence
 
-Add a complete locale JSON and matching legal text, extend `languages` in `src/config.mjs`, and update schema/count tests. The builder creates all routes and reciprocal hreflang. Switching languages preserves legal-page context without storing a preference. German legal text remains authoritative.
+Add a complete typed dictionary and matching legal Markdown, extend `languages` in `src/config.mjs` (Astro reads that list as its i18n locales), and update schema/count tests. Astro creates the locale routes; the layout emits reciprocal hreflang. Switching languages preserves legal-page context without storing a preference. German legal text remains authoritative.
 
 Product images in `public/assets/` are intentional shipped artwork of the real German-language web application, not native Android/iOS captures. See [asset sources](docs/asset-sources.md). Review screenshots belong in PR attachments, outside Git history.
 

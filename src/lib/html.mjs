@@ -1,0 +1,17 @@
+// Locale, issue-derived and legal strings are data, never trusted HTML.
+export const escapeHtml = (value) =>
+  String(value).replace(
+    /[&<>"']/g,
+    (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char],
+  );
+
+// A paragraph may contain one [label](tel:+digits) token. Everything else stays text.
+export const renderLegalText = (text) =>
+  String(text)
+    .split(/(\[[^\]]+\]\(tel:\+\d+\))/g)
+    .map((part) => {
+      const link = /^\[([^\]]+)\]\((tel:\+\d+)\)$/.exec(part);
+      if (!link) return escapeHtml(part);
+      return `<a href="${escapeHtml(link[2])}">${escapeHtml(link[1])}</a>`;
+    })
+    .join('');
