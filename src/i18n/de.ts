@@ -20,6 +20,7 @@ export const de = {
   navConcept: 'Konzept',
   navFeatures: 'Funktionen',
   navPlans: 'Pakete',
+  navManual: 'Anleitung',
   navDownload: 'Zur App',
   switchLabel: 'Sprache: Deutsch – zu Englisch wechseln',
   themeToggle: 'Hell/Dunkel umschalten',
@@ -120,6 +121,61 @@ export const de = {
   footerBefore: 'Mit ❤️ in',
   footerAfter: 'hergestellt',
   footerFlag: 'Deutschland',
+  manualTitle: 'Anleitung',
+  manualLead: 'OfflineHandwerk läuft auf deinem Gerät. Deine Arbeitsdaten bleiben dort.',
+  manualSections: [
+    {
+      title: 'Erste Schritte',
+      steps: [
+        'Beim ersten Start erklärt die App, dass deine Daten lokal bleiben und dass sie deine Arbeit nicht auswertet. Die Paketübersicht kannst du überspringen.',
+        'Hinterlege den Firmennamen unter Stammdaten, Firma. Ohne Firmennamen lässt sich kein PDF exportieren.',
+        'Über die Startseite erreichst du Stammdaten, Kalkulationen und Einstellungen.',
+      ],
+    },
+    {
+      title: 'Kunden, Materialien und Leistungen',
+      steps: [
+        'Unter Stammdaten pflegst du Kunden sowie Bausteine für Material, Leistungen, Mitarbeiter, Steuersätze und Zuschläge.',
+        'Beim Kunden ist der Name oder die Firma erforderlich. Alle weiteren Angaben sind optional.',
+        'Ohne Premium gelten die Grenzen der Produktseite: bis zu 5 Kunden, 5 Mitarbeiter, 25 Materialien, 25 Leistungen, 3 Steuersätze und 3 Zuschläge. Archivierte Kunden und Kalkulationen zählen mit. Bestehende Einträge bleiben bearbeitbar.',
+      ],
+    },
+    {
+      title: 'Kalkulation erstellen',
+      steps: [
+        'Tippe auf „Jetzt kalkulieren“ unter Kalkulationen, oder starte direkt bei einem Kunden.',
+        'Wähle einen Kunden oder erfasse einen neuen. Ergänze Leistungen, Material, Mitarbeiter, Zuschläge, Rabatt und Steuern.',
+        'Prüfe Netto, Steuer und Gesamtsumme und speichere die Kalkulation.',
+        'Gespeicherte Kalkulationen kannst du suchen, bearbeiten und archivieren. Ohne Premium sind es bis zu 5, einschließlich archivierter.',
+      ],
+    },
+    {
+      title: 'PDF exportieren und teilen',
+      steps: [
+        'Öffne „PDF Kunde“ in der Kalkulation und prüfe die Vorschau. In Free trägt sie ein Wasserzeichen.',
+        'Mit Premium exportierst du ohne Wasserzeichen, setzt ein eigenes Logo, nutzt Positionsvorlagen und kannst ein internes PDF erstellen oder an das Büro senden.',
+        'Teilen, Drucken oder E-Mail übergibt die Datei an das Programm, das du auswählst. Wir erhalten sie nicht.',
+      ],
+    },
+    {
+      title: 'Backup und Wiederherstellung',
+      steps: [
+        'Backup und Wiederherstellung ist in Premium enthalten. Ohne diese Funktion kannst du keine vollständige lokale Datenbanksicherung erstellen. Ein PDF-Export ersetzt kein Backup.',
+        'Der Export erzeugt eine unverschlüsselte JSON-Datei. Im Teilen-Menü wählst du den Speicherort. Wir laden die Datei nicht hoch.',
+        'Beim Import kannst du zusammenführen oder die lokalen Daten ersetzen. Ersetzen löscht die aktuellen lokalen Kalkulationen, Bausteine und Einstellungen und fragt vorher nach.',
+        'Geht das Gerät verloren oder löschst du die App-Daten, können wir sie nicht wiederherstellen.',
+      ],
+    },
+    {
+      title: 'Premium freischalten',
+      steps: [
+        'Premium hebt die Free-Grenzen auf und schaltet die PDF- und Sicherungsfunktionen frei, die oben genannt sind.',
+        'Auf der Produktseite stehen 9,99 € / Monat und 109,99 € / Jahr (1 Monat gratis).',
+        'Der Kauf läuft in der App über den Apple App Store oder Google Play, nicht auf dieser Website. „Premium ansehen“ öffnet die Pakete. Abrechnung und Kündigung liegen beim Store.',
+        'Apple oder Google verarbeiten die Zahlung. Zur Freischaltung verarbeitet RevenueCat eine pseudonyme Kennung und Kaufdaten, nicht deine Kalkulationen oder Kundendaten.',
+      ],
+    },
+  ],
   notFoundTitle: 'Diese Seite gibt es nicht.',
   notFoundBody: 'Wähle die deutsche oder englische Produktseite.',
 } as const;

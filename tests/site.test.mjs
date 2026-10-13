@@ -7,6 +7,7 @@ import {
   site,
   languages,
   legalPages,
+  guidePages,
   slugFor,
   legacyRedirects,
   redirectsFor,
@@ -25,7 +26,7 @@ const legal = await loadLegal();
 const product = await json('src/content/product.json');
 const pages = await Promise.all(
   languages.flatMap((lang) =>
-    ['', ...legalPages].map(async (page) => ({
+    ['', ...legalPages, ...guidePages].map(async (page) => ({
       lang,
       page,
       route: page ? `${slugFor(lang, page)}/` : '',
@@ -64,7 +65,7 @@ test('DE and EN have matching, non-empty translation and legal schemas', () => {
   }
 });
 test('localized pages have correct language, canonical and reciprocal hreflang', () => {
-  assert.equal(pages.length, languages.length * (legalPages.length + 1));
+  assert.equal(pages.length, languages.length * (legalPages.length + guidePages.length + 1));
   for (const { lang, page, $ } of pages) {
     assert.equal($('html').attr('lang'), lang);
     assert.equal($('link[rel="canonical"]').attr('href'), urlFor(lang, page));
@@ -324,7 +325,7 @@ test('Premium shows the published monthly and yearly prices', () => {
   }
 });
 test('privacy page states shared duties once and keeps website and app sections separate', () => {
-  for (const { lang, page, $ } of pages.filter((item) => item.page !== '')) {
+  for (const { lang, page, $ } of pages.filter((item) => legalPages.includes(item.page))) {
     assert.equal($('.legal-notice').length, 0);
     assert.equal($('main .small').text(), legal[lang][page].updated);
     assert.equal($('main').text().includes('Die deutsche Fassung ist maßgeblich'), false);
@@ -571,12 +572,42 @@ test('every page links all legal routes and accessible main content', () => {
     assert.equal($('table th:not([scope])').length, 0);
   }
 });
+test('manual pages follow the published app flow in both languages', () => {
+  for (const { lang, $ } of pages.filter((item) => item.page === 'manual')) {
+    assert.equal($('h1').text(), locales[lang].manualTitle);
+    assert.equal($('p.lead').text(), locales[lang].manualLead);
+    assert.deepEqual(
+      $('main section h2')
+        .map((_, element) => $(element).text())
+        .get(),
+      locales[lang].manualSections.map((section) => section.title),
+    );
+    assert.deepEqual(
+      $('main li')
+        .map((_, element) => $(element).text())
+        .get(),
+      locales[lang].manualSections.flatMap((section) => [...section.steps]),
+    );
+    assert.equal($('nav.legal-toc, main nav, a.back-link').length, 0);
+    assert.equal($('main').text().includes('Solo'), false);
+    assert.equal($('main').text().includes('Betrieb-Paket'), false);
+  }
+  for (const { lang, $ } of pages) {
+    const link = $('nav.main-nav a').filter(
+      (_, element) => $(element).text() === locales[lang].navManual,
+    );
+    assert.equal(link.length, 1);
+    assert.equal(link.attr('href'), pathFor(lang, 'manual'));
+  }
+});
 test('sitemap has every localized canonical URL and not duplicate root/404 URLs', async () => {
   const xml = await readFile(resolve(out, 'sitemap.xml'), 'utf8');
   const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
   assert.deepEqual(
     urls.sort(),
-    languages.flatMap((lang) => ['', ...legalPages].map((page) => urlFor(lang, page))).sort(),
+    languages
+      .flatMap((lang) => ['', ...legalPages, ...guidePages].map((page) => urlFor(lang, page)))
+      .sort(),
   );
   assert.equal(xml.includes('/de/privacy/'), false);
   assert.equal(xml.includes('/de/imprint/'), false);
@@ -584,6 +615,8 @@ test('sitemap has every localized canonical URL and not duplicate root/404 URLs'
   assert.equal(xml.includes('/de/impressum/'), true);
   assert.equal(xml.includes('/en/privacy/'), true);
   assert.equal(xml.includes('/en/imprint/'), true);
+  assert.equal(xml.includes('/de/anleitung/'), true);
+  assert.equal(xml.includes('/en/manual/'), true);
   assert.equal(xml.includes('privacy-app'), false);
   assert.equal(xml.includes('privacy-website'), false);
   await stat(resolve(out, '404.html'));

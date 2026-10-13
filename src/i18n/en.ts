@@ -10,6 +10,7 @@ export const en = {
   navConcept: 'Concept',
   navFeatures: 'Features',
   navPlans: 'Plans',
+  navManual: 'Manual',
   navDownload: 'Get the app',
   switchLabel: 'Language: English – switch to German',
   themeToggle: 'Toggle light/dark',
@@ -109,6 +110,61 @@ export const en = {
   footerBefore: 'Made with ❤️ in',
   footerAfter: '',
   footerFlag: 'Germany',
+  manualTitle: 'Manual',
+  manualLead: 'OfflineHandwerk runs on your device. Your work data stays there.',
+  manualSections: [
+    {
+      title: 'First steps',
+      steps: [
+        'On first launch the app explains that your data stays local and that it does not track your work. You can skip the plan overview.',
+        'Add your business name under Business details, Company. A PDF cannot be exported without a business name.',
+        'The home screen opens Business details, Calculations and Settings.',
+      ],
+    },
+    {
+      title: 'Customers, materials and services',
+      steps: [
+        'Under Business details you keep customers and reusable blocks for materials, services, employees, tax rates and surcharges.',
+        'A customer needs a name or company. Every other field is optional.',
+        'Without Premium the limits on the product page apply: up to 5 customers, 5 employees, 25 materials, 25 services, 3 tax rates and 3 surcharges. Archived customers and calculations count. Existing entries stay editable.',
+      ],
+    },
+    {
+      title: 'Create a calculation',
+      steps: [
+        'Choose Calculate a job under Calculations, or start from a customer.',
+        'Select a customer or enter a new one. Add services, materials, employees, surcharges, a discount and taxes.',
+        'Check the net amount, tax and total, then save the calculation.',
+        'You can search, edit and archive saved calculations. Without Premium you can keep up to 5, including archived ones.',
+      ],
+    },
+    {
+      title: 'Export and share a PDF',
+      steps: [
+        'Open Customer PDF in the calculation and check the preview. On Free it carries a watermark.',
+        'With Premium you export without a watermark, add your own logo, use reusable line-item templates, and can create an internal PDF or send it to the office.',
+        'Share, print or email hands the file to the app you choose. We do not receive it.',
+      ],
+    },
+    {
+      title: 'Backup and restore',
+      steps: [
+        'Backup and restore is included in Premium. Without it you cannot create a full local database backup. A PDF export does not replace a backup.',
+        'Export creates an unencrypted JSON file. Choose where to keep it in the share sheet. We do not upload the file.',
+        'On import you can merge or replace local data. Replace deletes the current local calculations, blocks and settings, and asks first.',
+        'If the device is lost or you delete the app data, we cannot restore it.',
+      ],
+    },
+    {
+      title: 'Unlock Premium',
+      steps: [
+        'Premium removes the Free limits and unlocks the PDF and backup features named above.',
+        'The product page lists €9.99 / month and €109.99 / year (1 month free).',
+        'You buy it in the app through the Apple App Store or Google Play, not on this website. Explore Premium opens the plans. The store bills you and handles cancellation.',
+        'Apple or Google process the payment. To unlock the purchase, RevenueCat processes a pseudonymous identifier and purchase data, not your calculations or customer records.',
+      ],
+    },
+  ],
   notFoundTitle: 'This page does not exist.',
   notFoundBody: 'Choose the German or English product page.',
 } satisfies Dictionary;

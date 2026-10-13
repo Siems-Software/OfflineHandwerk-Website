@@ -8,9 +8,10 @@ export const languages = ['de', 'en'];
 // Both locales stay prefixed: /de/ and /en/. Slugs differ by language.
 export const prefixDefaultLocale = true;
 export const legalPages = ['privacy', 'imprint'];
+export const guidePages = ['manual'];
 export const slugs = {
-  de: { privacy: 'datenschutz', imprint: 'impressum' },
-  en: { privacy: 'privacy', imprint: 'imprint' },
+  de: { privacy: 'datenschutz', imprint: 'impressum', manual: 'anleitung' },
+  en: { privacy: 'privacy', imprint: 'imprint', manual: 'manual' },
 };
 export const slugFor = (lang, page) => slugs[lang][page];
 export const pathFor = (lang, page = '') =>
