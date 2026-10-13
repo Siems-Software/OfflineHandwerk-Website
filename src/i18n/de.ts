@@ -130,7 +130,6 @@ export const de = {
   contact: 'Kontakt',
   footerResources: 'Keine Cookies. Keine externen Fonts. Keine Analyse-Dienste.',
   backHome: 'Zur Produktseite',
-  legalNavigation: 'Rechtliche Seiten',
   notFoundTitle: 'Diese Seite gibt es nicht.',
   notFoundBody: 'Wähle die deutsche oder englische Produktseite.',
 } as const;

@@ -1,7 +1,7 @@
 ---
 import { getEntry } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { site, slugFor } from '../config.mjs';
+import { site } from '../config.mjs';
 import { parseLegalBody } from '../lib/legal.mjs';
 import { renderLegalText } from '../lib/html.mjs';
 import { useTranslations, type Locale } from '../i18n';
@@ -32,10 +32,6 @@ const t = useTranslations(locale);
     </a>
     <h1>{entry.data.title}</h1>
     {kind === 'imprint' && <h2 class="legal-statute">{entry.data.intro}</h2>}
-    <nav class="legal-toc" aria-label={t.legalNavigation}>
-      <a href={getRelativeLocaleUrl(locale, slugFor(locale, 'privacy'))}>{t.privacy}</a>
-      <a href={getRelativeLocaleUrl(locale, slugFor(locale, 'imprint'))}>{t.imprint}</a>
-    </nav>
     {sections.map((section, index) => {
       const id = section.id ?? `legal-${index}`;
       return (
