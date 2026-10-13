@@ -46,7 +46,7 @@ const languageHref =
     : localePath(other, route);
 const localeCodes = languages.filter(isLocale);
 const preserved = preserveIncomingHash ? hashRedirect(redirectTarget) : null;
-const csp = `default-src 'none';${preserved ? ` ${preserved.csp}` : ''} style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'`;
+const csp = `default-src 'none'; ${preserved ? preserved.csp : "script-src 'self';"} style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'`;
 ---
 
 <!doctype html>
@@ -55,8 +55,9 @@ const csp = `default-src 'none';${preserved ? ` ${preserved.csp}` : ''} style-sr
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Security-Policy" content={csp} />
+    <script is:inline src={`${import.meta.env.BASE_URL}theme.js`}></script>
     {variant === 'page' && <meta name="description" content={description} />}
-    {variant === 'page' && <meta name="color-scheme" content="dark" />}
+    <meta name="color-scheme" content="light dark" />
     {variant === 'redirect' && <meta name="robots" content="noindex" />}
     {variant === 'redirect' && preserveIncomingHash && (
       <script is:inline set:html={preserved?.script} />
@@ -97,21 +98,33 @@ const csp = `default-src 'none';${preserved ? ` ${preserved.csp}` : ''} style-sr
             <a href={`${home}#plans`}>{t.navPlans}</a>
           </nav>
         )}
-        <a
-          class="language"
-          href={languageHref}
-          lang={locale}
-          hreflang={other}
-          aria-label={t.switchLabel}
-          title={t.switchLabel}
-        >
-          <Icon
-            name={locale === 'de' ? 'circle-flags:de' : 'circle-flags:gb'}
-            class="language-flag"
-            aria-hidden="true"
-          />
-          {locale.toUpperCase()}
-        </a>
+        <div class="header-actions">
+          <button
+            type="button"
+            class="theme-toggle"
+            data-theme-toggle
+            aria-label={t.themeToggle}
+            title={t.themeToggle}
+          >
+            <Icon name="lucide:sun" class="icon theme-icon theme-icon-light" aria-hidden="true" />
+            <Icon name="lucide:moon" class="icon theme-icon theme-icon-dark" aria-hidden="true" />
+          </button>
+          <a
+            class="language"
+            href={languageHref}
+            lang={locale}
+            hreflang={other}
+            aria-label={t.switchLabel}
+            title={t.switchLabel}
+          >
+            <Icon
+              name={locale === 'de' ? 'circle-flags:de' : 'circle-flags:gb'}
+              class="language-flag"
+              aria-hidden="true"
+            />
+            {locale.toUpperCase()}
+          </a>
+        </div>
       </div>
     </header>
     <slot />

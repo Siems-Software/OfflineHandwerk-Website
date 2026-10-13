@@ -12,6 +12,7 @@ export const en = {
   navPlans: 'Plans',
   navDownload: 'Get the app',
   switchLabel: 'Language: English – switch to German',
+  themeToggle: 'Toggle light/dark',
   heroEyebrow: 'For your next job',
   heroTitle: 'Your craft.',
   heroAccent: 'Your prices.',

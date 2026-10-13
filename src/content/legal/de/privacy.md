@@ -27,6 +27,8 @@ Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse lie
 
 Diese Website setzt keine Cookies, nutzt keine Analyse- oder Tracking-Dienste und bindet keine Inhalte externer Anbieter ein.
 
+Die gewählte Darstellung (hell oder dunkel) wird lokal im Browser gespeichert und nicht übermittelt.
+
 ## 3. Kontakt per E-Mail oder Telefon
 
 Wenn du uns kontaktierst, verarbeiten wir deine Angaben, also Name, Kontaktdaten und den Inhalt deiner Nachricht, um deine Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit die Anfrage einen Vertrag betrifft, und im Übrigen Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der Beantwortung deiner Anfrage. Wir löschen die Daten, sobald sie nicht mehr benötigt werden, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.

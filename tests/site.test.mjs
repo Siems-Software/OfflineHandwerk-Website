@@ -127,15 +127,21 @@ test('all internal links and fragments resolve below the GitHub project base', a
     }
   }
 });
-test('every page is script-free and loads only same-origin resources', async () => {
+test('pages load only the local theme script and same-origin resources', async () => {
   for (const { $ } of pages) {
-    assert.equal($('script,iframe,embed,object,form').length, 0);
+    assert.equal($('script').length, 1);
+    assert.equal($('script').attr('src'), `${site.base}theme.js`);
+    assert.equal($('head script').length, 1);
+    assert.equal($('script').attr('defer'), undefined);
+    assert.equal($('script').attr('async'), undefined);
+    assert.equal($('script').attr('type'), undefined);
+    assert.equal($('iframe,embed,object,form').length, 0);
     assert.equal($('[style]').length, 0);
-    assert.ok(
-      $('meta[http-equiv="Content-Security-Policy"]')
-        .attr('content')
-        .includes("default-src 'none'"),
-    );
+    const csp = $('meta[http-equiv="Content-Security-Policy"]').attr('content');
+    assert.ok(csp.includes("default-src 'none'"));
+    assert.ok(csp.includes("script-src 'self'"));
+    assert.equal(csp.includes('unsafe-inline'), false);
+    assert.equal(csp.includes('unsafe-eval'), false);
     for (const element of $('*').toArray()) {
       for (const [key, value] of Object.entries(element.attribs || {})) {
         assert.ok(!key.startsWith('on'), `Inline event ${key}`);
@@ -162,7 +168,23 @@ test('every page is script-free and loads only same-origin resources', async () 
   );
   assert.ok(!/@import|url\(/i.test(css));
 });
-test('theme colors are the actual pinned ui-core dark tokens', async () => {
+const contrast = (foreground, background) => {
+  const channel = (hex) => {
+    const value = Number.parseInt(hex.slice(1), 16);
+    return [(value >> 16) & 255, (value >> 8) & 255, value & 255].map((part) => {
+      const ratio = part / 255;
+      return ratio <= 0.04045 ? ratio / 12.92 : ((ratio + 0.055) / 1.055) ** 2.4;
+    });
+  };
+  const luminance = (hex) => {
+    const [red, green, blue] = channel(hex);
+    return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+  };
+  const lighter = Math.max(luminance(foreground), luminance(background));
+  const darker = Math.min(luminance(foreground), luminance(background));
+  return (lighter + 0.05) / (darker + 0.05);
+};
+test('light and dark themes use the pinned tokens and meet WCAG AA', async () => {
   assert.match(product.source.commit, /^[a-f0-9]{40}$/);
   const css = await readFile(
     resolve(
@@ -172,9 +194,63 @@ test('theme colors are the actual pinned ui-core dark tokens', async () => {
     ),
     'utf8',
   );
-  for (const [key, value] of Object.entries(product.themes.dark))
-    assert.ok(css.includes(`--${key}:${value};`));
+  assert.ok(css.includes(':root{color-scheme:light;'));
+  assert.ok(
+    css.includes(
+      '@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;',
+    ),
+  );
+  assert.ok(css.includes(':root[data-theme="dark"]{color-scheme:dark;'));
+  for (const theme of ['light', 'dark']) {
+    const tokens = product.themes[theme];
+    for (const [key, value] of Object.entries(tokens))
+      assert.ok(css.includes(`--${key}:${value};`));
+    for (const [foreground, minimum] of [
+      ['textPrimary', 4.5],
+      ['textSecondary', 4.5],
+      ['textMuted', 4.5],
+      ['actionPrimary', 4.5],
+    ]) {
+      assert.ok(contrast(tokens[foreground], tokens.background) >= minimum);
+      assert.ok(contrast(tokens[foreground], tokens.surface) >= minimum);
+    }
+    assert.ok(contrast(tokens.onActionPrimary, tokens.actionPrimary) >= 4.5);
+    assert.ok(contrast(tokens.warning, tokens.warningContainer) >= 4.5);
+    assert.ok(contrast(tokens.success, tokens.background) >= 3);
+    assert.ok(contrast(tokens.border, tokens.background) >= 3);
+  }
   assert.equal(product.themes.dark.actionPrimary, '#FFAA76');
+  assert.equal(product.themes.light.actionPrimary, '#B84712');
+});
+test('theme toggle sits beside the language switch and stores a local choice', async () => {
+  const script = await readFile(resolve(root, 'public/theme.js'), 'utf8');
+  assert.match(script, /const key = 'theme'/);
+  assert.match(script, /localStorage\.getItem\(key\)/);
+  assert.match(script, /localStorage\.setItem\(key, next\)/);
+  assert.match(script, /prefers-color-scheme: dark/);
+  assert.match(script, /stored === 'light' \|\| stored === 'dark'/);
+  assert.doesNotMatch(script, /document\.write|eval\(|innerHTML/);
+  for (const { lang, $ } of pages) {
+    const actions = $('.header-actions');
+    assert.equal(actions.length, 1);
+    const button = actions.find('button.theme-toggle');
+    const language = actions.find('a.language');
+    assert.equal(button.attr('type'), 'button');
+    assert.equal(button.attr('aria-label'), locales[lang].themeToggle);
+    assert.equal(button.attr('title'), locales[lang].themeToggle);
+    assert.equal(button.find('svg[data-icon="lucide:sun"]').attr('aria-hidden'), 'true');
+    assert.equal(button.find('svg[data-icon="lucide:moon"]').attr('aria-hidden'), 'true');
+    assert.equal(button.find('svg').length, 2);
+    assert.ok(actions.html().indexOf('theme-toggle') < actions.html().indexOf('class="language"'));
+    assert.equal(language.attr('aria-label'), locales[lang].switchLabel);
+    assert.equal($('meta[name="color-scheme"]').attr('content'), 'light dark');
+  }
+  for (const file of ['index.html', '404.html']) {
+    const $ = load(await readFile(resolve(out, file), 'utf8'));
+    assert.equal($('head script').attr('src'), `${site.base}theme.js`);
+    assert.equal($('button.theme-toggle').attr('aria-label'), locales.de.themeToggle);
+    assert.equal($('meta[name="color-scheme"]').attr('content'), 'light dark');
+  }
 });
 test('comparison renders real Free limits, not unlimited catalog claims', () => {
   assert.deepEqual(product.limits, {
@@ -241,7 +317,8 @@ test('Premium shows the published monthly and yearly prices', () => {
     assert.equal($('body').text().includes('Price to follow in the store'), false);
     assert.equal($('body').text().includes('Die Website verkauft keine Abos'), false);
     assert.equal($('body').text().includes('This website does not sell subscriptions'), false);
-    assert.equal($('a[href*="play.google"],a[href*="apps.apple"],button').length, 0);
+    assert.equal($('a[href*="play.google"],a[href*="apps.apple"]').length, 0);
+    assert.equal($('button:not(.theme-toggle)').length, 0);
     assert.equal($('.store-placeholder[aria-disabled="true"]').length, 2);
     assert.equal($('.store-placeholder a').length, 0);
   }
@@ -274,6 +351,12 @@ test('privacy page states shared duties once and keeps website and app sections 
     assert.ok(website.includes('GitHub, Inc., 88 Colin P. Kelly Jr. Street'));
     assert.ok(website.includes('Data Privacy Framework'));
     assert.ok(website.includes(lang === 'de' ? 'IP-Adresse' : 'IP address'));
+    const themeStorage =
+      lang === 'de'
+        ? 'Die gewählte Darstellung (hell oder dunkel) wird lokal im Browser gespeichert und nicht übermittelt.'
+        : 'The chosen appearance (light or dark) is stored locally in the browser and is not transmitted.';
+    assert.equal(website.includes(themeStorage), true);
+    assert.equal(app.includes(themeStorage), false);
     assert.ok(!website.includes('RevenueCat'));
     assert.ok(app.includes('RevenueCat, Inc. (USA)'));
     assert.ok(app.includes(lang === 'de' ? 'Firmenlogo' : 'company logo'));
@@ -452,12 +535,18 @@ test('old privacy and imprint URLs redirect to the localized pages', async () =>
       assert.equal($('link[rel="canonical"]').attr('href'), urlFor(lang, redirect.page));
       assert.equal($('meta[name="robots"]').attr('content'), 'noindex');
       assert.equal($(`a[href="${target}"]`).length > 0, true);
-      assert.equal($('script').length, redirect.hash ? 0 : 1);
-      if (!redirect.hash)
+      assert.equal($('head script[src]').attr('src'), `${site.base}theme.js`);
+      assert.equal($('script').length, redirect.hash ? 1 : 2);
+      if (!redirect.hash) {
         assert.match(
-          $('script').text(),
+          $('script:not([src])').text(),
           new RegExp(`location.replace\\(${JSON.stringify(target)}`),
         );
+        assert.match(
+          $('meta[http-equiv="Content-Security-Policy"]').attr('content'),
+          /script-src 'self' 'sha256-[A-Za-z0-9+/=]+'/,
+        );
+      }
       assert.equal($('link[hreflang]').length, 0);
       const other = languages.find((code) => code !== lang);
       assert.equal($('a.language').attr('href'), redirectTo(other, redirect));

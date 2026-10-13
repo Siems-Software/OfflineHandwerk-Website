@@ -6,11 +6,11 @@ import { resolve } from 'node:path';
 import product from './src/content/product.json' with { type: 'json' };
 import { languages, legalPages, prefixDefaultLocale, site, urlFor } from './src/config.mjs';
 
-const themeCss = `/* App tokens: ${product.source.commit} */\n:root{${Object.entries(
-  product.themes.dark,
-)
-  .map(([key, value]) => `--${key}:${value};`)
-  .join('')}}\n`;
+const themeBlock = (selector, tokens, scheme) =>
+  `${selector}{color-scheme:${scheme};${Object.entries(tokens)
+    .map(([key, value]) => `--${key}:${value};`)
+    .join('')}}`;
+const themeCss = `/* App tokens: ${product.source.commit} */\n${themeBlock(':root', product.themes.light, 'light')}\n@media (prefers-color-scheme: dark){${themeBlock(':root:not([data-theme="light"])', product.themes.dark, 'dark')}}\n${themeBlock(':root[data-theme="dark"]', product.themes.dark, 'dark')}\n`;
 
 export default defineConfig({
   site: site.origin,

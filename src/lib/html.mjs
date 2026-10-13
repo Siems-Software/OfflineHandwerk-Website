@@ -20,6 +20,6 @@ export const renderLegalText = (text) =>
 
 export const hashRedirect = (target) => {
   const script = `location.replace(${JSON.stringify(target)}+location.hash)`;
-  const csp = `script-src 'sha256-${createHash('sha256').update(script).digest('base64')}';`;
+  const csp = `script-src 'self' 'sha256-${createHash('sha256').update(script).digest('base64')}';`;
   return { script, csp };
 };
