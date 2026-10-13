@@ -9,6 +9,11 @@ export const dictionaries: Record<Locale, Dictionary> = { de, en };
 export const isLocale = (value: string | undefined): value is Locale =>
   value === 'de' || value === 'en';
 
+export type LegalPageName = 'privacy' | 'imprint';
+
+export const isLegalPage = (value: string | null | undefined): value is LegalPageName =>
+  value === 'privacy' || value === 'imprint';
+
 export const useTranslations = (locale: Locale) => dictionaries[locale];
 
 export const otherLocale = (locale: Locale): Locale => (locale === 'de' ? 'en' : 'de');

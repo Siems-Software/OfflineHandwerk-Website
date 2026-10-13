@@ -32,7 +32,7 @@ Open `http://127.0.0.1:4311/offlinehandwerk.github.io/de/`. `PORT` changes the p
 - `src/i18n/`: typed UI dictionaries, one file per language.
 - `src/content/legal/`: Impressum and Datenschutz as Markdown content collections. German is authoritative.
 - `src/content/product.json`: pinned app tokens, entitlements and Free limits.
-- `src/pages/`: Astro routes. `de/` and `en/` are the built-in locale prefixes. `index.astro` repeats the German home page at the project root. Old `privacy-app` and `privacy-website` routes redirect to the privacy anchors.
+- `src/pages/`: Astro routes. `/de/` and `/en/` stay as the locale prefixes. German legal pages are `/de/datenschutz/` and `/de/impressum/`; English legal pages are `/en/privacy/` and `/en/imprint/`. Slugs live in `src/config.mjs`. `index.astro` repeats the German home page at the project root. `/de/privacy/`, `/de/imprint/`, and the old `privacy-app` and `privacy-website` routes redirect to the current pages, keeping `#app` and `#website`.
 - `src/styles.css`: token-based responsive styles. The build prepends the pinned dark-theme variables.
 - `scripts/serve.mjs`: loopback-only production preview.
 - `tests/site.test.mjs`: localization, route, legal scope, resource and feature checks.
@@ -59,7 +59,7 @@ Review copy, limits and test expectations with every update. The sync reads decl
 
 ## Languages and evidence
 
-Add a complete typed dictionary and matching legal Markdown, extend `languages` in `src/config.mjs` (Astro reads that list as its i18n locales), and update schema/count tests. Astro creates the locale routes; the layout emits reciprocal hreflang. Switching languages preserves legal-page context without storing a preference. German legal text remains authoritative.
+Add a complete typed dictionary and matching legal Markdown, extend `languages` and `slugs` in `src/config.mjs` (Astro reads that language list as its i18n locales), and update schema/count tests. Astro creates the locale routes; the layout emits reciprocal hreflang. Switching languages preserves legal-page context without storing a preference. German legal text remains authoritative.
 
 Product images in `public/assets/` are intentional shipped artwork of the real German-language web application, not native Android/iOS captures. See [asset sources](docs/asset-sources.md). Review screenshots belong in PR attachments, outside Git history.
 

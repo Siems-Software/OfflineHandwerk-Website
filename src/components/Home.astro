@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { slugFor } from '../config.mjs';
 import product from '../content/product.json';
 import { escapeHtml } from '../lib/html.mjs';
 import Base from './Base.astro';
@@ -21,7 +22,7 @@ const planCopy = {
 const permissionKeys = Object.keys(t.features).filter((key) => key.startsWith('can'));
 const entitlement = (plan: (typeof plans)[number], key: string) =>
   product.entitlements[plan][key as keyof (typeof product.entitlements)[typeof plan]];
-const privacyHref = getRelativeLocaleUrl(locale, 'privacy');
+const privacyHref = getRelativeLocaleUrl(locale, slugFor(locale, 'privacy'));
 ---
 
 <Base locale={locale} title={t.metaTitle} description={t.metaDescription}>

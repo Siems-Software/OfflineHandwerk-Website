@@ -32,13 +32,15 @@ export const parseLegalDocument = (source) => {
     if (!field) throw new Error(`Invalid legal frontmatter: ${line}`);
     data[field[1]] = JSON.parse(field[2]);
   }
-  for (const key of ['title', 'intro', 'updated']) {
+  for (const key of ['title', 'updated']) {
     if (typeof data[key] !== 'string' || data[key].trim() === '')
       throw new Error(`Missing legal ${key}`);
   }
+  if (data.intro != null && (typeof data.intro !== 'string' || data.intro.trim() === ''))
+    throw new Error('Missing legal intro');
   return {
     title: data.title,
-    intro: data.intro,
+    ...(typeof data.intro === 'string' ? { intro: data.intro } : {}),
     updated: data.updated,
     sections: parseLegalBody(match[2]),
   };

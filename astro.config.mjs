@@ -3,7 +3,7 @@ import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import product from './src/content/product.json' with { type: 'json' };
-import { languages, routes, site, urlFor } from './src/config.mjs';
+import { languages, legalPages, prefixDefaultLocale, site, urlFor } from './src/config.mjs';
 
 const themeCss = `/* App tokens: ${product.source.commit} */\n:root{${Object.entries(
   product.themes.dark,
@@ -24,7 +24,7 @@ export default defineConfig({
     defaultLocale: 'de',
     locales: [...languages],
     routing: {
-      prefixDefaultLocale: true,
+      prefixDefaultLocale,
       redirectToDefaultLocale: false,
     },
   },
@@ -52,7 +52,7 @@ export default defineConfig({
       hooks: {
         'astro:build:done': ({ dir }) => {
           const urls = languages.flatMap((lang) =>
-            routes.map((route) => `<url><loc>${urlFor(lang, route)}</loc></url>`),
+            ['', ...legalPages].map((page) => `<url><loc>${urlFor(lang, page)}</loc></url>`),
           );
           writeFileSync(
             resolve(fileURLToPath(dir), 'sitemap.xml'),

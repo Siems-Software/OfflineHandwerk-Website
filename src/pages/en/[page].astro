@@ -1,29 +1,22 @@
 ---
 import LegalPage from '../../components/LegalPage.astro';
-import PrivacyRedirect from '../../components/PrivacyRedirect.astro';
-import { isLocale } from '../../i18n';
-import { subpagePaths } from '../../lib/pages.mjs';
+import LegacyRedirect from '../../components/LegacyRedirect.astro';
+import { isLegalPage, isLocale } from '../../i18n';
+import { staticPages } from '../../lib/pages.mjs';
 
-export const getStaticPaths = () => subpagePaths();
+export const getStaticPaths = () => staticPages('en');
 
 const locale = Astro.currentLocale;
 if (!isLocale(locale) || locale !== 'en') throw new Error(`Expected en, got ${locale}`);
-const page = Astro.params.page;
-if (
-  page !== 'privacy' &&
-  page !== 'imprint' &&
-  page !== 'privacy-app' &&
-  page !== 'privacy-website'
-)
-  throw new Error(`Unexpected page ${page}`);
+const { kind, redirect } = Astro.props;
+const legalKind = isLegalPage(kind) ? kind : null;
+const legacyPage = isLegalPage(redirect?.page) ? redirect.page : null;
+const hash = typeof redirect?.hash === 'string' ? redirect.hash : undefined;
+if (!legalKind && !legacyPage) throw new Error(`Unexpected page ${Astro.params.page}`);
 ---
 
-{page === 'privacy' ? (
-  <LegalPage locale={locale} kind="privacy" />
-) : page === 'imprint' ? (
-  <LegalPage locale={locale} kind="imprint" />
-) : page === 'privacy-app' ? (
-  <PrivacyRedirect locale={locale} hash="app" />
+{legalKind ? (
+  <LegalPage locale={locale} kind={legalKind} />
 ) : (
-  <PrivacyRedirect locale={locale} hash="website" />
+  legacyPage && <LegacyRedirect locale={locale} page={legacyPage} hash={hash} />
 )}

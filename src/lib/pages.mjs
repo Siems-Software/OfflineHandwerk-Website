@@ -1,3 +1,12 @@
-export const subpages = ['privacy', 'imprint', 'privacy-app', 'privacy-website'];
+import { legalPages, redirectsFor, slugFor } from '../config.mjs';
 
-export const subpagePaths = () => subpages.map((page) => ({ params: { page } }));
+export const staticPages = (lang) => [
+  ...legalPages.map((page) => ({
+    params: { page: slugFor(lang, page) },
+    props: { kind: page, redirect: null },
+  })),
+  ...redirectsFor(lang).map((redirect) => ({
+    params: { page: redirect.from },
+    props: { kind: null, redirect },
+  })),
+];

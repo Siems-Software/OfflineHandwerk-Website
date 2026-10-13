@@ -131,8 +131,6 @@ export const de = {
   footerResources: 'Keine Cookies. Keine externen Fonts. Keine Analyse-Dienste.',
   backHome: 'Zur Produktseite',
   legalNavigation: 'Rechtliche Seiten',
-  legalAuthority:
-    'Die deutsche Fassung ist maßgeblich. Die englische Fassung dient der Information.',
   notFoundTitle: 'Diese Seite gibt es nicht.',
   notFoundBody: 'Wähle die deutsche oder englische Produktseite.',
 } as const;

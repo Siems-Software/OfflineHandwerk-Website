@@ -1,6 +1,5 @@
 ---
 title: "Privacy"
-intro: "This notice covers this website and the OfflineHandwerk app."
 updated: "As of: October 2026"
 ---
 

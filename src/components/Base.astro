@@ -1,7 +1,8 @@
 ---
 import '../styles.css';
 import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from 'astro:i18n';
-import { languages, site } from '../config.mjs';
+import { languages, site, slugFor } from '../config.mjs';
+import { hashRedirect } from '../lib/html.mjs';
 import { isLocale, otherLocale, useTranslations, type Locale } from '../i18n';
 
 interface Props {
@@ -10,25 +11,41 @@ interface Props {
   title: string;
   description?: string;
   variant?: 'page' | 'redirect';
+  redirectPage?: 'privacy' | 'imprint';
   redirectHash?: string;
+  preserveIncomingHash?: boolean;
 }
 
-const { locale, route = '', title, description, variant = 'page', redirectHash } = Astro.props;
-const path = route || undefined;
+const {
+  locale,
+  route = '',
+  title,
+  description,
+  variant = 'page',
+  redirectPage,
+  redirectHash,
+  preserveIncomingHash = false,
+} = Astro.props;
 const other = otherLocale(locale);
 const t = useTranslations(locale);
 const home = getRelativeLocaleUrl(locale);
 const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
-const canonical = getAbsoluteLocaleUrl(locale, variant === 'redirect' ? 'privacy' : path);
+const localePath = (lang: Locale, page: string) =>
+  page ? getRelativeLocaleUrl(lang, slugFor(lang, page)) : getRelativeLocaleUrl(lang);
+const absoluteLocalePath = (lang: Locale, page: string) =>
+  page ? getAbsoluteLocaleUrl(lang, slugFor(lang, page)) : getAbsoluteLocaleUrl(lang);
+const pageKey = variant === 'redirect' ? (redirectPage ?? '') : route;
+const hashSuffix = redirectHash ? `#${redirectHash}` : '';
+const canonical = absoluteLocalePath(locale, pageKey);
 const redirectTarget =
-  variant === 'redirect' ? `${getRelativeLocaleUrl(locale, 'privacy')}#${redirectHash}` : '';
+  variant === 'redirect' ? `${localePath(locale, redirectPage ?? '')}${hashSuffix}` : '';
 const languageHref =
   variant === 'redirect'
-    ? `${getRelativeLocaleUrl(other, 'privacy')}#${redirectHash}`
-    : getRelativeLocaleUrl(other, path);
+    ? `${localePath(other, redirectPage ?? '')}${hashSuffix}`
+    : localePath(other, route);
 const localeCodes = languages.filter(isLocale);
-const csp =
-  "default-src 'none'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'";
+const preserved = preserveIncomingHash ? hashRedirect(redirectTarget) : null;
+const csp = `default-src 'none';${preserved ? ` ${preserved.csp}` : ''} style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'`;
 ---
 
 <!doctype html>
@@ -36,23 +53,29 @@ const csp =
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content={csp} />
     {variant === 'page' && <meta name="description" content={description} />}
     {variant === 'page' && <meta name="color-scheme" content="dark" />}
-    {variant === 'redirect' && (
-      <>
-        <meta name="robots" content="noindex" />
-        <meta http-equiv="refresh" content={`0; url=${redirectTarget}`} />
-      </>
+    {variant === 'redirect' && <meta name="robots" content="noindex" />}
+    {variant === 'redirect' && preserveIncomingHash && (
+      <script is:inline set:html={preserved?.script} />
     )}
-    <meta http-equiv="Content-Security-Policy" content={csp} />
+    {variant === 'redirect' &&
+      (preserveIncomingHash ? (
+        <noscript>
+          <meta http-equiv="refresh" content={`0; url=${redirectTarget}`} />
+        </noscript>
+      ) : (
+        <meta http-equiv="refresh" content={`0; url=${redirectTarget}`} />
+      ))}
     <title>{title}</title>
     <link rel="canonical" href={canonical} />
     {variant === 'page' &&
       localeCodes.map((code) => (
-        <link rel="alternate" hreflang={code} href={getAbsoluteLocaleUrl(code, path)} />
+        <link rel="alternate" hreflang={code} href={absoluteLocalePath(code, route)} />
       ))}
     {variant === 'page' && (
-      <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl('de', path)} />
+      <link rel="alternate" hreflang="x-default" href={absoluteLocalePath('de', route)} />
     )}
     <link rel="icon" href={asset('app-icon.png')} type="image/png" />
   </head>
@@ -95,8 +118,8 @@ const csp =
           <p class="small">{t.footerResources}</p>
         </div>
         <nav aria-label={t.footerLegal}>
-          <a href={getRelativeLocaleUrl(locale, 'privacy')}>{t.privacy}</a>
-          <a href={getRelativeLocaleUrl(locale, 'imprint')}>{t.imprint}</a>
+          <a href={localePath(locale, 'privacy')}>{t.privacy}</a>
+          <a href={localePath(locale, 'imprint')}>{t.imprint}</a>
         </nav>
       </div>
     </footer>
