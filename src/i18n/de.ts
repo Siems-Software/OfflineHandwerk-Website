@@ -128,7 +128,7 @@ export const de = {
   privacy: 'Datenschutz',
   imprint: 'Impressum',
   contact: 'Kontakt',
-  footerResources: 'Keine Cookies. Keine externen Fonts. Keine Analyse-Dienste.',
+  footerMade: 'Gemacht mit ❤️ in 🇩🇪',
   notFoundTitle: 'Diese Seite gibt es nicht.',
   notFoundBody: 'Wähle die deutsche oder englische Produktseite.',
 } as const;
