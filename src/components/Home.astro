@@ -17,7 +17,7 @@ const planCopy = {
   free: { name: t.freeName, description: t.freeDescription },
   premium: { name: t.premiumName, description: t.premiumDescription },
 };
-const sourcePlan = { free: 'free', premium: 'solo' } as const;
+const sourcePlan = { free: 'free', premium: 'business' } as const;
 const permissionKeys = Object.keys(t.features).filter((key) => key.startsWith('can'));
 const entitlement = (plan: (typeof plans)[number], key: string) => {
   const source = sourcePlan[plan];

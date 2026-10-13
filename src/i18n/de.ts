@@ -74,7 +74,8 @@ export const de = {
   premiumName: 'Premium',
   freePrice: 'Kostenlos',
   freeDescription: 'Die Grundlagen zum Kennenlernen.',
-  premiumDescription: 'Premium für deine Kalkulationen und PDFs.',
+  premiumDescription:
+    'Premium für deine Kalkulationen und PDFs, plus Backup und Wiederherstellung.',
   premiumMonthly: '9,99 € / Monat',
   premiumYearly: '109,99 € / Jahr (1 Monat gratis)',
   tableCaption: 'Funktionen und Grenzen der mobilen App im Vergleich',

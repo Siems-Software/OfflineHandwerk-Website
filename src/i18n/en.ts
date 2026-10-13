@@ -64,7 +64,7 @@ export const en = {
   premiumName: 'Premium',
   freePrice: 'Free of charge',
   freeDescription: 'The essentials to try it out.',
-  premiumDescription: 'Premium for your calculations and PDFs.',
+  premiumDescription: 'Premium for your calculations and PDFs, plus backup and restore.',
   premiumMonthly: '€9.99 / month',
   premiumYearly: '€109.99 / year (1 month free)',
   tableCaption: 'Mobile app features and limits compared',

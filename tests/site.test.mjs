@@ -196,11 +196,11 @@ test('comparison renders real Free limits, not unlimited catalog claims', () => 
     }
   }
 });
-test('Premium column matches Solo entitlements and Business is not shown', () => {
+test('Premium includes backup and matches Business entitlements', () => {
   assert.equal(product.entitlements.free.canExportWithoutWatermark, false);
-  assert.equal(product.entitlements.solo.canCreateInternalPdf, true);
-  assert.equal(product.entitlements.solo.canSendOfficeEmail, true);
-  assert.equal(product.entitlements.solo.canBackupRestore, false);
+  assert.equal(product.entitlements.free.canBackupRestore, false);
+  assert.equal(product.entitlements.business.canCreateInternalPdf, true);
+  assert.equal(product.entitlements.business.canSendOfficeEmail, true);
   assert.equal(product.entitlements.business.canBackupRestore, true);
   for (const { lang, $ } of pages.filter((page) => page.route === '')) {
     assert.deepEqual(
@@ -209,10 +209,11 @@ test('Premium column matches Solo entitlements and Business is not shown', () =>
         .get(),
       [locales[lang].tableFeature, locales[lang].freeName, locales[lang].premiumName],
     );
+    assert.ok($('.plan-card').text().includes(locales[lang].premiumDescription));
     for (const key of Object.keys(locales[lang].features).filter((key) => key.startsWith('can'))) {
       const row = $(`tr[data-feature="${key}"]`);
       assert.equal(row.find('td').length, 2);
-      ['free', 'solo'].forEach((plan, index) =>
+      ['free', 'business'].forEach((plan, index) =>
         assert.equal(
           row.find('td').eq(index).find('.sr-only').text(),
           product.entitlements[plan][key] ? locales[lang].included : locales[lang].notIncluded,
