@@ -21,7 +21,7 @@ export const de = {
   navFeatures: 'Funktionen',
   navPlans: 'Pakete',
   navDownload: 'Zur App',
-  switchLabel: 'Switch to English',
+  switchLabel: 'Sprache: Deutsch – zu Englisch wechseln',
   heroEyebrow: 'Für deinen nächsten Auftrag',
   heroTitle: 'Dein Handwerk.',
   heroAccent: 'Deine Preise.',
