@@ -1,21 +1,19 @@
-# OfflineHandwerk Website
+# OfflineHandwerk Website (`siems-software.github.io`)
 
 Static DE/EN product website with separate app privacy, website privacy and imprint pages. Node.js generates plain HTML and CSS: no runtime JavaScript, cookies, browser storage, analytics, external fonts or CDN assets.
 
 ## Website / target URLs
 
-**GitHub Pages:** [https://siems-software.github.io/OfflineHandwerk-Website/](https://siems-software.github.io/OfflineHandwerk-Website/)
+**GitHub Pages:** [https://siems-software.github.io/](https://siems-software.github.io/)
 
-- [Deutsch](https://siems-software.github.io/OfflineHandwerk-Website/de/) (default)
-- [English](https://siems-software.github.io/OfflineHandwerk-Website/en/)
+- [Deutsch](https://siems-software.github.io/de/) (default)
+- [English](https://siems-software.github.io/en/)
 
 ### Repository name
 
-No rename is required: this is a **project site**, whose default URL contains the repository name. `OfflineHandwerk-Website` is therefore valid.
+This repository is named `siems-software.github.io`, so it is the **organization site** of Siems-Software and is served from the domain root. `site.base` in `src/config.mjs` must therefore be `/`. The former project URL `https://siems-software.github.io/OfflineHandwerk-Website/` is no longer served and is not redirected. See [GitHub's site types](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages).
 
-An organization-wide site at `https://siems-software.github.io/` instead requires a repository named `Siems-Software.github.io`. That is a different site scope, not a prerequisite for this product website. See [GitHub's site types](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages).
-
-Renaming this project would change its Pages path. Update `site.base` in `src/config.mjs`, documented URLs and route expectations, then rebuild and verify deployment. A custom domain is also possible, but requires a separate domain/Pages configuration and consistent `site.origin`/`site.base`; renaming alone does not configure it.
+A custom domain (e.g. `offlinehandwerk.de`) is possible later. It requires a `CNAME`/Pages domain configuration and a matching `site.origin`; `site.base` stays `/`.
 
 ## Run locally
 
@@ -27,7 +25,7 @@ npm run check
 npm run preview
 ```
 
-Open `http://127.0.0.1:4311/OfflineHandwerk-Website/de/`. `PORT` changes the preview port. The project base path is preserved locally to catch broken GitHub Pages links.
+Open `http://127.0.0.1:4311/de/`. `PORT` changes the preview port. The configured base path is preserved locally to catch broken GitHub Pages links.
 
 ## Structure
 
