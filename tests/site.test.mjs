@@ -194,10 +194,15 @@ test('both billing periods are explicit, with no invented paid prices or checkou
     assert.equal($('.store-placeholder a').length, 0);
   }
 });
-test('legal notices stay visible and the correct app/website scopes remain separate', () => {
+test('legal pages keep the authority note and separate app and website scopes', () => {
   for (const { lang, route, $ } of pages.filter((page) => page.route !== '')) {
-    if (route === 'imprint/') assert.equal($('.legal-notice').length, 0);
-    else assert.equal($('.legal-notice strong').text(), legal[lang].notice);
+    assert.equal($('.legal-notice').length, 0);
+    assert.equal(
+      $('main .small').text(),
+      legal[lang][
+        route === 'privacy-app/' ? 'app' : route === 'privacy-website/' ? 'website' : 'imprint'
+      ].updated,
+    );
     assert.ok($('main').text().includes(locales[lang].legalAuthority));
     assert.ok($('main').text().includes(site.email));
     assert.ok($('main').text().includes('Jan Siems'));
@@ -207,13 +212,36 @@ test('legal notices stay visible and the correct app/website scopes remain separ
       .find((page) => page.lang === lang && page.route === 'privacy-website/')
       .$('main')
       .text();
-    assert.ok(website.includes('GitHub'));
+    assert.ok(website.includes('GitHub, Inc.'));
+    assert.ok(website.includes('Data Privacy Framework'));
+    assert.ok(website.includes(lang === 'de' ? 'IP-Adresse' : 'IP address'));
     assert.ok(!website.includes('OPFS'));
-    const app = pages
-      .find((page) => page.lang === lang && page.route === 'privacy-app/')
-      .$('main')
-      .text();
+    const appPage = pages.find((page) => page.lang === lang && page.route === 'privacy-app/');
+    const websitePage = pages.find(
+      (page) => page.lang === lang && page.route === 'privacy-website/',
+    );
+    const app = appPage.$('main').text();
+    const authority =
+      'Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz';
+    const officer =
+      lang === 'de'
+        ? 'Ein Datenschutzbeauftragter ist nicht erforderlich.'
+        : 'A data protection officer is not required.';
+    for (const page of [appPage, websitePage]) {
+      assert.equal(page.$('a[href="tel:+4917684328001"]').length, 1);
+      assert.ok(page.$('main').text().includes(officer));
+      assert.ok(page.$('main').text().includes(authority));
+      assert.ok(page.$('main').text().includes('Art. 6'));
+      assert.ok(page.$('main').text().includes('Art. 15'));
+      assert.ok(page.$('main').text().includes('Art. 21'));
+      assert.doesNotMatch(
+        page.$('main').text(),
+        /Entwurf|rechtliche Freigabe|noch nicht bestätigt|vor Veröffentlichung|Draft|pending legal|not legally approved/,
+      );
+    }
+    assert.ok(app.includes('SQLite'));
     assert.ok(app.includes('RevenueCat'));
+    assert.ok(!app.includes('Data Privacy Framework'));
   }
 });
 test('imprint pages show the final provider notice in both languages', () => {

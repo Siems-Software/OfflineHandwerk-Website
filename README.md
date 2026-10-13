@@ -30,7 +30,7 @@ Open `http://127.0.0.1:4311/offlinehandwerk.github.io/de/`. `PORT` changes the p
 ## Structure
 
 - `src/locales/`: complete marketing/UI copy in German and English.
-- `src/content/legal.mjs`: legal drafts; never remove warnings without confirmed facts and approval.
+- `src/content/legal.mjs`: published imprint and privacy notices. German is authoritative.
 - `src/content/product.json`: pinned app tokens, entitlements and Free limits.
 - `src/styles.css`: token-based responsive styles.
 - `scripts/build.mjs`: escaped HTML, reciprocal hreflang, sitemap and local assets.
@@ -43,7 +43,7 @@ Settings → Pages should select **GitHub Actions** for this generated-site work
 
 Changes are delivered through pull requests for owner review and merge; no automatic merge is enabled. Configure github-pages environment approval if legal signoff must gate deployment after merge.
 
-These are **draft notices, not legally approved policies**. See [legal review](docs/legal-review.md). Monthly/yearly prices and store destinations are unavailable placeholders: no invented prices, savings or QR destinations. Do not use draft policy URLs in store listings without legal approval.
+The imprint and privacy pages are the public notices. See [legal review](docs/legal-review.md) for checks that are still open. Monthly/yearly prices and store destinations are unavailable placeholders: no invented prices, savings or QR destinations. Do not describe this website build as a store-listing release.
 
 ## Update app facts
 

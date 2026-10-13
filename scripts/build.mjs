@@ -255,13 +255,8 @@ const renderLegalText = (text) =>
     .join('');
 const legalPage = (lang, route) => {
   const t = locales[lang];
-  const all = legal[lang];
-  const page = all[legalKeys[route]];
-  const isImprint = route === 'imprint/';
-  const draftNotice = isImprint
-    ? ''
-    : `<aside class="legal-notice"><strong>${e(all.notice)}</strong></aside><p class="small">${e(all.updated)}</p>`;
-  const imprintUpdated = isImprint ? `<p class="small">${e(page.updated)}</p>` : '';
+  const page = legal[lang][legalKeys[route]];
+  const updated = page.updated ? `<p class="small">${e(page.updated)}</p>` : '';
   return shell(
     lang,
     route,
@@ -271,7 +266,6 @@ const legalPage = (lang, route) => {
       <a class="back-link" href="${pathFor(lang)}">← ${e(t.backHome)}</a>
       <h1>${e(page.title)}</h1>
       <p class="lead">${e(page.intro)}</p>
-      ${draftNotice}
       <p>${e(t.legalAuthority)}</p>
       <nav class="legal-toc" aria-label="${e(t.legalNavigation)}">
         <a href="${pathFor(lang, 'privacy-app/')}">${e(t.appPrivacy)}</a
@@ -279,7 +273,7 @@ const legalPage = (lang, route) => {
         ><a href="${pathFor(lang, 'imprint/')}">${e(t.imprint)}</a>
       </nav>
       ${page.sections.map((section, i) => `<section aria-labelledby="legal-${i}"><h2 id="legal-${i}">${e(section.title)}</h2>${section.paragraphs.map((text) => `<p>${renderLegalText(text)}</p>`).join('')}</section>`).join('')}
-      ${imprintUpdated}
+      ${updated}
     </main>`,
   );
 };

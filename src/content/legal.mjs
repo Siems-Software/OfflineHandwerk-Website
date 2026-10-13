@@ -1,82 +1,65 @@
-// Privacy pages remain drafts. Render their notice and updated outside accordions.
-// The imprint is the final provider notice and supplies its own updated date.
 // German is authoritative; English is provided for information.
 // A paragraph may contain [label](tel:+digits). The builder escapes the label and href.
 export const legal = {
   de: {
-    notice:
-      'Entwurf – nicht rechtlich freigegeben. Die nach Art. 13 DSGVO erforderlichen Angaben zu Empfängern, Rechtsgrundlagen, internationalen Übermittlungen und Löschfristen sind noch nicht vollständig bestätigt. Diese Informationen sind noch keine vollständige Datenschutzerklärung. Maßgeblich ist die deutsche Fassung; die englische Fassung ist eine Übersetzung dieses Entwurfs.',
-    updated: 'Stand: 11. Oktober 2026 · Entwurf, rechtliche Freigabe ausstehend',
     app: {
       title: 'Datenschutz in der App',
       intro:
-        'Diese Informationen betreffen die lokale OfflineHandwerk-App auf Android und iOS. Angaben zu Käufen und RevenueCat gelten nur bei aktiver mobiler Store-Anbindung. Die separate Marketing-Website und eine gegebenenfalls separat betriebene Web-App sind nicht mit der mobilen App gleichzusetzen. Dieser Text bleibt bis zur Klärung der offenen Punkte ein Entwurf.',
+        'Diese Informationen gelten für die OfflineHandwerk-App auf Android und iOS. Die Marketing-Website hat eine eigene Datenschutzerklärung. Angaben zu Käufen gelten nur, wenn die mobile Store-Anbindung aktiv ist.',
+      updated: 'Stand: Oktober 2026',
       sections: [
         {
-          title: 'Verantwortlicher und Kontakt',
+          title: 'Verantwortlicher',
           paragraphs: [
-            'Jan Siems, Hintergasse 28, 67308 Bubenheim, Deutschland. E-Mail: info@offlinehandwerk.de.',
-            'Diese Kontaktangaben gelten für personenbezogene Daten, die wir tatsächlich verarbeiten, etwa Support-Nachrichten. Sie benennen keinen bestätigten Datenschutzbeauftragten.',
+            'Jan Siems, Hintergasse 28, 67308 Bubenheim, Deutschland. Telefon: [+49 176 84328001](tel:+4917684328001). E-Mail: info@offlinehandwerk.de.',
+            'Ein Datenschutzbeauftragter ist nicht erforderlich.',
           ],
         },
         {
-          title: 'Deine Arbeitsdaten bleiben lokal',
+          title: 'Welche Daten verarbeitet werden',
           paragraphs: [
-            'Kalkulationen, Kunden- und Betriebsdaten, Kontaktdaten, Positionen, interne Notizen, Mitarbeiter- und Katalogeinträge, Firmenprofil, Logo und Einstellungen liegen in der lokalen SQLite-Datenbank auf deinem Gerät. Wir erheben diese App-Inhalte nicht, übertragen sie nicht an unsere Server und speichern sie dort nicht. Es gibt keine Anmeldung bei uns und keine Synchronisierung dieser Inhalte über unsere Server.',
-            'Dein Betrieb verantwortet die rechtmäßige Verarbeitung der eingegebenen Kunden- und Mitarbeiterdaten, einschließlich Rechtsgrundlage, Informationspflichten, Zugriffsrechten und Aufbewahrung. Nur für diese lokalen Datensätze sind wir mangels Zugriff weder Verantwortlicher noch Auftragsverarbeiter. Das gilt nicht für Nachrichten, die du uns sendest, oder für die Verarbeitung von Kauf- und Lizenzdaten.',
+            'Kalkulationen, Kunden- und Betriebsdaten, Kontaktdaten, Positionen, interne Notizen, Mitarbeiter- und Katalogeinträge, Firmenprofil, Logo und Einstellungen liegen in der lokalen SQLite-Datenbank auf deinem Gerät. Wir erheben diese Inhalte nicht, übertragen sie nicht an unsere Server und speichern sie dort nicht. Es gibt keine Anmeldung bei uns und keine Synchronisierung dieser Inhalte über unsere Server.',
+            'Dein Betrieb verantwortet die rechtmäßige Verarbeitung der eingegebenen Kunden- und Mitarbeiterdaten, einschließlich Rechtsgrundlage, Informationspflichten, Zugriffsrechten und Aufbewahrung. Auf diese lokalen Datensätze haben wir keinen Zugriff. Für sie sind wir weder Verantwortlicher noch Auftragsverarbeiter. Das gilt nicht für Nachrichten, die du uns sendest, und nicht für Kauf- und Lizenzdaten.',
+            'Wenn du ein Bild als Betriebslogo auswählst, verwendet die App nur das Foto, das du in der Mediathek auswählst, und speichert es lokal für deine PDFs. Kamera und Mikrofon sind in der App-Konfiguration nicht freigegeben. Eine Sicherung importierst du nur, indem du selbst eine Datei auswählst.',
+            'Die App enthält kein Analyse- und kein Crash-Reporting-SDK. Wir verfolgen deine Kalkulationen und Arbeitsschritte nicht und erstellen keine Nutzungs- oder Werbeprofile. Es gibt keine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO.',
           ],
         },
         {
-          title: 'Kein Nutzungs-Tracking und kein Premium-Login',
+          title: 'Käufe und Lizenzprüfung',
           paragraphs: [
-            'Die lokale App enthält keine Analyse- oder Crash-Reporting-Dienste. Wir verfolgen deine Kalkulationen und Arbeitsschritte nicht und erstellen keine Nutzungs- oder Werbeprofile. Es gibt keinen E-Mail-Login, keinen Login-Zähler und keine E-Mail-zu-Lizenz-Zuordnung auf einem Server von OfflineHandwerk.',
-            'Technisch notwendige Lizenzprüfungen bei mobilen Store-Käufen sind keine Anmeldung. Sie können auch bei Free-Nutzern und ohne aktives Abonnement stattfinden.',
+            'Die mobile Store-Anbindung initialisiert RevenueCat nur mit einem API-Schlüssel, ohne eigene App-Nutzerkennung und ohne E-Mail-Attribut. RevenueCat erzeugt eine App User ID. Diese Kennung ist pseudonym, nicht garantiert anonym. RevenueCat erhält Kauf-, Transaktions- und Berechtigungsdaten sowie die technischen Daten, die das SDK für Freischaltung und Wiederherstellung benötigt. Die App übermittelt weder eine E-Mail-Adresse noch Kalkulations-, Kunden- oder Betriebsinhalte an RevenueCat. Den zuletzt bekannten Tarif speichert die Store-Anbindung lokal auf dem Gerät.',
+            'Käufe laufen über den Apple App Store oder Google Play. Apple oder Google verarbeiten die Kauf- und Transaktionsdaten nach ihren eigenen Datenschutzhinweisen. Die Prüfung kann auch bei Free-Nutzern und ohne aktives Abonnement stattfinden. Sie ist keine Anmeldung. Es gibt keinen E-Mail-Login, keinen Login-Zähler und keine E-Mail-zu-Lizenz-Zuordnung auf einem Server von OfflineHandwerk.',
+            'Zweck der Lizenzprüfung ist die Bereitstellung gekaufter Funktionen. Soweit diese Verarbeitung dafür erforderlich ist, ist Rechtsgrundlage Art. 6 Abs. 1 lit. b DSGVO. Ohne diese Prüfung können gekaufte Funktionen nicht freigeschaltet werden. Eine App ohne Store-Anbindung nutzt diese Verarbeitung nicht. Art. 6 Abs. 1 lit. b DSGVO deckt keine Werbeprofile ab; solche Profile erstellen wir nicht.',
           ],
         },
         {
-          title: 'Mobile Käufe und Lizenzprüfung',
+          title: 'Empfänger und Übermittlungen in Drittländer',
           paragraphs: [
-            'Bei Käufen über Apple App Store oder Google Play verarbeiten Apple oder Google Kauf- und Transaktionsdaten für die Store-Abwicklung nach ihren eigenen Datenschutzbestimmungen. Der Entwurf beschreibt sie hierfür als eigenständige Verantwortliche; die konkreten Anbieter und geltenden Bedingungen sind vor Veröffentlichung zu bestätigen.',
-            'Die mobile Store-Anbindung initialisiert RevenueCat ohne eigene App-Nutzerkennung und ohne E-Mail-Attribut. RevenueCat erzeugt eine App User ID und erhält Kauf-, Transaktions- und Berechtigungsdaten sowie erforderliche technische Daten, um gekaufte Funktionen freizuschalten und Käufe wiederherzustellen. Diese Kennung ist pseudonym, nicht garantiert anonym. Die App übermittelt weder eine E-Mail-Adresse noch Kalkulations-, Kunden- oder Betriebsinhalte an RevenueCat.',
-            'Die notwendige Bereitstellung gekaufter Funktionen ist der Zweck der Lizenzprüfung. Soweit die Verarbeitung dafür zur Vertragserfüllung erforderlich ist, ist Art. 6 Abs. 1 lit. b DSGVO vorgesehen. Diese Grundlage deckt nicht automatisch andere SDK-Zwecke, Infrastruktur-Logs oder Marketing ab. Ohne erforderliche Kauf- und Lizenzprüfung können gekaufte Funktionen nicht freigeschaltet werden. Eine lokale App ohne Store-Anbindung nutzt diese Kaufverarbeitung nicht.',
-          ],
-        },
-        {
-          title: 'RevenueCat, Empfänger und internationale Übermittlungen',
-          paragraphs: [
-            'Der Entwurf benennt RevenueCat, Inc., USA, als Auftragsverarbeiter für Lizenzdaten gemäß dessen veröffentlichtem Data Processing Addendum (DPA). Das DPA sieht EU-Standardvertragsklauseln für einschlägige Drittlandübermittlungen vor. Daten können in den USA verarbeitet werden. Ob diese Vereinbarung einschließlich der Transferbedingungen für unser Konto wirksam gilt, welche Unterauftragsverarbeiter beteiligt sind und welche weiteren Schutzmaßnahmen erforderlich sind, ist noch zu bestätigen.',
-            'Eine Zertifizierung nach dem EU-US Data Privacy Framework wird nicht behauptet. Informationen zu den tatsächlich geltenden Garantien und eine Kopie kannst du über info@offlinehandwerk.de anfragen. Die endgültige Beschreibung von Empfängern, Datenkategorien, Speicherorten und Übermittlungen setzt die Prüfung der produktiven Store- und SDK-Konfiguration voraus.',
-          ],
-        },
-        {
-          title: 'PDFs, Teilen und Sicherungen',
-          paragraphs: [
-            'PDFs werden lokal erstellt. Wenn du Teilen, Drucken oder E-Mail wählst, erhält die von dir ausgewählte App, der Mail-Anbieter oder Drucker die Datei. Wir leiten diese Dateien nicht über unsere Server weiter und speichern sie dort nicht. Für die ausgewählten Ziele gelten deren eigene Datenschutz- und Aufbewahrungsregeln.',
-            'Exportierte Sicherungsdateien liegen am gewählten Ziel; die JSON-Sicherung der App ist unverschlüsselt und sollte geschützt aufbewahrt werden. Betriebssystem-Sicherungen können nach deinen Geräteeinstellungen App-Daten an einen Backup-Anbieter übertragen. Local First bedeutet daher nicht, dass von dir veranlasste Exporte oder Systemsicherungen niemals das Gerät verlassen.',
+            'Bei aktiver Store-Anbindung sind Empfänger der Kaufdaten Apple oder Google und Empfänger der Lizenzdaten RevenueCat, Inc. in den USA. Lizenzdaten können in den USA verarbeitet werden. Für diese Übermittlung sehen die veröffentlichten Vertragsbedingungen von RevenueCat EU-Standardvertragsklauseln vor.',
+            'Wenn du Teilen, Drucken oder E-Mail wählst, erhält die von dir ausgewählte App, der Mail-Anbieter oder Drucker die lokal erzeugte PDF. Wir leiten diese Datei nicht über unsere Server. Eine E-Mail an dein Büro oder an eine Kundenadresse hängt die PDF in der von dir gestarteten Mail an diese Adresse.',
           ],
         },
         {
           title: 'Support per E-Mail',
           paragraphs: [
-            'Die Funktion zum Melden eines Problems öffnet einen E-Mail-Entwurf an info@offlinehandwerk.de mit App-Version, Build, Betriebssystem, Gerätemodell, Tarif und deiner Beschreibung. Die App sendet nicht automatisch und hängt keine Kalkulations- oder Kundendaten und keine Store-Kennungen an. Du prüfst und sendest die Nachricht selbst. Bitte füge keine unnötigen Kunden-, Mitarbeiter- oder sonstigen vertraulichen Daten hinzu.',
-            'Wenn du die E-Mail sendest, erhalten wir deine Absenderadresse, den Nachrichteninhalt und gegebenenfalls von dir beigefügte Dateien, um dein Anliegen zu bearbeiten. Vorgesehen ist Art. 6 Abs. 1 lit. b DSGVO für erforderliche vertragsbezogene Anfragen, sonst Art. 6 Abs. 1 lit. f DSGVO mit dem berechtigten Interesse, Anfragen zu beantworten und Fehler zu beheben. Das Senden einer E-Mail ist nicht automatisch eine datenschutzrechtliche Einwilligung.',
-            'Mail-Anbieter, dessen Rolle, Speicherorte, mögliche internationale Übermittlungen, die konkrete Löschfrist nach Abschluss des Anliegens und gesetzliche Aufbewahrungsausnahmen sind noch nicht bestätigt. Support ist freiwillig; ohne erreichbare Kontaktadresse können wir dir nicht antworten.',
+            'Die Funktion zum Melden eines Problems öffnet dein E-Mail-Programm mit einer Nachricht an info@offlinehandwerk.de. Die Nachricht enthält App-Version, Build, Betriebssystem, Gerätemodell, Tarif und deine Beschreibung. Die App sendet sie nicht selbst und hängt keine Kalkulations- oder Kundendaten und keine Store-Kennungen an. Du prüfst und sendest die Nachricht selbst.',
+            'Wenn du die E-Mail sendest, erhalten wir deine Absenderadresse, den Inhalt und Dateien, die du selbst anhängst, um dein Anliegen zu bearbeiten. Für erforderliche vertragsbezogene Anfragen ist Rechtsgrundlage Art. 6 Abs. 1 lit. b DSGVO, sonst Art. 6 Abs. 1 lit. f DSGVO mit dem berechtigten Interesse, Anfragen zu beantworten und Fehler zu beheben. Das Senden einer E-Mail ist keine Einwilligung. Support ist freiwillig. Ohne erreichbare Kontaktadresse können wir nicht antworten.',
           ],
         },
         {
-          title: 'Speicherung und Löschung',
+          title: 'Speicherdauer',
           paragraphs: [
-            'Lokale Datensätze bleiben bestehen, bis du sie löschst oder die App zurücksetzt. Archivieren ist kein Löschen. Bei normaler Deinstallation wird die lokale App-Datenbank entfernt; Betriebssystem-Sicherungen können Kopien enthalten. Wir können deine lokale Datenbank weder aus der Ferne abrufen oder löschen noch verlorene lokale Inhalte wiederherstellen.',
-            'Exportierte PDFs und Sicherungen musst du am jeweiligen Ziel separat löschen. Das Zurücksetzen der App löscht weder diese Kopien noch Support-Mails oder Kaufdaten bei Apple, Google und RevenueCat. Store-Anbieter bestimmen die Aufbewahrung ihrer eigenen Transaktionsdaten.',
-            'Für Lizenzprüfungen werden Kauf- und Berechtigungsdaten benötigt, solange gekaufte Funktionen bereitgestellt und Käufe wiederhergestellt werden. Das ersetzt keine konkrete Löschregel. Die RevenueCat-Löschkriterien, Support-Löschfrist und einschlägigen gesetzlichen Aufbewahrungspflichten sind vor Veröffentlichung zu ergänzen. Frühere, gegebenenfalls vorhandene Daten aus einem ehemaligen serverbasierten Service müssen gesondert geprüft werden; die Entfernung dieser Funktion beweist keine Löschung alter Serverdaten.',
+            'Lokale Datensätze bleiben, bis du sie löschst oder die App zurücksetzt. Das Zurücksetzen löscht die lokale Datenbank. Archivieren ist kein Löschen. Bei einer normalen Deinstallation wird die lokale Datenbank entfernt. Betriebssystem-Sicherungen können Kopien behalten. Wir können die lokale Datenbank weder aus der Ferne abrufen oder löschen noch verlorene lokale Inhalte wiederherstellen.',
+            'PDFs und JSON-Sicherungen entstehen lokal. Die JSON-Sicherung ist unverschlüsselt und bleibt auf dem Gerät, bis du im Teilen-Dialog ein Ziel wählst. Die App lädt Sicherungen nicht hoch. Exportierte Dateien bleiben am gewählten Ziel, bis du sie dort löschst. Das Zurücksetzen der App löscht diese Kopien nicht und löscht auch keine Support-Mails und keine Kaufdaten bei Apple, Google oder RevenueCat.',
+            'Kauf- und Berechtigungsdaten werden benötigt, solange gekaufte Funktionen bereitgestellt und Käufe wiederhergestellt werden. Apple, Google und RevenueCat bestimmen die Aufbewahrung der Transaktionsdaten, die sie selbst speichern. Support-Nachrichten speichern wir, solange wir sie zur Bearbeitung der Anfrage brauchen, und darüber hinaus nur, wenn eine gesetzliche Aufbewahrungspflicht das verlangt.',
           ],
         },
         {
-          title: 'Deine Rechte und erforderliche Angaben',
+          title: 'Deine Rechte',
           paragraphs: [
-            'Soweit wir personenbezogene Daten verarbeiten, bestehen unter den jeweiligen gesetzlichen Voraussetzungen Rechte auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung (Art. 18) und Datenübertragbarkeit (Art. 20). Einer Verarbeitung auf Grundlage berechtigter Interessen nach Art. 6 Abs. 1 lit. f kannst du unter den Voraussetzungen von Art. 21 widersprechen. Eine erteilte Einwilligung kannst du nach Art. 7 Abs. 3 mit Wirkung für die Zukunft widerrufen.',
-            'Du kannst dich nach Art. 77 DSGVO bei einer Datenschutzaufsichtsbehörde beschweren, beispielsweise beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz. Für Anfragen an uns: info@offlinehandwerk.de. Rechte bezüglich lokaler Kunden- und Mitarbeiterdaten sind gegenüber dem verantwortlichen Betrieb geltend zu machen; wir haben keinen Zugriff auf diese Datenbank.',
-            'Die lokale Nutzung verlangt keine Registrierung oder Übermittlung deiner Arbeitsdaten an uns. Die lokale App bietet keine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO. Die rechtliche Bewertung notwendiger Gerätespeicherung und SDK-Zugriffe nach § 25 TDDDG bleibt gesondert zu prüfen; Local First allein begründet keine Ausnahme von der Einwilligungspflicht.',
+            'Soweit wir personenbezogene Daten verarbeiten, hast du unter den gesetzlichen Voraussetzungen das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung (Art. 18) und Datenübertragbarkeit (Art. 20). Einer Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO kannst du unter den Voraussetzungen von Art. 21 DSGVO widersprechen. Eine Einwilligung kannst du nach Art. 7 Abs. 3 DSGVO mit Wirkung für die Zukunft widerrufen.',
+            'Du kannst dich nach Art. 77 DSGVO beschweren. Zuständig ist: Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz. Anfragen an uns richtest du an info@offlinehandwerk.de oder an die oben genannte Telefonnummer.',
+            'Die lokale Nutzung verlangt keine Registrierung und keine Übermittlung deiner Arbeitsdaten an uns. Für eine Antwort im Support brauchen wir eine erreichbare Absenderadresse. Gekaufte Funktionen lassen sich ohne die Lizenzprüfung nicht freischalten.',
           ],
         },
       ],
@@ -84,55 +67,50 @@ export const legal = {
     website: {
       title: 'Datenschutz auf dieser Website',
       intro:
-        'Diese Informationen betreffen ausschließlich die statische OfflineHandwerk-Marketing-Website auf GitHub Pages. Sie ist keine Web-App zur Verwaltung deiner Kalkulationen und enthält keine lokale App-Datenbank. Die App hat eigene Datenschutzinformationen. Angaben zum Hosting und Support bleiben bis zur Bestätigung der offenen Punkte ein Entwurf.',
+        'Diese Informationen gelten nur für die statische Marketing-Website von OfflineHandwerk. Sie ist keine App und speichert keine Kalkulationsdaten. Die App hat eine eigene Datenschutzerklärung.',
+      updated: 'Stand: Oktober 2026',
       sections: [
         {
           title: 'Verantwortlicher',
           paragraphs: [
-            'Jan Siems, Hintergasse 28, 67308 Bubenheim, Deutschland. E-Mail: info@offlinehandwerk.de. Dieser Kontakt ist keine Benennung eines bestätigten Datenschutzbeauftragten.',
+            'Jan Siems, Hintergasse 28, 67308 Bubenheim, Deutschland. Telefon: [+49 176 84328001](tel:+4917684328001). E-Mail: info@offlinehandwerk.de.',
+            'Ein Datenschutzbeauftragter ist nicht erforderlich.',
           ],
         },
         {
-          title: 'Statische Inhalte, keine Analyse und keine Werbeprofile',
+          title: 'Welche Daten verarbeitet werden',
           paragraphs: [
-            'Die Website ist als statische Informationsseite ohne Anmeldung, Kontaktformular oder Newsletter konzipiert. Sie verwendet keine Cookies, kein localStorage, keine Analyse- oder Tracking-Dienste und keine extern eingebundenen Schriftarten, CDNs oder Medien. Dateien werden über das Website-Hosting ausgeliefert; der Aufruf übermittelt trotzdem technisch erforderliche Verbindungsdaten an den Hosting-Anbieter.',
-            'Es werden keine Kalkulations-, Kunden- oder Betriebsdaten über diese Website erfasst. Die Website erstellt keine Nutzungs- oder Werbeprofile und bietet keine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO. Die tatsächliche produktive Auslieferung muss vor Veröffentlichung auf diese Eigenschaften geprüft werden.',
+            'Die Website ist eine statische Informationsseite ohne Anmeldung, Kontaktformular und Newsletter. Sie setzt keine Cookies, speichert nichts in localStorage und enthält keine Analyse- oder Tracking-Dienste, keine externen Schriftarten, keine CDNs und keine eingebetteten Medien. Es werden keine Kalkulations-, Kunden- oder Betriebsdaten erfasst. Die Website erstellt keine Nutzungs- oder Werbeprofile und trifft keine automatisierte Entscheidung einschließlich Profiling im Sinne von Art. 22 DSGVO.',
+            'Beim Abruf erhält das Hosting die technisch erforderlichen Verbindungsdaten, insbesondere deine IP-Adresse und die angeforderte Seite, um die Dateien auszuliefern. GitHub Pages speichert Server-Logs einschließlich der IP-Adresse für die Sicherheit der Website.',
           ],
         },
         {
-          title: 'Hosting durch GitHub Pages',
+          title: 'Rechtsgrundlagen',
           paragraphs: [
-            'GitHub Pages stellt die Website bereit. Beim Abruf erhält die Hosting-Infrastruktur insbesondere deine IP-Adresse und die angefragte Ressource, um Dateien auszuliefern. GitHub weist darauf hin, IP-Adressen von Besuchern von GitHub-Pages-Websites für Sicherheitszwecke zu protokollieren. Kein Tracking auf unserer Seite bedeutet daher nicht, dass beim Hosting keine personenbezogenen Daten verarbeitet werden.',
-            'Der vorgesehene Zweck ist die sichere und zuverlässige Bereitstellung der Website. Als Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO vorgesehen, mit dem berechtigten Interesse am sicheren Betrieb und der Bereitstellung unserer Informationen. Die Interessenabwägung und die Abgrenzung einer eigenständigen Verarbeitung durch GitHub müssen vor Veröffentlichung geprüft werden.',
-            'GitHub ist als Hosting-Empfänger benannt. Die konkrete vertragliche Anbieteridentität und Anschrift, die datenschutzrechtliche Rolle, eine gegebenenfalls erforderliche Vereinbarung, tatsächliche Logfelder, Speicherorte, Löschfristen und internationale Übermittlungen einschließlich geltender Garantien sind noch zu bestätigen. Dieser Entwurf nennt dafür weder eine erfundene Löschfrist noch eine ungeprüfte Transfergrundlage. Für Auskünfte und nach Bestätigung verfügbare Garantien kannst du info@offlinehandwerk.de kontaktieren.',
+            'Die Bereitstellung der Website stützt sich auf Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse ist der sichere und zuverlässige Betrieb dieser Informationsseite. Die Verbindungsdaten sind erforderlich, damit die Dateien ausgeliefert werden können. Eine Registrierung ist nicht erforderlich.',
+            'Wenn du uns an info@offlinehandwerk.de schreibst, öffnet der E-Mail-Link nur dein E-Mail-Programm und sendet nichts von selbst. Die Website hängt keine App-, Geräte-, Kunden- oder Kalkulationsdaten an. Schickst du die Nachricht, erhalten wir deine Absenderadresse, den Inhalt und Dateien, die du anhängst, um die Anfrage zu beantworten. Für erforderliche vertragsbezogene Anfragen gilt Art. 6 Abs. 1 lit. b DSGVO, sonst Art. 6 Abs. 1 lit. f DSGVO mit dem berechtigten Interesse an der Antwort. Das Senden ist keine Einwilligung. Ohne erreichbare Absenderadresse können wir nicht antworten.',
           ],
         },
         {
-          title: 'Cookies und Zugriff auf dein Gerät',
+          title: 'Empfänger und Übermittlung in ein Drittland',
           paragraphs: [
-            'Die Marketing-Website setzt selbst keine Cookies und speichert keine Einstellungen oder App-Daten in localStorage oder einer lokalen Datenbank. Ein Einwilligungsbanner für Tracking wird deshalb nicht eingesetzt. Das ist keine Aussage über andere Seiten, die du über einen Link öffnest.',
-            'Vor Veröffentlichung ist zu prüfen, dass Hosting, ausgelieferte Skripte und Ressourcen keine zusätzlichen Speicher- oder Zugriffsvorgänge auslösen. Falls solche Vorgänge hinzukommen, sind § 25 TDDDG und eine gegebenenfalls notwendige Einwilligung unabhängig von der DSGVO-Rechtsgrundlage zu bewerten.',
+            'Die Website wird über GitHub Pages von GitHub, Inc. bereitgestellt. GitHub, Inc. ist Empfänger der Server-Logs, einschließlich der IP-Adressen, und verarbeitet sie für Auslieferung und Sicherheit.',
+            'Dabei kann eine Übermittlung in die USA stattfinden. Diese Übermittlung stützt sich auf das EU-US Data Privacy Framework.',
+            'Auf dieser Website ist RevenueCat nicht eingebunden. Inhalte anderer Anbieter werden hier nicht geladen. Wenn du einen externen Link öffnest, gelten die Regeln der Zielseite.',
           ],
         },
         {
-          title: 'Kontakt per E-Mail',
+          title: 'Speicherdauer',
           paragraphs: [
-            'Ein E-Mail-Link öffnet deine E-Mail-Anwendung und sendet nicht automatisch eine Nachricht. Wenn du uns an info@offlinehandwerk.de schreibst, erhalten wir deine Absenderadresse, den Inhalt und gegebenenfalls von dir angehängte Dateien zur Bearbeitung deiner Anfrage. Die Website hängt keine App-, Geräte-, Kunden- oder Kalkulationsdaten an.',
-            'Für erforderliche vertragsbezogene Anfragen ist Art. 6 Abs. 1 lit. b DSGVO vorgesehen; für sonstige Anfragen Art. 6 Abs. 1 lit. f mit dem berechtigten Interesse an ihrer Beantwortung. Die Bewertung der Rechtsgrundlage, Mail-Anbieter und Rolle, Speicherorte, Transfergarantien, Löschfrist nach Erledigung und gesetzliche Aufbewahrungsausnahmen sind noch zu bestätigen. Kontaktaufnahme ist freiwillig; ohne erreichbare Kontaktadresse können wir nicht antworten.',
+            'Wir betreiben auf dieser Website keine Besucherdatenbank. Die Server-Logs, einschließlich der IP-Adressen, speichert GitHub, Inc. für Betrieb und Sicherheit von GitHub Pages.',
+            'Support-Nachrichten speichern wir, solange wir sie zur Bearbeitung der Anfrage brauchen, und darüber hinaus nur, wenn eine gesetzliche Aufbewahrungspflicht das verlangt.',
           ],
         },
         {
-          title: 'Speicherdauer und externe Links',
+          title: 'Deine Rechte',
           paragraphs: [
-            'Für GitHub-Pages-Sicherheitslogs ist in diesem Entwurf keine bestätigte Löschfrist verfügbar. Auch die konkrete Aufbewahrungsregel für E-Mail-Anfragen ist noch offen. Eine fehlende Datenbank auf dieser Website beseitigt diese Verarbeitung nicht.',
-            'Externe Links, etwa zu App-Stores, laden auf dieser Website keine Inhalte des Zielanbieters. Wenn du den Link öffnest, erhält die Zielseite Verbindungsdaten und verarbeitet sie nach ihren eigenen Regeln. Eine Weiterleitung zu einem Store ist kein Kauf auf dieser Website; RevenueCat wird hier nicht eingebunden.',
-          ],
-        },
-        {
-          title: 'Deine Datenschutzrechte',
-          paragraphs: [
-            'Soweit wir personenbezogene Daten verarbeiten, kannst du unter den gesetzlichen Voraussetzungen Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung (Art. 18) und Datenübertragbarkeit (Art. 20) verlangen. Insbesondere kannst du einer Verarbeitung auf Grundlage berechtigter Interessen nach Art. 6 Abs. 1 lit. f unter den Voraussetzungen von Art. 21 widersprechen. Eine erteilte Einwilligung kannst du nach Art. 7 Abs. 3 jederzeit für die Zukunft widerrufen. Kontakt: info@offlinehandwerk.de.',
-            'Nach Art. 77 DSGVO kannst du dich bei einer Datenschutzaufsichtsbehörde beschweren, beispielsweise beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz. Der Abruf der Website erfordert technische Verbindungsdaten; ohne diese kann die Hosting-Infrastruktur die Dateien nicht ausliefern. Eine Registrierung oder die Angabe von Arbeitsdaten ist nicht erforderlich.',
+            'Soweit wir personenbezogene Daten verarbeiten, hast du unter den gesetzlichen Voraussetzungen das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung (Art. 18) und Datenübertragbarkeit (Art. 20). Einer Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO kannst du unter den Voraussetzungen von Art. 21 DSGVO widersprechen. Eine Einwilligung kannst du nach Art. 7 Abs. 3 DSGVO mit Wirkung für die Zukunft widerrufen.',
+            'Du kannst dich nach Art. 77 DSGVO beschweren. Zuständig ist: Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz. Anfragen an uns richtest du an info@offlinehandwerk.de oder an die oben genannte Telefonnummer.',
           ],
         },
       ],
@@ -167,79 +145,64 @@ export const legal = {
     },
   },
   en: {
-    notice:
-      'Draft – not legally approved. The information required by Art. 13 GDPR about recipients, legal bases, international transfers and deletion periods has not yet been fully confirmed. These details do not yet constitute a complete privacy notice. The German version is authoritative; the English version is a translation of this draft.',
-    updated: 'Last updated: 11 October 2026 · Draft, pending legal approval',
     app: {
       title: 'App privacy',
       intro:
-        'These details concern the local OfflineHandwerk app on Android and iOS. Purchase and RevenueCat information applies only when the mobile store integration is active. The separate marketing website and any separately operated web app must not be confused with the mobile app. This text remains a draft until the outstanding matters are resolved.',
+        'These details apply to the OfflineHandwerk app on Android and iOS. The marketing website has its own privacy notice. Purchase details apply only when the mobile store integration is active.',
+      updated: 'As of: October 2026',
       sections: [
         {
-          title: 'Controller and contact',
+          title: 'Controller',
           paragraphs: [
-            'Jan Siems, Hintergasse 28, 67308 Bubenheim, Germany. Email: info@offlinehandwerk.de.',
-            'These contact details concern personal data that we actually process, such as support messages. They do not identify a confirmed data protection officer.',
+            'Jan Siems, Hintergasse 28, 67308 Bubenheim, Germany. Phone: [+49 176 84328001](tel:+4917684328001). Email: info@offlinehandwerk.de.',
+            'A data protection officer is not required.',
           ],
         },
         {
-          title: 'Your work data stays local',
+          title: 'What data is processed',
           paragraphs: [
-            'Calculations, customer and business data, contact details, line items, internal notes, employee and catalog records, business profile, logo and settings are stored in the local SQLite database on your device. We do not collect these app contents, transfer them to our servers or store them there. There is no sign-in with us and no synchronization of these contents through our servers.',
-            'Your business is responsible for the lawful processing of the customer and employee data you enter, including its legal basis, information duties, access rights and retention. Only for those local records, which we cannot access, are we neither the controller nor a processor. This does not apply to messages you send us or to the processing of purchase and license data.',
+            'Calculations, customer and business data, contact details, line items, internal notes, employee and catalog records, business profile, logo and settings are stored in the local SQLite database on your device. We do not collect these contents, transfer them to our servers or store them there. There is no sign-in with us and no synchronization of these contents through our servers.',
+            'Your business is responsible for the lawful processing of the customer and employee data you enter, including its legal basis, information duties, access rights and retention. We cannot access those local records. For them, we are neither the controller nor a processor. This does not apply to messages you send us or to purchase and license data.',
+            'When you choose an image as your business logo, the app uses only the photo you select from your library and stores it locally for your PDFs. Camera and microphone access are not enabled in the app configuration. You import a backup only by selecting a file yourself.',
+            'The app contains no analytics or crash-reporting SDK. We do not track your calculations or work steps and do not create usage or advertising profiles. There is no automated decision-making, including profiling, within the meaning of Art. 22 GDPR.',
           ],
         },
         {
-          title: 'No usage tracking or Premium sign-in',
+          title: 'Purchases and license verification',
           paragraphs: [
-            'The local app contains no analytics or crash-reporting services. We do not track your calculations or work steps and do not create usage or advertising profiles. There is no email sign-in, no sign-in counter and no email-to-license mapping on an OfflineHandwerk server.',
-            'Technically necessary license checks for mobile store purchases are not sign-ins. They may also take place for Free users and without an active subscription.',
+            'The mobile store integration initializes RevenueCat with an API key only, without a custom app user ID and without an email attribute. RevenueCat generates an App User ID. This identifier is pseudonymous, not guaranteed to be anonymous. RevenueCat receives purchase, transaction and entitlement data and the technical data the SDK needs to unlock and restore purchases. The app sends neither an email address nor calculation, customer or business contents to RevenueCat. The store integration stores the last known plan locally on the device.',
+            'Purchases run through the Apple App Store or Google Play. Apple or Google process the purchase and transaction data under their own privacy notices. The check can also run for Free users and without an active subscription. It is not a sign-in. There is no email sign-in, no sign-in counter and no email-to-license mapping on an OfflineHandwerk server.',
+            'The purpose of license verification is to provide purchased features. Where this processing is necessary for that purpose, the legal basis is Art. 6(1)(b) GDPR. Purchased features cannot be unlocked without this check. An app without the store integration does not use this processing. Art. 6(1)(b) GDPR does not cover advertising profiles; we do not create such profiles.',
           ],
         },
         {
-          title: 'Mobile purchases and license verification',
+          title: 'Recipients and transfers to third countries',
           paragraphs: [
-            'For purchases through Apple App Store or Google Play, Apple or Google process purchase and transaction data for store transactions under their own privacy policies. The draft describes them as independent controllers for that purpose; the specific providers and applicable terms must be confirmed before publication.',
-            'The mobile store integration initializes RevenueCat without a custom app user ID and without an email attribute. RevenueCat generates an App User ID and receives purchase, transaction and entitlement data and necessary technical data to unlock purchased features and restore purchases. This identifier is pseudonymous, not guaranteed to be anonymous. The app sends neither an email address nor calculation, customer or business contents to RevenueCat.',
-            'The purpose of license verification is the necessary provision of purchased features. Insofar as this processing is necessary to perform the contract, the proposed legal basis is Art. 6(1)(b) GDPR. This basis does not automatically cover other SDK purposes, infrastructure logs or marketing. Purchased features cannot be unlocked without the required purchase and license verification. A local app without the store integration does not use this purchase processing.',
-          ],
-        },
-        {
-          title: 'RevenueCat, recipients and international transfers',
-          paragraphs: [
-            'The draft identifies RevenueCat, Inc., USA, as a processor for license data under its published Data Processing Addendum (DPA). The DPA provides EU Standard Contractual Clauses for relevant international transfers. Data may be processed in the United States. Whether this agreement and its transfer terms effectively apply to our account, which subprocessors are involved and which additional safeguards are necessary still need confirmation.',
-            'This notice does not claim certification under the EU-US Data Privacy Framework. You can request information about the safeguards that actually apply and a copy at info@offlinehandwerk.de. The final description of recipients, data categories, storage locations and transfers requires a review of the production store and SDK configuration.',
-          ],
-        },
-        {
-          title: 'PDFs, sharing and backups',
-          paragraphs: [
-            'PDFs are created locally. When you choose Share, Print or email, the app, mail provider or printer you select receives the file. We do not relay these files through our servers or store them there. The selected destinations have their own privacy and retention rules.',
-            "Exported backup files are stored at your chosen destination; the app's JSON backup is unencrypted and should be kept secure. Operating-system backups may transfer app data to a backup provider according to your device settings. Local First therefore does not mean that exports you initiate or system backups can never leave your device.",
+            'When the store integration is active, Apple or Google receive the purchase data and RevenueCat, Inc. in the United States receives the license data. License data may be processed in the United States. The published RevenueCat terms provide EU Standard Contractual Clauses for this transfer.',
+            'When you choose Share, Print or email, the app, mail provider or printer you select receives the locally created PDF. We do not relay this file through our servers. An email to your office or to a customer address attaches the PDF, in the mail you start, to that address.',
           ],
         },
         {
           title: 'Support by email',
           paragraphs: [
-            'The problem-reporting feature opens an email draft to info@offlinehandwerk.de with app version, build, operating system, device model, plan and your description. The app does not send it automatically or attach calculation or customer records or store identifiers. You review and send the message yourself. Please do not add unnecessary customer, employee or other confidential data.',
-            'If you send the email, we receive your sender address, message and any files you attach to handle your request. The proposed legal basis is Art. 6(1)(b) GDPR for necessary contract-related requests, otherwise Art. 6(1)(f) GDPR with the legitimate interest in answering requests and fixing faults. Sending an email is not automatically consent under data protection law.',
-            'The mailbox provider, its role, storage locations, possible international transfers, the concrete deletion period after resolution and statutory retention exceptions have not yet been confirmed. Support is optional; without a reachable contact address we cannot reply.',
+            'The problem-reporting feature opens your email app with a message to info@offlinehandwerk.de. The message contains the app version, build, operating system, device model, plan and your description. The app does not send it itself and does not attach calculation or customer data or store identifiers. You review and send the message yourself.',
+            'If you send the email, we receive your sender address, the message and files you attach yourself, so that we can handle your request. The legal basis is Art. 6(1)(b) GDPR for necessary contract-related requests, otherwise Art. 6(1)(f) GDPR with the legitimate interest in answering requests and fixing faults. Sending an email is not consent. Support is optional. Without a reachable contact address we cannot reply.',
           ],
         },
         {
-          title: 'Storage and deletion',
+          title: 'Storage period',
           paragraphs: [
-            'Local records remain until you delete them or reset the app. Archiving is not deletion. Normal uninstallation removes the local app database; operating-system backups may contain copies. We cannot remotely retrieve or delete your local database or recover lost local contents.',
-            'You must delete exported PDFs and backups separately at their destinations. Resetting the app deletes neither those copies nor support emails or purchase data held by Apple, Google and RevenueCat. Store providers determine retention of their own transaction records.',
-            'License checks require purchase and entitlement data while purchased features are provided and purchases can be restored. This does not replace a concrete deletion rule. RevenueCat deletion criteria, support retention and applicable statutory retention obligations must be added before publication. Any historical records from a former server-based Service must be assessed separately; removing that feature does not prove that old server records were deleted.',
+            'Local records remain until you delete them or reset the app. Resetting deletes the local database. Archiving is not deletion. Normal uninstallation removes the local database. Operating-system backups may keep copies. We cannot remotely retrieve or delete the local database or recover lost local contents.',
+            'PDFs and JSON backups are created locally. The JSON backup is unencrypted and stays on the device until you choose a destination in the share dialog. The app does not upload backups. Exported files remain at the chosen destination until you delete them there. Resetting the app does not delete those copies, support emails, or purchase data held by Apple, Google or RevenueCat.',
+            'Purchase and entitlement data are needed while purchased features are provided and purchases can be restored. Apple, Google and RevenueCat determine retention of the transaction data they store themselves. We keep support messages for as long as we need them to handle the request, and longer only where a statutory retention duty requires it.',
           ],
         },
         {
-          title: 'Your rights and required information',
+          title: 'Your rights',
           paragraphs: [
-            'Where we process personal data, you have rights, subject to their statutory conditions, to access (Art. 15 GDPR), rectification (Art. 16), erasure (Art. 17), restriction (Art. 18) and portability (Art. 20). Under the conditions of Art. 21, you may object to processing based on legitimate interests under Art. 6(1)(f). You may withdraw consent you have given under Art. 7(3) with future effect.',
-            'Under Art. 77 GDPR, you may complain to a data protection supervisory authority, for example the State Commissioner for Data Protection and Freedom of Information Rhineland-Palatinate. For requests to us: info@offlinehandwerk.de. Requests concerning local customer and employee data must be directed to the responsible business; we cannot access that database.',
-            'Local use requires no registration or transmission of your work data to us. The local app does not provide automated decision-making, including profiling, within the meaning of Art. 22 GDPR. The legal assessment of necessary device storage and SDK access under section 25 TDDDG remains a separate requirement; Local First alone does not establish an exemption from consent.',
+            'Where we process personal data, you have, subject to the statutory conditions, the right of access (Art. 15 GDPR), rectification (Art. 16), erasure (Art. 17), restriction (Art. 18) and portability (Art. 20). You may object, under the conditions of Art. 21 GDPR, to processing based on Art. 6(1)(f) GDPR. You may withdraw consent under Art. 7(3) GDPR with effect for the future.',
+            'You may lodge a complaint under Art. 77 GDPR. The competent authority is: Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz. Send requests to us at info@offlinehandwerk.de or to the phone number above.',
+            'Local use requires no registration and no transmission of your work data to us. A reply to support requires a reachable sender address. Purchased features cannot be unlocked without the license check.',
           ],
         },
       ],
@@ -247,55 +210,50 @@ export const legal = {
     website: {
       title: 'Website privacy',
       intro:
-        'These details concern only the static OfflineHandwerk marketing website on GitHub Pages. It is not a web app for managing your calculations and contains no local app database. The app has its own privacy information. Hosting and support information remains a draft until the outstanding matters are confirmed.',
+        'These details apply only to the static OfflineHandwerk marketing website. It is not the app and does not store calculation data. The app has its own privacy notice.',
+      updated: 'As of: October 2026',
       sections: [
         {
           title: 'Controller',
           paragraphs: [
-            'Jan Siems, Hintergasse 28, 67308 Bubenheim, Germany. Email: info@offlinehandwerk.de. This contact does not identify a confirmed data protection officer.',
+            'Jan Siems, Hintergasse 28, 67308 Bubenheim, Germany. Phone: [+49 176 84328001](tel:+4917684328001). Email: info@offlinehandwerk.de.',
+            'A data protection officer is not required.',
           ],
         },
         {
-          title: 'Static content, no analytics or advertising profiles',
+          title: 'What data is processed',
           paragraphs: [
-            'The website is designed as a static information site without sign-in, a contact form or a newsletter. It uses no cookies, localStorage, analytics or tracking services, and no externally embedded fonts, CDNs or media. Files are delivered through the website hosting; visiting still sends technically necessary connection data to the hosting provider.',
-            'No calculation, customer or business data is collected through this website. The website creates no usage or advertising profiles and provides no automated decision-making, including profiling, within the meaning of Art. 22 GDPR. The actual production delivery must be checked for these properties before publication.',
+            'The website is a static information page without sign-in, a contact form or a newsletter. It sets no cookies, stores nothing in localStorage, and includes no analytics or tracking services, no external fonts, no CDNs and no embedded media. It collects no calculation, customer or business data. The website creates no usage or advertising profiles and makes no automated decision, including profiling, within the meaning of Art. 22 GDPR.',
+            'When you visit, the hosting receives the connection data required to deliver the files, in particular your IP address and the requested page. GitHub Pages stores server logs, including the IP address, for the security of the website.',
           ],
         },
         {
-          title: 'Hosting through GitHub Pages',
+          title: 'Legal bases',
           paragraphs: [
-            "GitHub Pages hosts the website. When you visit, the hosting infrastructure receives, in particular, your IP address and the requested resource to deliver files. GitHub states that it logs visitors' IP addresses on GitHub Pages websites for security purposes. No tracking on our website therefore does not mean that hosting involves no personal data processing.",
-            'The intended purpose is the secure and reliable provision of the website. The proposed legal basis is Art. 6(1)(f) GDPR, with the legitimate interest in secure operation and providing our information. The balancing assessment and the distinction from any processing by GitHub as an independent controller must be reviewed before publication.',
-            'GitHub is identified as a hosting recipient. The specific contracting provider identity and address, data protection role, any required agreement, actual log fields, storage locations, deletion periods and international transfers with applicable safeguards still need confirmation. This draft supplies neither an invented deletion period nor an unverified transfer basis. You can contact info@offlinehandwerk.de for information and safeguards available once confirmed.',
+            'Providing the website is based on Art. 6(1)(f) GDPR. The legitimate interest is the secure and reliable operation of this information page. The connection data are required so the files can be delivered. Registration is not required.',
+            'If you write to info@offlinehandwerk.de, the email link only opens your email app and does not send anything by itself. The website attaches no app, device, customer or calculation data. If you send the message, we receive your sender address, the contents and files you attach, in order to answer the request. Art. 6(1)(b) GDPR applies to necessary contract-related requests, otherwise Art. 6(1)(f) GDPR with the legitimate interest in replying. Sending is not consent. Without a reachable sender address we cannot reply.',
           ],
         },
         {
-          title: 'Cookies and access to your device',
+          title: 'Recipients and transfer to a third country',
           paragraphs: [
-            'The marketing website itself sets no cookies and stores no preferences or app data in localStorage or a local database. A tracking consent banner is therefore not used. This does not describe other websites you open through a link.',
-            'Before publication, verify that hosting, delivered scripts and resources do not introduce additional storage or access operations. If such operations are added, section 25 TDDDG and any required consent must be assessed independently of the GDPR legal basis.',
+            'The website is provided through GitHub Pages by GitHub, Inc. GitHub, Inc. is the recipient of the server logs, including IP addresses, and processes them for delivery and security.',
+            'This can involve a transfer to the United States. That transfer relies on the EU-US Data Privacy Framework.',
+            'RevenueCat is not integrated on this website. Content from other providers is not loaded here. If you open an external link, the destination rules apply.',
           ],
         },
         {
-          title: 'Contact by email',
+          title: 'Storage period',
           paragraphs: [
-            'An email link opens your email application and does not automatically send a message. If you write to info@offlinehandwerk.de, we receive your sender address, message and any files you attach to handle your request. The website attaches no app, device, customer or calculation data.',
-            'The proposed legal basis is Art. 6(1)(b) GDPR for necessary contract-related requests, otherwise Art. 6(1)(f) with the legitimate interest in answering requests. The legal-basis assessment, mailbox provider and role, storage locations, transfer safeguards, deletion period after resolution and statutory retention exceptions still need confirmation. Contact is optional; without a reachable contact address we cannot reply.',
+            'We do not operate a visitor database on this website. GitHub, Inc. stores the server logs, including IP addresses, for the operation and security of GitHub Pages.',
+            'We keep support messages for as long as we need them to handle the request, and longer only where a statutory retention duty requires it.',
           ],
         },
         {
-          title: 'Retention and external links',
+          title: 'Your rights',
           paragraphs: [
-            'This draft has no confirmed deletion period for GitHub Pages security logs. The concrete retention rule for email requests also remains outstanding. The absence of a database on this website does not remove these processing activities.',
-            "External links, for example to app stores, do not load the destination provider's content on this website. Opening a link sends connection data to the destination, which processes it under its own rules. Following a store link is not a purchase on this website; RevenueCat is not integrated here.",
-          ],
-        },
-        {
-          title: 'Your privacy rights',
-          paragraphs: [
-            'Where we process personal data, you may request access (Art. 15 GDPR), rectification (Art. 16), erasure (Art. 17), restriction (Art. 18) and portability (Art. 20), subject to statutory conditions. In particular, under the conditions of Art. 21, you may object to processing based on legitimate interests under Art. 6(1)(f). You may withdraw consent you have given at any time under Art. 7(3) with future effect. Contact: info@offlinehandwerk.de.',
-            'Under Art. 77 GDPR, you may complain to a data protection supervisory authority, for example the State Commissioner for Data Protection and Freedom of Information Rhineland-Palatinate. Visiting the website requires technical connection data; without it, the hosting infrastructure cannot deliver the files. Registration or providing work data is not required.',
+            'Where we process personal data, you have, subject to the statutory conditions, the right of access (Art. 15 GDPR), rectification (Art. 16), erasure (Art. 17), restriction (Art. 18) and portability (Art. 20). You may object, under the conditions of Art. 21 GDPR, to processing based on Art. 6(1)(f) GDPR. You may withdraw consent under Art. 7(3) GDPR with effect for the future.',
+            'You may lodge a complaint under Art. 77 GDPR. The competent authority is: Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz. Send requests to us at info@offlinehandwerk.de or to the phone number above.',
           ],
         },
       ],
