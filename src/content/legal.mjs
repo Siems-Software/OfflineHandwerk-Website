@@ -1,5 +1,7 @@
-// Draft content only. Render notice and updated on every legal page, outside accordions.
-// German is the authoritative version; English is a full translation of this draft.
+// Privacy pages remain drafts. Render their notice and updated outside accordions.
+// The imprint is the final provider notice and supplies its own updated date.
+// German is authoritative; English is provided for information.
+// A paragraph may contain [label](tel:+digits). The builder escapes the label and href.
 export const legal = {
   de: {
     notice:
@@ -137,25 +139,28 @@ export const legal = {
     },
     imprint: {
       title: 'Impressum',
-      intro:
-        'Anbieterinformationen für OfflineHandwerk und diese Website gemäß § 5 des Digitale-Dienste-Gesetzes (DDG). Die Anbieterangaben stammen aus den vom Inhaber bestätigten App-Unterlagen. Die abschließende rechtliche Prüfung für diese Website steht noch aus.',
+      intro: 'Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)',
+      updated: 'Stand: Oktober 2026',
       sections: [
         {
           title: 'Anbieter',
-          paragraphs: ['Jan Siems', 'Hintergasse 28', '67308 Bubenheim', 'Deutschland'],
+          paragraphs: ['Jan Siems, Hintergasse 28, 67308 Bubenheim, Deutschland'],
         },
         {
           title: 'Kontakt',
           paragraphs: [
+            'Telefon: [+49 176 84328001](tel:+4917684328001)',
             'E-Mail: info@offlinehandwerk.de',
-            'Diese Adresse ist der Kontakt für Fragen zur Website, zur App und zum Datenschutz.',
           ],
         },
         {
-          title: 'Stand der Anbieterangaben',
+          title: 'Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV',
+          paragraphs: ['Jan Siems, Anschrift wie oben'],
+        },
+        {
+          title: 'Verbraucherstreitbeilegung',
           paragraphs: [
-            'Laut der bisherigen Bestätigung des Inhabers waren keine weiteren Anbieterangaben einschlägig. Es wurden kein Registereintrag, keine Umsatzsteuer- oder Wirtschafts-Identifikationsnummer sowie keine Angaben zu einer Aufsichtsbehörde oder einem reglementierten Beruf mitgeteilt. Ob für diese Website zusätzliche Pflichtangaben oder eine weitere Möglichkeit zur unmittelbaren Kontaktaufnahme erforderlich sind, ist vor Veröffentlichung rechtlich zu prüfen.',
-            'Bei Änderungen der Anbieterangaben muss dieses Impressum aktualisiert werden. Die deutsche Fassung ist maßgeblich; die englische Fassung übersetzt diesen Entwurf.',
+            'Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.',
           ],
         },
       ],
@@ -298,24 +303,28 @@ export const legal = {
     imprint: {
       title: 'Legal notice',
       intro:
-        'Provider information for OfflineHandwerk and this website under section 5 of the German Digital Services Act (DDG). Provider details come from the app documentation confirmed by the owner. Final legal review for this website remains outstanding.',
+        'Information pursuant to section 5 of the German Digital Services Act (Digitale-Dienste-Gesetz, DDG)',
+      updated: 'As of: October 2026',
       sections: [
         {
           title: 'Provider',
-          paragraphs: ['Jan Siems', 'Hintergasse 28', '67308 Bubenheim', 'Germany'],
+          paragraphs: ['Jan Siems, Hintergasse 28, 67308 Bubenheim, Germany'],
         },
         {
           title: 'Contact',
           paragraphs: [
+            'Phone: [+49 176 84328001](tel:+4917684328001)',
             'Email: info@offlinehandwerk.de',
-            'This address is the contact for questions about the website, app and privacy.',
           ],
         },
         {
-          title: 'Status of provider details',
+          title: 'Responsible for content under section 18 (2) MStV',
+          paragraphs: ['Jan Siems, address as above'],
+        },
+        {
+          title: 'Consumer dispute resolution',
           paragraphs: [
-            "According to the owner's previous confirmation, no further provider details applied. No register entry, VAT or business identification number, supervisory authority or regulated-profession details were supplied. Whether this website requires additional mandatory information or another means of direct contact must be legally reviewed before publication.",
-            'This legal notice must be updated if provider details change. The German version is authoritative; the English version translates this draft.',
+            'I am not willing and not obliged to participate in dispute resolution proceedings before a consumer conciliation body.',
           ],
         },
       ],
