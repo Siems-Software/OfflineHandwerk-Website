@@ -13,7 +13,7 @@ export const renderLegalText = (text) =>
     .split(/(\[[^\]]+\]\(tel:\+\d+\))/g)
     .map((part) => {
       const link = /^\[([^\]]+)\]\((tel:\+\d+)\)$/.exec(part);
-      if (!link) return escapeHtml(part);
+      if (!link) return escapeHtml(part).replace(/\n/g, '<br>');
       return `<a href="${escapeHtml(link[2])}">${escapeHtml(link[1])}</a>`;
     })
     .join('');

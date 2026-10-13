@@ -13,7 +13,8 @@ interface Props {
 }
 
 const { locale, kind } = Astro.props;
-type LegalSection = { id?: string; title: string; paragraphs: string[] };
+type LegalBlock = { type: 'h3' | 'p'; text: string };
+type LegalSection = { id?: string; title: string; blocks: LegalBlock[] };
 const entry = await getEntry('legal', `${locale}/${kind}`);
 if (!entry?.body) throw new Error(`Missing legal markdown ${locale}/${kind}`);
 const sections = parseLegalBody(entry.body) as LegalSection[];
@@ -37,9 +38,13 @@ const t = useTranslations(locale);
       return (
         <section aria-labelledby={id}>
           <h2 id={id}>{section.title}</h2>
-          {section.paragraphs.map((paragraph) => (
-            <p set:html={renderLegalText(paragraph)} />
-          ))}
+          {section.blocks.map((block) =>
+            block.type === 'h3' ? (
+              <h3>{block.text}</h3>
+            ) : (
+              <p set:html={renderLegalText(block.text)} />
+            ),
+          )}
         </section>
       );
     })}

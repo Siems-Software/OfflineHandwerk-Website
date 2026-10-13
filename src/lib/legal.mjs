@@ -5,7 +5,7 @@ import { languages } from '../config.mjs';
 export const parseLegalBody = (body) =>
   body
     .trim()
-    .split(/^## /m)
+    .split(/^## (?!#)/m)
     .filter(Boolean)
     .map((chunk) => {
       const breakAt = chunk.indexOf('\n');
@@ -13,13 +13,17 @@ export const parseLegalBody = (body) =>
       const rest = breakAt === -1 ? '' : chunk.slice(breakAt + 1).trim();
       const idMatch = /^(.*) \{#([A-Za-z0-9-]+)\}$/.exec(heading);
       const title = idMatch ? idMatch[1] : heading;
-      const paragraphs = rest
+      const blocks = rest
         ? rest
             .split(/\n{2,}/)
-            .map((paragraph) => paragraph.trim())
+            .map((chunk) => chunk.trim())
             .filter(Boolean)
+            .map((chunk) => {
+              const heading = /^### ([^\n]+)$/.exec(chunk);
+              return heading ? { type: 'h3', text: heading[1].trim() } : { type: 'p', text: chunk };
+            })
         : [];
-      return idMatch ? { id: idMatch[2], title, paragraphs } : { title, paragraphs };
+      return idMatch ? { id: idMatch[2], title, blocks } : { title, blocks };
     });
 
 export const parseLegalDocument = (source) => {

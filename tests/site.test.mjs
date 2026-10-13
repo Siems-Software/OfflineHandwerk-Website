@@ -229,23 +229,36 @@ test('privacy page states shared duties once and keeps website and app sections 
     const app = page.$('#app').parent().text();
     assert.equal(page.$('h1').text(), locales[lang].privacy);
     assert.equal(page.$('p.lead').length, 0);
-    assert.equal(page.$('#website').text(), lang === 'de' ? 'Diese Website' : 'This website');
+    assert.equal(page.$('#website').text(), lang === 'de' ? '2. Diese Website' : '2. This website');
     assert.equal(
       page.$('#app').text(),
-      lang === 'de' ? 'Die App OfflineHandwerk' : 'The OfflineHandwerk app',
+      lang === 'de' ? '4. Die App OfflineHandwerk' : '4. The OfflineHandwerk app',
     );
-    assert.ok(website.includes('GitHub, Inc.'));
+    assert.ok(website.includes('GitHub, Inc., 88 Colin P. Kelly Jr. Street'));
     assert.ok(website.includes('Data Privacy Framework'));
     assert.ok(website.includes(lang === 'de' ? 'IP-Adresse' : 'IP address'));
-    assert.ok(!website.includes('OPFS'));
-    assert.ok(!website.includes('SQLite'));
-    assert.ok(app.includes('SQLite'));
-    assert.ok(app.includes('RevenueCat'));
+    assert.ok(!website.includes('RevenueCat'));
+    assert.ok(app.includes('RevenueCat, Inc. (USA)'));
+    assert.ok(app.includes(lang === 'de' ? 'Firmenlogo' : 'company logo'));
     assert.ok(!app.includes('Data Privacy Framework'));
+    const transfer =
+      lang === 'de'
+        ? 'Für die Übermittlung in die USA sehen die Vertragsbedingungen von RevenueCat EU-Standardvertragsklauseln vor (Art. 46 Abs. 2 lit. c DSGVO).'
+        : "For the transfer to the United States, RevenueCat's contract terms provide for EU Standard Contractual Clauses (Art. 46(2)(c) GDPR).";
     const officer =
       lang === 'de'
-        ? 'weniger als 20 Personen regelmäßig mit der Verarbeitung personenbezogener Daten betraut sind (§ 38 BDSG)'
-        : 'fewer than 20 people regularly process personal data (§ 38 BDSG)';
+        ? 'Ein Datenschutzbeauftragter ist nicht benannt, da keine gesetzliche Pflicht dazu besteht (§ 38 BDSG).'
+        : 'A data protection officer has not been appointed, because there is no statutory duty to appoint one (§ 38 BDSG).';
+    assert.equal(page.$('main').text().includes(transfer), true);
+    assert.equal(
+      page
+        .$('main')
+        .text()
+        .includes(
+          'Die Übermittlung in die USA erfolgt auf Grundlage von EU-Standardvertragsklauseln',
+        ),
+      false,
+    );
     assert.equal(page.$('a[href="tel:+4917684328001"]').length, 1);
     assert.equal(page.$('main').text().split(officer).length - 1, 1);
     assert.ok(
