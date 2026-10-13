@@ -1,19 +1,19 @@
-# OfflineHandwerk Website (`siems-software.github.io`)
+# OfflineHandwerk Website (`offlinehandwerk.github.io`)
 
 Static DE/EN product website with separate app privacy, website privacy and imprint pages. Node.js generates plain HTML and CSS: no runtime JavaScript, cookies, browser storage, analytics, external fonts or CDN assets.
 
 ## Website / target URLs
 
-**GitHub Pages:** [https://siems-software.github.io/](https://siems-software.github.io/)
+**GitHub Pages:** [https://siems-software.github.io/offlinehandwerk.github.io/](https://siems-software.github.io/offlinehandwerk.github.io/)
 
-- [Deutsch](https://siems-software.github.io/de/) (default)
-- [English](https://siems-software.github.io/en/)
+- [Deutsch](https://siems-software.github.io/offlinehandwerk.github.io/de/) (default)
+- [English](https://siems-software.github.io/offlinehandwerk.github.io/en/)
 
 ### Repository name
 
-This repository is named `siems-software.github.io`, so it is the **organization site** of Siems-Software and is served from the domain root. `site.base` in `src/config.mjs` must therefore be `/`. The former project URL `https://siems-software.github.io/OfflineHandwerk-Website/` is no longer served and is not redirected. See [GitHub's site types](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages).
+This repository is named `offlinehandwerk.github.io`. Because it belongs to the `Siems-Software` organization, GitHub serves it as a **project site** below the repository name, so `site.base` in `src/config.mjs` is `/offlinehandwerk.github.io/`. The former URL `https://siems-software.github.io/OfflineHandwerk-Website/` is not redirected.
 
-A custom domain (e.g. `offlinehandwerk.de`) is possible later. It requires a `CNAME`/Pages domain configuration and a matching `site.origin`; `site.base` stays `/`.
+The root domain `https://offlinehandwerk.github.io/` would require a GitHub organization named `offlinehandwerk`. A custom domain (e.g. `offlinehandwerk.de`) is also possible; both require `site.base` to become `/` and a matching `site.origin`. See [GitHub's site types](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages).
 
 ## Run locally
 
@@ -25,7 +25,7 @@ npm run check
 npm run preview
 ```
 
-Open `http://127.0.0.1:4311/de/`. `PORT` changes the preview port. The configured base path is preserved locally to catch broken GitHub Pages links.
+Open `http://127.0.0.1:4311/offlinehandwerk.github.io/de/`. `PORT` changes the preview port. The configured base path is preserved locally to catch broken GitHub Pages links.
 
 ## Structure
 

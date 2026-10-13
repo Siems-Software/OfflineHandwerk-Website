@@ -1,7 +1,7 @@
 export const site = {
   name: 'OfflineHandwerk',
   origin: 'https://siems-software.github.io',
-  base: '/OfflineHandwerk-Website/',
+  base: '/offlinehandwerk.github.io/',
   email: 'info@offlinehandwerk.de',
 };
 export const languages = ['de', 'en'];
