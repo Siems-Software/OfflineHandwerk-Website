@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { escapeHtml } from '../src/html.mjs';
 import { legal } from '../src/content/legal.mjs';
-import { site, languages, routes, pathFor, urlFor } from '../src/config.mjs';
+import { site, languages, routes, privacyRedirects, pathFor, urlFor } from '../src/config.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const out = resolve(root, 'dist');
 const locales = Object.fromEntries(
@@ -34,11 +34,8 @@ const footer = (lang, t) =>
         <p class="small">${e(t.footerResources)}</p>
       </div>
       <nav aria-label="${e(t.footerLegal)}">
-        <h2>${e(t.footerLegal)}</h2>
-        <a href="${pathFor(lang, 'privacy-app/')}">${e(t.appPrivacy)}</a
-        ><a href="${pathFor(lang, 'privacy-website/')}">${e(t.websitePrivacy)}</a
-        ><a href="${pathFor(lang, 'imprint/')}">${e(t.imprint)}</a
-        ><a href="mailto:${e(site.email)}">${e(t.contact)}</a>
+        <a href="${pathFor(lang, 'privacy/')}">${e(t.privacy)}</a>
+        <a href="${pathFor(lang, 'imprint/')}">${e(t.imprint)}</a>
       </nav>
     </div>
   </footer>`;
@@ -162,7 +159,7 @@ const landing = (lang) => {
           </div>
           <aside class="privacy-note">
             <p>${e(t.conceptCaveat)}</p>
-            <a href="${pathFor(lang, 'privacy-app/')}"
+            <a href="${pathFor(lang, 'privacy/')}"
               >${e(t.conceptPrivacy)} <span aria-hidden="true">↗</span></a
             >
           </aside>
@@ -242,7 +239,7 @@ const landing = (lang) => {
     </main>`,
   );
 };
-const legalKeys = { 'privacy-app/': 'app', 'privacy-website/': 'website', 'imprint/': 'imprint' };
+const legalKeys = { 'privacy/': 'privacy', 'imprint/': 'imprint' };
 // Legal strings stay data. Only an explicit tel:+digits token becomes a link.
 const renderLegalText = (text) =>
   String(text)
@@ -268,14 +265,64 @@ const legalPage = (lang, route) => {
       <p class="lead">${e(page.intro)}</p>
       <p>${e(t.legalAuthority)}</p>
       <nav class="legal-toc" aria-label="${e(t.legalNavigation)}">
-        <a href="${pathFor(lang, 'privacy-app/')}">${e(t.appPrivacy)}</a
-        ><a href="${pathFor(lang, 'privacy-website/')}">${e(t.websitePrivacy)}</a
-        ><a href="${pathFor(lang, 'imprint/')}">${e(t.imprint)}</a>
+        <a href="${pathFor(lang, 'privacy/')}">${e(t.privacy)}</a>
+        ${
+          route === 'privacy/'
+            ? page.sections
+                .filter((section) => section.id)
+                .map((section) => `<a href="#${e(section.id)}">${e(section.title)}</a>`)
+                .join('')
+            : ''
+        }
+        <a href="${pathFor(lang, 'imprint/')}">${e(t.imprint)}</a>
       </nav>
-      ${page.sections.map((section, i) => `<section aria-labelledby="legal-${i}"><h2 id="legal-${i}">${e(section.title)}</h2>${section.paragraphs.map((text) => `<p>${renderLegalText(text)}</p>`).join('')}</section>`).join('')}
+      ${page.sections
+        .map((section, i) => {
+          const id = section.id || `legal-${i}`;
+          return `<section aria-labelledby="${e(id)}"><h2 id="${e(id)}">${e(section.title)}</h2>${section.paragraphs.map((text) => `<p>${renderLegalText(text)}</p>`).join('')}</section>`;
+        })
+        .join('')}
       ${updated}
     </main>`,
   );
+};
+const redirectPage = (lang, hash) => {
+  const t = locales[lang];
+  const other = languages.find((value) => value !== lang);
+  const target = `${pathFor(lang, 'privacy/')}#${hash}`;
+  const otherTarget = `${pathFor(other, 'privacy/')}#${hash}`;
+  return html`<!doctype html>
+    <html lang="${lang}">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="noindex" />
+        <meta http-equiv="refresh" content="0; url=${target}" />
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="default-src 'none'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'"
+        />
+        <title>${e(t.privacy)} | ${e(site.name)}</title>
+        <link rel="canonical" href="${urlFor(lang, 'privacy/')}" />
+        <link rel="icon" href="${asset('app-icon.png')}" type="image/png" />
+        <link rel="stylesheet" href="${asset(cssName)}" />
+      </head>
+      <body>
+        <a class="skip-link" href="#main">${e(t.skip)}</a>
+        <header class="header">
+          <div class="container header-inner">
+            <a class="brand" href="${pathFor(lang)}">${e(site.name)}</a>
+            <a class="language" href="${otherTarget}" lang="${other}" hreflang="${other}"
+              >${other.toUpperCase()} <span aria-hidden="true">↗</span></a
+            >
+          </div>
+        </header>
+        <main id="main" class="container legal-page">
+          <p><a href="${target}">${e(t.privacy)}</a></p>
+        </main>
+        ${footer(lang, t)}
+      </body>
+    </html>`;
 };
 await rm(out, { recursive: true, force: true });
 await mkdir(out, { recursive: true });
@@ -287,6 +334,11 @@ for (const lang of languages) {
     const dir = resolve(out, lang, route);
     await mkdir(dir, { recursive: true });
     await writeFile(resolve(dir, 'index.html'), route ? legalPage(lang, route) : landing(lang));
+  }
+  for (const redirect of privacyRedirects) {
+    const dir = resolve(out, lang, redirect.from);
+    await mkdir(dir, { recursive: true });
+    await writeFile(resolve(dir, 'index.html'), redirectPage(lang, redirect.hash));
   }
 }
 await writeFile(resolve(out, 'index.html'), landing('de'));
@@ -318,5 +370,5 @@ await writeFile(
 );
 await writeFile(resolve(out, '.nojekyll'), '');
 console.log(
-  `Built ${languages.length * routes.length + 2} static HTML pages; no runtime JavaScript. App snapshot: ${product.source.commit}`,
+  `Built ${languages.length * (routes.length + privacyRedirects.length) + 2} static HTML pages; no runtime JavaScript. App snapshot: ${product.source.commit}`,
 );

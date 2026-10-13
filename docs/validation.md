@@ -6,7 +6,7 @@ New static product website; there was no prior website UI to capture. The origin
 
 ## Verified implementation
 
-- German default entry plus eight localized landing/app-privacy/website-privacy/imprint routes and a 404 page: ten generated HTML pages total.
+- German default entry plus six localized landing/privacy/imprint routes, four static redirects from the former app and website privacy URLs, and a 404 page: twelve generated HTML pages total.
 - Full DE/EN source schemas and rendered content, reciprocal language/canonical metadata, legal-page-preserving language switch, main/skip navigation and local asset paths below the Pages project base.
 - App-derived dark theme, system font, real product captures with web-preview/sample-data captions and full-size image links. No native-device/store-purchase verification is implied.
 - Free domain limits and Solo/Business entitlements derived from app commit `ed9ef522e2701b2b38dad901e962a5064e26fb7b`; no unlimited Free catalog claim. Positionsvorlagen are reusable line-item templates, not PDF layouts.
@@ -17,7 +17,7 @@ New static product website; there was no prior website UI to capture. The origin
 
 ## Executed checks
 
-- `npm run check`: Prettier lint, production build, **17 passing Node tests**, zero failures. Covers HTML injection escaping, real HTTP serving (including Windows path-prefix regression), assets, language/SEO metadata, all internal links/anchors, legal scope, actual Free limits and entitlement cells, non-interactive store placeholders and sitemap completeness.
+- `npm run check`: Prettier lint, production build, **21 passing Node tests**, zero failures. Covers HTML injection escaping, real HTTP serving (including Windows path-prefix regression), assets, language/SEO metadata, all internal links/anchors, legal scope, actual Free limits and entitlement cells, non-interactive store placeholders and sitemap completeness.
 - `npm audit --audit-level=moderate`: zero vulnerabilities at the time of the check.
 - Real Mullvad Browser via Selenium/geckodriver in a disposable profile: **22 passing page/language/viewport combinations**. Landing widths 320, 360, 430, 768 and 1280 px; all legal routes at 360 and 1280 px. No horizontal document overflow, broken eager images or foreign resource origins. Root defaults to German; landing language switch, legal switch, keyboard skip link and full-size product image navigation exercised.
 - axe-core WCAG 2 A/AA and 2.1 AA rules run inside Mullvad: **zero detected violations**. Non-text arrow/check/infinity glyphs are marked incomplete by axe's text-contrast rule (non-text content); a separate check reads their real computed foreground and nearest opaque background, rejects translucent ancestors, and verifies at least 3:1 non-text contrast. This is not a Lighthouse score or a full accessibility certification.

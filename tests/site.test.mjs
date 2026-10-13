@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { load } from 'cheerio';
-import { site, languages, routes, pathFor, urlFor } from '../src/config.mjs';
+import { site, languages, routes, privacyRedirects, pathFor, urlFor } from '../src/config.mjs';
 import { legal } from '../src/content/legal.mjs';
 const root = process.cwd();
 const out = resolve(root, 'dist');
@@ -43,8 +43,8 @@ test('DE and EN have matching, non-empty translation and legal schemas', () => {
     check(locale);
   }
 });
-test('eight localized pages have correct language, canonical and reciprocal hreflang', () => {
-  assert.equal(pages.length, 8);
+test('localized pages have correct language, canonical and reciprocal hreflang', () => {
+  assert.equal(pages.length, languages.length * routes.length);
   for (const { lang, route, $ } of pages) {
     assert.equal($('html').attr('lang'), lang);
     assert.equal($('link[rel="canonical"]').attr('href'), urlFor(lang, route));
@@ -194,54 +194,56 @@ test('both billing periods are explicit, with no invented paid prices or checkou
     assert.equal($('.store-placeholder a').length, 0);
   }
 });
-test('legal pages keep the authority note and separate app and website scopes', () => {
+test('privacy page states shared duties once and keeps website and app sections separate', () => {
   for (const { lang, route, $ } of pages.filter((page) => page.route !== '')) {
     assert.equal($('.legal-notice').length, 0);
     assert.equal(
       $('main .small').text(),
-      legal[lang][
-        route === 'privacy-app/' ? 'app' : route === 'privacy-website/' ? 'website' : 'imprint'
-      ].updated,
+      legal[lang][route === 'privacy/' ? 'privacy' : 'imprint'].updated,
     );
     assert.ok($('main').text().includes(locales[lang].legalAuthority));
     assert.ok($('main').text().includes(site.email));
     assert.ok($('main').text().includes('Jan Siems'));
   }
   for (const lang of languages) {
-    const website = pages
-      .find((page) => page.lang === lang && page.route === 'privacy-website/')
-      .$('main')
-      .text();
+    const page = pages.find((item) => item.lang === lang && item.route === 'privacy/');
+    const website = page.$('#website').parent().text();
+    const app = page.$('#app').parent().text();
+    assert.equal(page.$('h1').text(), locales[lang].privacy);
+    assert.equal(page.$('#website').text(), lang === 'de' ? 'Diese Website' : 'This website');
+    assert.equal(
+      page.$('#app').text(),
+      lang === 'de' ? 'Die App OfflineHandwerk' : 'The OfflineHandwerk app',
+    );
     assert.ok(website.includes('GitHub, Inc.'));
     assert.ok(website.includes('Data Privacy Framework'));
     assert.ok(website.includes(lang === 'de' ? 'IP-Adresse' : 'IP address'));
     assert.ok(!website.includes('OPFS'));
-    const appPage = pages.find((page) => page.lang === lang && page.route === 'privacy-app/');
-    const websitePage = pages.find(
-      (page) => page.lang === lang && page.route === 'privacy-website/',
-    );
-    const app = appPage.$('main').text();
-    const authority =
-      'Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz';
-    const officer =
-      lang === 'de'
-        ? 'Ein Datenschutzbeauftragter ist nicht erforderlich.'
-        : 'A data protection officer is not required.';
-    for (const page of [appPage, websitePage]) {
-      assert.equal(page.$('a[href="tel:+4917684328001"]').length, 1);
-      assert.ok(page.$('main').text().includes(officer));
-      assert.ok(page.$('main').text().includes(authority));
-      assert.ok(page.$('main').text().includes('Art. 6'));
-      assert.ok(page.$('main').text().includes('Art. 15'));
-      assert.ok(page.$('main').text().includes('Art. 21'));
-      assert.doesNotMatch(
-        page.$('main').text(),
-        /Entwurf|rechtliche Freigabe|noch nicht bestätigt|vor Veröffentlichung|Draft|pending legal|not legally approved/,
-      );
-    }
+    assert.ok(!website.includes('SQLite'));
     assert.ok(app.includes('SQLite'));
     assert.ok(app.includes('RevenueCat'));
     assert.ok(!app.includes('Data Privacy Framework'));
+    const officer =
+      lang === 'de'
+        ? 'weniger als 20 Personen regelmäßig mit der Verarbeitung personenbezogener Daten betraut sind (§ 38 BDSG)'
+        : 'fewer than 20 people regularly process personal data (§ 38 BDSG)';
+    assert.equal(page.$('a[href="tel:+4917684328001"]').length, 1);
+    assert.equal(page.$('main').text().split(officer).length - 1, 1);
+    assert.ok(
+      page
+        .$('main')
+        .text()
+        .includes(
+          'Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz',
+        ),
+    );
+    assert.ok(page.$('main').text().includes('Art. 6'));
+    assert.ok(page.$('main').text().includes('Art. 15'));
+    assert.ok(page.$('main').text().includes('Art. 21'));
+    assert.doesNotMatch(
+      page.$('main').text(),
+      /Entwurf|rechtliche Freigabe|noch nicht bestätigt|vor Veröffentlichung|Draft|pending legal|not legally approved|not assessed/,
+    );
   }
 });
 test('imprint pages show the final provider notice in both languages', () => {
@@ -313,6 +315,42 @@ test('imprint pages show the final provider notice in both languages', () => {
     );
   }
 });
+test('footer shows only privacy and imprint, outside the main navigation', () => {
+  for (const { lang, $ } of pages) {
+    assert.deepEqual(
+      $('footer nav a')
+        .map((_, element) => $(element).attr('href'))
+        .get(),
+      [pathFor(lang, 'privacy/'), pathFor(lang, 'imprint/')],
+    );
+    assert.deepEqual(
+      $('footer nav a')
+        .map((_, element) => $(element).text())
+        .get(),
+      [locales[lang].privacy, locales[lang].imprint],
+    );
+    assert.equal($('nav.main-nav a[href*="privacy"], nav.main-nav a[href*="imprint"]').length, 0);
+    assert.equal($('footer a[href^="mailto:"]').length, 0);
+  }
+});
+test('old privacy URLs redirect to the website and app anchors', async () => {
+  for (const lang of languages) {
+    for (const redirect of privacyRedirects) {
+      const target = `${pathFor(lang, 'privacy/')}#${redirect.hash}`;
+      const $ = load(await readFile(resolve(out, lang, redirect.from, 'index.html'), 'utf8'));
+      assert.equal($('meta[http-equiv="refresh"]').attr('content'), `0; url=${target}`);
+      assert.equal($('link[rel="canonical"]').attr('href'), urlFor(lang, 'privacy/'));
+      assert.equal($('meta[name="robots"]').attr('content'), 'noindex');
+      assert.equal($(`a[href="${target}"]`).length > 0, true);
+      assert.equal($('script').length, 0);
+      assert.equal($(`link[hreflang]`).length, 0);
+      const other = languages.find((code) => code !== lang);
+      assert.equal($('a.language').attr('href'), `${pathFor(other, 'privacy/')}#${redirect.hash}`);
+      const destination = load(await readFile(resolve(out, lang, 'privacy/index.html'), 'utf8'));
+      assert.equal(destination(`[id="${redirect.hash}"]`).length, 1);
+    }
+  }
+});
 test('every page links all legal routes and accessible main content', () => {
   for (const { lang, $ } of pages) {
     for (const route of routes.filter(Boolean))
@@ -329,6 +367,8 @@ test('sitemap has every localized canonical URL and not duplicate root/404 URLs'
     urls.sort(),
     languages.flatMap((lang) => routes.map((route) => urlFor(lang, route))).sort(),
   );
+  assert.equal(xml.includes('privacy-app'), false);
+  assert.equal(xml.includes('privacy-website'), false);
   await stat(resolve(out, '404.html'));
   await stat(resolve(out, '.nojekyll'));
 });
