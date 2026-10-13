@@ -251,7 +251,7 @@ h3 {
 }
 .plan-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   margin-top: 32px;
 }
@@ -280,23 +280,18 @@ h3 {
   margin: auto 0 0;
   padding-top: 24px;
 }
-.prices div {
-  border-top: 1px solid var(--surfaceSubtle);
-  padding-top: 12px;
-  margin-top: 12px;
-}
-.prices dt {
+.prices p {
+  margin: 0 0 8px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--textPrimary);
 }
-.prices dd {
-  margin: 4px 0 0;
-  color: var(--textMuted);
-  font-size: 14px;
+.prices p:last-child {
+  margin-bottom: 0;
 }
-.pricing-note {
-  margin-top: 24px;
-  max-width: 850px;
+.table-wrap sup {
+  font-size: 0.65em;
+  line-height: 0;
 }
 .table-wrap {
   margin-top: 32px;
@@ -571,12 +566,6 @@ tbody th {
   }
   .workflow h3 {
     font-size: 22px;
-  }
-  .prices {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    padding-top: 12px;
   }
   th,
   td {

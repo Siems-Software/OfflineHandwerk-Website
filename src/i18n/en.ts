@@ -59,19 +59,14 @@ export const en = {
   plansEyebrow: 'Free & Premium',
   plansTitle: 'Start small. Expand when it fits.',
   plansBody:
-    'Free to get started. Solo for everyday use. Business adds backup and restore. Your contents stay local with every plan.',
+    'Free to get started. Premium for everyday use. Your contents stay local with every plan.',
   freeName: 'Free',
-  soloName: 'Solo',
-  businessName: 'Business',
+  premiumName: 'Premium',
   freePrice: 'Free of charge',
   freeDescription: 'The essentials to try it out.',
-  soloDescription: 'Premium for your calculations and PDFs.',
-  businessDescription: 'All Solo features, plus backup and restore.',
-  monthly: 'Monthly',
-  yearly: 'Yearly',
-  pricePending: 'Price to follow in the store',
-  pricingNote:
-    'This website does not sell subscriptions. Availability, actual monthly and yearly prices, and terms are shown in the relevant app store before purchase. We do not display invented prices or savings.',
+  premiumDescription: 'Premium for your calculations and PDFs.',
+  premiumMonthly: '€9.99 / month',
+  premiumYearly: '€109.99 / year (1 month free)',
   tableCaption: 'Mobile app features and limits compared',
   tableFeature: 'Feature',
   included: 'Included',
@@ -94,8 +89,9 @@ export const en = {
     canSendOfficeEmail: 'Send PDF to the office',
     canBackupRestore: 'Backup & restore',
   },
-  backupNote:
-    'Without the backup feature, you cannot create a complete local database backup in the app. A PDF export is not a database backup.',
+  footnoteUnlimited: '*1 ∞ = Unlimited',
+  footnoteBackup:
+    '*2 Without the backup feature you cannot create a full local database backup in the app. A PDF export does not replace a backup of your database.',
   downloadEyebrow: 'Android & iOS',
   downloadTitle: 'Your next job is waiting.',
   downloadBody:

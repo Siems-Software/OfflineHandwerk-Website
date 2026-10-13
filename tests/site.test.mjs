@@ -189,49 +189,57 @@ test('comparison renders real Free limits, not unlimited catalog claims', () => 
   for (const { lang, $ } of pages.filter((page) => page.route === '')) {
     for (const [key, count] of Object.entries(product.limits)) {
       const row = $(`tr[data-feature="${key}"]`);
+      assert.equal(row.find('td').length, 2);
       assert.equal(row.find('td').eq(0).text(), locales[lang].limited.replace('{count}', count));
-      for (const index of [1, 2])
-        assert.equal(row.find('td').eq(index).find('.sr-only').text(), locales[lang].unlimited);
+      assert.equal(row.find('td').eq(1).find('.sr-only').text(), locales[lang].unlimited);
+      assert.equal(row.find('td').eq(1).find('sup').text(), '*1');
     }
   }
 });
-test('every entitlement cell matches the source plan, including Business-only backups', () => {
+test('Premium column matches Solo entitlements and Business is not shown', () => {
   assert.equal(product.entitlements.free.canExportWithoutWatermark, false);
   assert.equal(product.entitlements.solo.canCreateInternalPdf, true);
   assert.equal(product.entitlements.solo.canSendOfficeEmail, true);
   assert.equal(product.entitlements.solo.canBackupRestore, false);
   assert.equal(product.entitlements.business.canBackupRestore, true);
   for (const { lang, $ } of pages.filter((page) => page.route === '')) {
+    assert.deepEqual(
+      $('table thead th')
+        .map((_, element) => $(element).text())
+        .get(),
+      [locales[lang].tableFeature, locales[lang].freeName, locales[lang].premiumName],
+    );
     for (const key of Object.keys(locales[lang].features).filter((key) => key.startsWith('can'))) {
       const row = $(`tr[data-feature="${key}"]`);
-      ['free', 'solo', 'business'].forEach((plan, index) =>
+      assert.equal(row.find('td').length, 2);
+      ['free', 'solo'].forEach((plan, index) =>
         assert.equal(
           row.find('td').eq(index).find('.sr-only').text(),
           product.entitlements[plan][key] ? locales[lang].included : locales[lang].notIncluded,
         ),
       );
     }
+    assert.equal($('tr[data-feature="canBackupRestore"] th sup').text(), '*2');
+    assert.equal($('p.table-legend').text(), locales[lang].footnoteUnlimited);
+    assert.equal($('p.table-footnote').text(), locales[lang].footnoteBackup);
+    assert.equal($('body').text().includes('Solo'), false);
+    assert.equal($('body').text().includes('Business'), false);
   }
 });
-test('both billing periods are explicit, with no invented paid prices or checkout', () => {
+test('Premium shows the published monthly and yearly prices', () => {
   for (const { lang, $ } of pages.filter((page) => page.route === '')) {
-    assert.equal($('.prices').length, 2);
-    $('.prices').each((_, element) => {
-      assert.deepEqual(
-        $(element)
-          .find('dt')
-          .map((_, node) => $(node).text())
-          .get(),
-        [locales[lang].monthly, locales[lang].yearly],
-      );
-      assert.deepEqual(
-        $(element)
-          .find('dd')
-          .map((_, node) => $(node).text())
-          .get(),
-        [locales[lang].pricePending, locales[lang].pricePending],
-      );
-    });
+    assert.equal($('.prices').length, 1);
+    assert.deepEqual(
+      $('.prices p')
+        .map((_, node) => $(node).text())
+        .get(),
+      [locales[lang].premiumMonthly, locales[lang].premiumYearly],
+    );
+    assert.equal($('.pricing-note').length, 0);
+    assert.equal($('body').text().includes('Preis folgt im Store'), false);
+    assert.equal($('body').text().includes('Price to follow in the store'), false);
+    assert.equal($('body').text().includes('Die Website verkauft keine Abos'), false);
+    assert.equal($('body').text().includes('This website does not sell subscriptions'), false);
     assert.equal($('a[href*="play.google"],a[href*="apps.apple"],button').length, 0);
     assert.equal($('.store-placeholder[aria-disabled="true"]').length, 2);
     assert.equal($('.store-placeholder a').length, 0);
