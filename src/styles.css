@@ -166,10 +166,6 @@ h3 {
 .text-link {
   font-weight: 600;
 }
-.hero-note {
-  margin: 32px 0 0;
-  max-width: 460px;
-}
 .product-shot {
   margin: 0;
   width: 100%;
@@ -182,12 +178,6 @@ h3 {
   height: auto;
   border: 1px solid var(--border);
   border-radius: 20px;
-}
-.product-shot figcaption {
-  margin-top: 12px;
-  font-size: 12px;
-  color: var(--textMuted);
-  text-align: center;
 }
 .section {
   padding-block: 64px;
@@ -222,16 +212,6 @@ h3 {
 .concept-grid h3 {
   font-size: 24px;
   margin-bottom: 16px;
-}
-.privacy-note {
-  border-left: 3px solid var(--actionPrimary);
-  padding-left: 24px;
-  margin-top: 32px;
-  font-size: 14px;
-  max-width: 950px;
-}
-.privacy-note a {
-  font-weight: 600;
 }
 .workflow-layout {
   display: grid;

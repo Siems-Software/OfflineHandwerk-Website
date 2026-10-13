@@ -18,14 +18,10 @@ export const en = {
   heroEnd: 'Your data.',
   heroBody:
     'Calculate labour and materials. Create a PDF for your customers. And keep your business data where it belongs: with you.',
-  heroNote: 'Local First · No ads · No tracking of your work',
   screenshotAlt:
     'OfflineHandwerk: home screen with master data, calculations and settings in the dark theme',
-  screenshotCaption: 'Actual app interface · German-language web preview',
-  screenshotOpen: 'Open full-size image',
   screenshotSecondAlt:
     'OfflineHandwerk calculation list with the built-in bathroom renovation example for sample customer Musterkunde',
-  screenshotSecondCaption: 'German web preview · Built-in sample data, not a real customer job',
   conceptEyebrow: 'Local First',
   conceptTitle: 'Your business. Not our database.',
   conceptBody:
@@ -44,9 +40,6 @@ export const en = {
       body: 'If your device is lost or local app data is deleted, we cannot recover it. Back up your data and keep your own exports safe.',
     },
   ],
-  conceptCaveat:
-    'Local First does not mean there are no connections: purchases and entitlements in the mobile app are checked through Apple or Google and RevenueCat. Website visits produce connection data at the host. Shared files and device backups follow your settings.',
-  conceptPrivacy: 'Read about privacy',
   featuresEyebrow: 'From job to PDF',
   featuresTitle: 'Fewer detours. A clearer picture.',
   featureSteps: [

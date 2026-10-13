@@ -88,6 +88,29 @@ test('root defaults to German without client-side script or forced redirect', as
   );
   assert.equal($('meta[http-equiv="refresh"]').length, 0);
 });
+test('homepages omit the removed captions and full-size image links', () => {
+  const removed = [
+    'Local First · Keine Werbung · Kein Tracking deiner Arbeit',
+    'Local First · No ads · No tracking of your work',
+    'Echte App-Oberfläche · Web-Vorschau in deutscher Sprache',
+    'Actual app interface · German-language web preview',
+    'Bild in voller Größe öffnen',
+    'Open full-size image',
+    'Local First bedeutet nicht, dass jede Verbindung entfällt',
+    'Local First does not mean there are no connections',
+    'Mehr zum Datenschutz',
+    'Read about privacy',
+    'Web-Vorschau · Integrierte Beispieldaten, kein echter Kundenauftrag',
+    'German web preview · Built-in sample data, not a real customer job',
+  ];
+  for (const { $ } of pages.filter((item) => item.page === '')) {
+    for (const text of removed) assert.equal($('body').text().includes(text), false, text);
+    assert.equal($('figcaption, .privacy-note, .hero-note').length, 0);
+    assert.equal($('a[href*="app-home.webp"], a[href*="app-calculations.webp"]').length, 0);
+    assert.equal($('img[src*="app-home.webp"]').length, 1);
+    assert.equal($('img[src*="app-calculations.webp"]').length, 1);
+  }
+});
 test('all internal links and fragments resolve below the GitHub project base', async () => {
   for (const { $ } of pages) {
     for (const element of $('a[href],img[src],link[rel="stylesheet"],link[rel="icon"]').toArray()) {
