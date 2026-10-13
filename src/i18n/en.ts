@@ -118,7 +118,7 @@ export const en = {
   privacy: 'Privacy',
   imprint: 'Imprint',
   contact: 'Contact',
-  footerResources: 'No cookies. No external fonts. No analytics services.',
+  footerMade: 'Made with ❤️ in 🇩🇪',
   notFoundTitle: 'This page does not exist.',
   notFoundBody: 'Choose the German or English product page.',
 } satisfies Dictionary;

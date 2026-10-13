@@ -374,6 +374,9 @@ test('footer shows only privacy and imprint, outside the main navigation', () =>
       0,
     );
     assert.equal($('footer a[href^="mailto:"]').length, 0);
+    assert.equal($('footer p.small').text(), locales[lang].footerMade);
+    assert.equal($('footer').text().includes('Keine Cookies'), false);
+    assert.equal($('footer').text().includes('No cookies'), false);
   }
 });
 test('old privacy and imprint URLs redirect to the localized pages', async () => {
