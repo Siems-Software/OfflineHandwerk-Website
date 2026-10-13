@@ -416,18 +416,17 @@ tbody th {
   max-width: 380px;
   margin-top: 16px;
 }
-.footer h2 {
-  font-size: 18px;
-  margin-bottom: 24px;
-}
 .footer nav {
   justify-self: end;
+  align-self: end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
 }
 .footer nav a {
-  display: block;
-  width: fit-content;
-  margin: 12px 0;
-  font-size: 14px;
+  color: var(--textMuted);
+  font-size: 12px;
+  text-decoration: none;
 }
 .legal-page {
   max-width: 850px;
@@ -441,6 +440,18 @@ tbody th {
   font-size: clamp(32px, 5vw, 48px);
   margin-bottom: 24px;
   overflow-wrap: anywhere;
+}
+.legal-page h1:has(+ .legal-statute) {
+  margin-bottom: 8px;
+}
+.legal-page h2.legal-statute {
+  max-width: none;
+  margin: 0 0 24px;
+  color: var(--textSecondary);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.4;
 }
 .legal-notice {
   color: var(--warning);

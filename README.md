@@ -1,6 +1,6 @@
 # OfflineHandwerk Website (`offlinehandwerk.github.io`)
 
-Static DE/EN product website with separate app privacy, website privacy and imprint pages. Node.js generates plain HTML and CSS: no runtime JavaScript, cookies, browser storage, analytics, external fonts or CDN assets.
+Static DE/EN product website with one privacy page and an imprint page. Older app and website privacy URLs redirect to the matching section. Node.js generates plain HTML and CSS: no runtime JavaScript, cookies, browser storage, analytics, external fonts or CDN assets.
 
 ## Website / target URLs
 
