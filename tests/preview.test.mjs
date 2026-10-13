@@ -2,7 +2,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
-import { site, languages, legalPages, slugFor, redirectsFor, redirectTo } from '../src/config.mjs';
+import {
+  site,
+  languages,
+  legalPages,
+  guidePages,
+  slugFor,
+  redirectsFor,
+  redirectTo,
+} from '../src/config.mjs';
 
 const child = spawn(process.execPath, ['scripts/serve.mjs'], {
   env: { ...process.env, PORT: '0' },
@@ -38,7 +46,7 @@ test.after(async () => {
 
 test('real preview serves all localized pages with 200, not Windows path-prefix 403', async () => {
   for (const lang of languages) {
-    for (const page of ['', ...legalPages]) {
+    for (const page of ['', ...legalPages, ...guidePages]) {
       const route = page ? `${slugFor(lang, page)}/` : '';
       const response = await fetch(`${base}${lang}/${route}`);
       assert.equal(response.status, 200);

@@ -96,6 +96,7 @@ const csp = `default-src 'none'; ${preserved ? preserved.csp : "script-src 'self
             <a href={`${home}#concept`}>{t.navConcept}</a>
             <a href={`${home}#features`}>{t.navFeatures}</a>
             <a href={`${home}#plans`}>{t.navPlans}</a>
+            <a href={localePath(locale, 'manual')}>{t.navManual}</a>
           </nav>
         )}
         <div class="header-actions">
