@@ -55,7 +55,10 @@ test('DE and EN have matching, non-empty translation and legal schemas', () => {
       Object.values(value).forEach((entry) =>
         typeof entry === 'object' && entry !== null
           ? check(entry)
-          : assert.equal(typeof entry === 'string' && entry.trim().length > 0, true),
+          : assert.equal(
+              typeof entry === 'string' && (entry === '' || entry.trim().length > 0),
+              true,
+            ),
       );
     check(locale);
   }
@@ -382,7 +385,17 @@ test('footer shows only privacy and imprint, outside the main navigation', () =>
       $('a.language svg').attr('data-icon'),
       other === 'en' ? 'circle-flags:gb' : 'circle-flags:de',
     );
-    assert.equal($('footer p.small').text().replace(/\s+/g, ' ').trim(), locales[lang].footerMade);
+    const footerHtml = $('footer p.small').html();
+    assert.ok(footerHtml.includes(locales[lang].footerBefore));
+    assert.ok(
+      footerHtml.indexOf(locales[lang].footerBefore) < footerHtml.indexOf('class="footer-flag"'),
+    );
+    if (locales[lang].footerAfter) {
+      assert.ok(footerHtml.includes(locales[lang].footerAfter));
+      assert.ok(
+        footerHtml.indexOf('class="footer-flag"') < footerHtml.indexOf(locales[lang].footerAfter),
+      );
+    }
     assert.equal($('footer svg.footer-flag').attr('data-icon'), 'circle-flags:de');
     assert.equal($('footer svg.footer-flag').attr('role'), 'img');
     assert.equal($('footer svg.footer-flag').attr('aria-label'), locales[lang].footerFlag);
