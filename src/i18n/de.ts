@@ -107,7 +107,7 @@ export const de = {
     '*2 Ohne die Backup-Funktion kannst du keine vollständige lokale Datenbanksicherung in der App erstellen. Ein PDF-Export ersetzt kein Backup deiner Datenbank.',
   downloadEyebrow: 'Android & iOS',
   downloadTitle: 'Dein nächster Auftrag wartet.',
-  downloadComingSoon: 'Interessiert? Schreib mir an info@offlinehandwerk.de.',
+  downloadComingSoon: 'Fragen oder Interesse? Schreib mir: info@offlinehandwerk.de',
   downloadBody:
     'Die Store-Veröffentlichung wird vorbereitet. Sobald die App verfügbar ist, findest du hier die direkten Download-Links.',
   googlePlay: 'Google Play',
