@@ -3,3 +3,5 @@ public/assets/
 node_modules/
 .astro/
 src/content/legal/
+# Renovate rewrites this file in its own JSON style.
+renovate.json
