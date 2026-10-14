@@ -4,16 +4,14 @@ Static DE/EN product website with one privacy page and an imprint page. Older ap
 
 ## Website / target URLs
 
-**GitHub Pages:** [https://siems-software.github.io/offlinehandwerk.github.io/](https://siems-software.github.io/offlinehandwerk.github.io/)
+**Site:** [https://offlinehandwerk.de/](https://offlinehandwerk.de/)
 
-- [Deutsch](https://siems-software.github.io/offlinehandwerk.github.io/de/) (default)
-- [English](https://siems-software.github.io/offlinehandwerk.github.io/en/)
+- [Deutsch](https://offlinehandwerk.de/de/) (default)
+- [English](https://offlinehandwerk.de/en/)
 
-### Repository name
+### Custom domain
 
-This repository is named `offlinehandwerk.github.io`. Because it belongs to the `Siems-Software` organization, GitHub serves it as a **project site** below the repository name, so `site.base` in `src/config.mjs` is `/offlinehandwerk.github.io/`. Astro's `base` is that path without a trailing slash. The former URL `https://siems-software.github.io/OfflineHandwerk-Website/` is not redirected.
-
-The root domain `https://offlinehandwerk.github.io/` would require a GitHub organization named `offlinehandwerk`. A custom domain (e.g. `offlinehandwerk.de`) is also possible; both require `site.base` to become `/` and a matching `site.origin`. See [GitHub's site types](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages).
+GitHub Pages publishes this repository on `offlinehandwerk.de`. The domain is served at the root, so Astro `site` is `https://offlinehandwerk.de` and `base` is `/`. `public/CNAME` contains `offlinehandwerk.de`. `site.origin` and `site.base` in `src/config.mjs` match those values.
 
 ## Run locally
 
@@ -25,7 +23,7 @@ npm run check
 npm run preview
 ```
 
-Open `http://127.0.0.1:4311/offlinehandwerk.github.io/de/`. `PORT` changes the preview port. The configured base path is preserved locally to catch broken GitHub Pages links.
+Open `http://127.0.0.1:4311/de/`. `PORT` changes the preview port.
 
 ## Structure
 

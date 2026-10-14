@@ -4,14 +4,7 @@ import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import product from './src/content/product.json' with { type: 'json' };
-import {
-  languages,
-  legalPages,
-  guidePages,
-  prefixDefaultLocale,
-  site,
-  urlFor,
-} from './src/config.mjs';
+import { languages, legalPages, guidePages, prefixDefaultLocale, urlFor } from './src/config.mjs';
 
 const themeBlock = (selector, tokens, scheme) =>
   `${selector}{color-scheme:${scheme};${Object.entries(tokens)
@@ -20,8 +13,9 @@ const themeBlock = (selector, tokens, scheme) =>
 const themeCss = `/* App tokens: ${product.source.commit} */\n${themeBlock(':root', product.themes.light, 'light')}\n@media (prefers-color-scheme: dark){${themeBlock(':root:not([data-theme="light"])', product.themes.dark, 'dark')}}\n${themeBlock(':root[data-theme="dark"]', product.themes.dark, 'dark')}\n`;
 
 export default defineConfig({
-  site: site.origin,
-  base: site.base.replace(/\/$/, ''),
+  // Custom domain is served at the domain root, not under the repository path.
+  site: 'https://offlinehandwerk.de',
+  base: '/',
   output: 'static',
   trailingSlash: 'always',
   build: {
