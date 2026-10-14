@@ -617,6 +617,22 @@ test('manual pages follow the published app flow in both languages', () => {
     assert.equal(link.attr('href'), pathFor(lang, 'manual'));
   }
 });
+test('pages are published at the custom domain root', async () => {
+  assert.equal(site.origin, 'https://offlinehandwerk.de');
+  assert.equal(site.base, '/');
+  assert.equal(await readFile(resolve(out, 'CNAME'), 'utf8'), 'offlinehandwerk.de\n');
+  assert.equal(
+    await readFile(resolve(out, 'robots.txt'), 'utf8'),
+    'User-agent: *\nAllow: /\nSitemap: https://offlinehandwerk.de/sitemap.xml\n',
+  );
+  for (const { $ } of pages) {
+    assert.equal($.html().includes('offlinehandwerk.github.io'), false);
+    assert.equal($.html().includes('siems-software.github.io'), false);
+    assert.ok($('link[rel="canonical"]').attr('href').startsWith('https://offlinehandwerk.de/'));
+    assert.equal($('script').attr('src'), '/theme.js');
+    assert.ok($('link[rel="stylesheet"]').attr('href').startsWith('/assets/'));
+  }
+});
 test('sitemap has every localized canonical URL and not duplicate root/404 URLs', async () => {
   const xml = await readFile(resolve(out, 'sitemap.xml'), 'utf8');
   const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);

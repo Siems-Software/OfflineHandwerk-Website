@@ -27,7 +27,7 @@ const server = createServer(async (request, response) => {
     response.writeHead(400).end();
     return;
   }
-  if (pathname === '/') {
+  if (site.base !== '/' && pathname === '/') {
     response.writeHead(302, { Location: site.base }).end();
     return;
   }

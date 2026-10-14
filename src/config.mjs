@@ -1,7 +1,7 @@
 export const site = {
   name: 'OfflineHandwerk',
-  origin: 'https://siems-software.github.io',
-  base: '/offlinehandwerk.github.io/',
+  origin: 'https://offlinehandwerk.de',
+  base: '/',
   email: 'info@offlinehandwerk.de',
 };
 // Store buttons stay in the page source. Flip this when the listings are live.
