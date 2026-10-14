@@ -324,7 +324,14 @@ test('Premium shows the published monthly and yearly prices', () => {
     assert.equal($('.store-placeholder[aria-disabled="true"]').length, storesEnabled ? 2 : 0);
     assert.equal($('.store-placeholder a').length, 0);
     const download = $('#download').text();
+    assert.equal($('#download .eyebrow').text(), locales[lang].downloadEyebrow);
+    assert.equal($('#download h2').text(), locales[lang].downloadTitle);
     assert.equal(download.includes(locales[lang].downloadComingSoon), !storesEnabled);
+    assert.equal(download.includes('Bald in deinem App Store'), false);
+    assert.equal(download.includes('Coming soon to your app store'), false);
+    const mail = $(`#download a[href="mailto:${site.email}"]`);
+    assert.equal(mail.length, storesEnabled ? 0 : 1);
+    if (!storesEnabled) assert.equal(mail.text(), site.email);
     assert.equal(download.includes(locales[lang].downloadBody), storesEnabled);
     assert.equal(download.includes(locales[lang].storePending), storesEnabled);
     assert.equal(download.includes(locales[lang].downloadNote), storesEnabled);
