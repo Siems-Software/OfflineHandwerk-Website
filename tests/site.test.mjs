@@ -416,6 +416,22 @@ test('privacy page states shared duties once and keeps website and app sections 
     );
   }
 });
+test('every visible contact email is a mailto link', () => {
+  const email = site.email;
+  for (const { $ } of pages) {
+    const links = $(`a[href="mailto:${email}"]`);
+    links.each((_, element) => assert.equal($(element).text(), email));
+    const withoutLinks = $.root().clone();
+    withoutLinks.find(`a[href="mailto:${email}"]`).remove();
+    assert.equal(withoutLinks.html().includes(email), false);
+  }
+  for (const lang of languages) {
+    for (const page of ['privacy', 'imprint']) {
+      const $ = pages.find((item) => item.lang === lang && item.page === page).$;
+      assert.equal($(`a[href="mailto:${email}"]`).length, 1);
+    }
+  }
+});
 test('imprint pages show the final provider notice in both languages', () => {
   const copy = {
     de: {

@@ -12,7 +12,7 @@ Jan Siems, Hintergasse 28, 67308 Bubenheim, Deutschland
 
 Telefon: [+49 176 84328001](tel:+4917684328001)
 
-E-Mail: info@offlinehandwerk.de
+E-Mail: [info@offlinehandwerk.de](mailto:info@offlinehandwerk.de)
 
 ## Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV
 

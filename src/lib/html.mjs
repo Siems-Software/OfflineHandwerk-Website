@@ -7,14 +7,18 @@ export const escapeHtml = (value) =>
     (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char],
   );
 
-// A paragraph may contain one [label](tel:+digits) token. Everything else stays text.
+const contactEmail = 'info@offlinehandwerk.de';
+const mailtoLink = `<a href="mailto:${contactEmail}">${contactEmail}</a>`;
+
+// A paragraph may contain [label](tel:+digits) or [label](mailto:address) tokens.
+// A bare contact address in the remaining text becomes the same mailto link.
 export const renderLegalText = (text) =>
   String(text)
-    .split(/(\[[^\]]+\]\(tel:\+\d+\))/g)
+    .split(/(\[[^\]]+\]\((?:tel:\+\d+|mailto:[^)\s]+)\))/g)
     .map((part) => {
-      const link = /^\[([^\]]+)\]\((tel:\+\d+)\)$/.exec(part);
-      if (!link) return escapeHtml(part).replace(/\n/g, '<br>');
-      return `<a href="${escapeHtml(link[2])}">${escapeHtml(link[1])}</a>`;
+      const link = /^\[([^\]]+)\]\((tel:\+\d+|mailto:[^)\s]+)\)$/.exec(part);
+      if (link) return `<a href="${escapeHtml(link[2])}">${escapeHtml(link[1])}</a>`;
+      return escapeHtml(part).replace(/\n/g, '<br>').replaceAll(contactEmail, mailtoLink);
     })
     .join('');
 

@@ -11,7 +11,7 @@ Hintergasse 28
 Deutschland
 
 Telefon: [+49 176 84328001](tel:+4917684328001)
-E-Mail: info@offlinehandwerk.de
+E-Mail: [info@offlinehandwerk.de](mailto:info@offlinehandwerk.de)
 
 Ein Datenschutzbeauftragter ist nicht benannt, da keine gesetzliche Pflicht dazu besteht (§ 38 BDSG).
 
