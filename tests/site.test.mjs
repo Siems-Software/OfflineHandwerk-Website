@@ -329,9 +329,15 @@ test('Premium shows the published monthly and yearly prices', () => {
     assert.equal(download.includes(locales[lang].downloadComingSoon), !storesEnabled);
     assert.equal(download.includes('Bald in deinem App Store'), false);
     assert.equal(download.includes('Coming soon to your app store'), false);
+    assert.equal(download.includes('Interessiert? Schreib mir an'), false);
+    assert.equal(download.includes('Interested? Email me at'), false);
     const mail = $(`#download a[href="mailto:${site.email}"]`);
     assert.equal(mail.length, storesEnabled ? 0 : 1);
-    if (!storesEnabled) assert.equal(mail.text(), site.email);
+    if (!storesEnabled) {
+      assert.equal(mail.text(), site.email);
+      assert.equal($('#download p.lead').text(), locales[lang].downloadComingSoon);
+      assert.equal($('#download p.lead').html().includes(`${site.email}</a>.`), false);
+    }
     assert.equal(download.includes(locales[lang].downloadBody), storesEnabled);
     assert.equal(download.includes(locales[lang].storePending), storesEnabled);
     assert.equal(download.includes(locales[lang].downloadNote), storesEnabled);
