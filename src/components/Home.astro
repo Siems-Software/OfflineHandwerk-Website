@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import product from '../content/product.json';
-import { storesEnabled } from '../config.mjs';
+import { site, storesEnabled } from '../config.mjs';
 import { escapeHtml } from '../lib/html.mjs';
 import Base from './Base.astro';
 import { useTranslations, type Locale } from '../i18n';
@@ -195,7 +195,18 @@ const entitlement = (plan: (typeof plans)[number], key: string) => {
           <p class="small">{t.downloadNote}</p>
         </>
       ) : (
-        <p class="lead">{t.downloadComingSoon}</p>
+        <p class="lead">
+          {t.downloadComingSoon.split(site.email).map((part, index, parts) =>
+            index < parts.length - 1 ? (
+              <>
+                {part}
+                <a href={`mailto:${site.email}`}>{site.email}</a>
+              </>
+            ) : (
+              part
+            ),
+          )}
+        </p>
       )}
     </section>
   </main>
