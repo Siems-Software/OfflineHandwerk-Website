@@ -11,9 +11,7 @@
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
     "enabled": true,
-    "labels": [
-      "security"
-    ],
+    "labels": ["security"],
     "groupName": "all dependencies",
     "groupSlug": "all",
     "minimumReleaseAge": null
@@ -27,9 +25,7 @@
   "packageRules": [
     {
       "description": "Alles in einen PR",
-      "matchPackageNames": [
-        "*"
-      ],
+      "matchPackageNames": ["*"],
       "groupName": "all dependencies",
       "groupSlug": "all"
     }
@@ -37,18 +33,12 @@
   "minimumReleaseAge": "3 days",
   "internalChecksFilter": "strict",
   "rangeStrategy": "auto",
-  "postUpdateOptions": [
-    "npmDedupe"
-  ],
+  "postUpdateOptions": ["npmDedupe"],
   "prConcurrentLimit": 1,
   "prHourlyLimit": 0,
   "rebaseWhen": "conflicted",
-  "labels": [
-    "dependencies"
-  ],
-  "prBodyNotes": [
-    "Kompatibilität: Merge-Confidence-Badges prüfen; CI muss grün sein."
-  ],
+  "labels": ["dependencies"],
+  "prBodyNotes": ["Kompatibilität: Merge-Confidence-Badges prüfen; CI muss grün sein."],
   "automerge": false,
   "platformAutomerge": true
 }
