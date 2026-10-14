@@ -11,7 +11,7 @@ Hintergasse 28
 Germany
 
 Phone: [+49 176 84328001](tel:+4917684328001)
-Email: info@offlinehandwerk.de
+Email: [info@offlinehandwerk.de](mailto:info@offlinehandwerk.de)
 
 A data protection officer has not been appointed, because there is no statutory duty to appoint one (§ 38 BDSG).
 
