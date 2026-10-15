@@ -28,6 +28,12 @@
       "matchPackageNames": ["*"],
       "groupName": "all dependencies",
       "groupSlug": "all"
+    },
+    {
+      "description": "Keep TypeScript within @astrojs/check's supported peer range; revisit when the checker supports TypeScript 7",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "^5.0.0 || ^6.0.0"
     }
   ],
   "minimumReleaseAge": "3 days",
